@@ -1,14 +1,12 @@
-import 'package:dart_demo/main.dart';
-import 'package:flutter/material.dart';
+import 'package:dart_demo/src/app.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('Login page renders expected fields', (WidgetTester tester) async {
-    await tester.pumpWidget(const LoginDemoApp());
+  testWidgets('renders analyzer demo app shell', (WidgetTester tester) async {
+    await tester.pumpWidget(const AnalyzerDemoApp());
 
-    expect(find.text('欢迎登录'), findsOneWidget);
-    expect(find.widgetWithText(TextFormField, '邮箱'), findsOneWidget);
-    expect(find.widgetWithText(TextFormField, '密码'), findsOneWidget);
-    expect(find.widgetWithText(FilledButton, '登录'), findsOneWidget);
+    expect(find.text('Menu'), findsOneWidget);
+    expect(find.text('Analysis'), findsWidgets);
+    expect(find.text('Engineer'), findsOneWidget);
   });
 }
