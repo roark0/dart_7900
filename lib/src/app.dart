@@ -8,8 +8,27 @@ import 'screens/lj_qc_page.dart';
 import 'screens/list_review_page.dart';
 import 'screens/maintenance_page.dart';
 import 'screens/print_page.dart';
+import 'startup_config.dart';
 import 'style/palette.dart';
 import 'widgets/instrument_scaffold.dart';
+
+TopModule _resolveInitialModule() {
+  switch (getStartModule()) {
+    case 'listReview':
+      return TopModule.listReview;
+    case 'ljQc':
+      return TopModule.ljQc;
+    case 'maintenance':
+      return TopModule.maintenance;
+    case 'addDiluent':
+      return TopModule.addDiluent;
+    case 'print':
+      return TopModule.print;
+    case 'analysis':
+    default:
+      return TopModule.analysis;
+  }
+}
 
 class AnalyzerDemoApp extends StatelessWidget {
   const AnalyzerDemoApp({super.key});
@@ -37,9 +56,9 @@ class AnalyzerHomePage extends StatefulWidget {
 }
 
 class _AnalyzerHomePageState extends State<AnalyzerHomePage> {
-  TopModule _module = TopModule.analysis;
+  TopModule _module = _resolveInitialModule();
   int _maintenanceSide = 8;
-  int _ljSide = 0;
+  int _ljSide = getStartLjSide();
   late Timer _timer;
   String _clockText = _formatTime(DateTime.now());
 

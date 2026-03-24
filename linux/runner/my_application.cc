@@ -1,5 +1,7 @@
 #include "my_application.h"
 
+#include <cstdlib>
+
 #include <flutter_linux/flutter_linux.h>
 #ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
@@ -13,6 +15,15 @@ struct _MyApplication {
 };
 
 G_DEFINE_TYPE(MyApplication, my_application, GTK_TYPE_APPLICATION)
+
+static int read_window_dimension(const char* name, int fallback) {
+  const char* value = std::getenv(name);
+  if (value == nullptr) {
+    return fallback;
+  }
+  const int parsed = std::atoi(value);
+  return parsed > 0 ? parsed : fallback;
+}
 
 // Called when first Flutter frame received.
 static void first_frame_cb(MyApplication* self, FlView* view) {
@@ -52,7 +63,9 @@ static void my_application_activate(GApplication* application) {
     gtk_window_set_title(window, "dart_demo");
   }
 
-  gtk_window_set_default_size(window, 1280, 720);
+    const int initial_width = read_window_dimension("START_WINDOW_WIDTH", 1280);
+  const int initial_height = read_window_dimension("START_WINDOW_HEIGHT", 720);
+  gtk_window_set_default_size(window, initial_width, initial_height);
 
   g_autoptr(FlDartProject) project = fl_dart_project_new();
   fl_dart_project_set_dart_entrypoint_arguments(
