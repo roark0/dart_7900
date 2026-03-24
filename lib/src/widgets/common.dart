@@ -34,7 +34,7 @@ class SoftButton extends StatelessWidget {
       child: Text(
         label,
         textAlign: TextAlign.center,
-        style: UiTypography.buttonLabel,
+        style: UiTypography.bottomActionLabel.copyWith(height: 1.0),
       ),
     );
   }

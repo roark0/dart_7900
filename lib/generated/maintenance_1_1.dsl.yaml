@@ -1,0 +1,40 @@
+extends: lib/generated/templates/maintenance_daily_base.dsl.yaml
+
+page:
+  id: maintenance_1_1
+  output: lib/generated/maintenance_1_1.dart
+
+shell:
+  status_bar:
+    right: 2026-03-18 16:39:57
+
+body:
+  sections:
+    - id: maintenance_tabs
+      selected: Replace Reagents
+
+    - type: action_row
+      id: reagent_actions
+      title: Replace Reagents
+      align: center
+      items:
+        - text: All reagents
+          variant: primary
+          disabled: false
+        - text: Diluent
+          variant: primary
+          disabled: false
+        - text: Lyse
+          variant: primary
+          disabled: false
+
+    - type: matrix_table
+      id: reagent_info
+      title: Reagent information
+      groups:
+        - [Type, Lot No., Remaining volume, "%", Original capacity, Expired date]
+      rows:
+        - [Diluent, Dil, "1000", "100.00", "1000", 2122-06-01]
+        - [Lyse, Lys, "100", "100.00", "100", 2122-06-01]
+      zebra: true
+      dense: true

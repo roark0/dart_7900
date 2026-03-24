@@ -64,9 +64,10 @@ class UiTypography {
   static const double navLabelSize = 13;
   static const double tableHeaderSize = 12;
   static const double dataValueSize = 11;
-  static const double statusSize = 11;
+  static const double statusSize = 13;
   static const double sectionTitleSize = 14;
   static const double buttonLabelSize = 13;
+  static const double bottomActionLabelSize = 15;
   static const double fieldLabelSize = 13;
   static const double inputValueSize = 12;
 
@@ -133,6 +134,13 @@ class UiTypography {
     fontSize: buttonLabelSize,
     fontWeight: buttonLabelWeight,
     color: Colors.white,
+  );
+
+  static const TextStyle bottomActionLabel = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: bottomActionLabelSize,
+    fontWeight: buttonLabelWeight,
+    color: UiPalette.foreground,
   );
 
   static const TextStyle status = TextStyle(

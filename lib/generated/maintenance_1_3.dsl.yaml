@@ -1,0 +1,31 @@
+extends: lib/generated/templates/maintenance_daily_base.dsl.yaml
+
+page:
+  id: maintenance_1_3
+  output: lib/generated/maintenance_1_3.dart
+
+shell:
+  status_bar:
+    right: 2026-03-24 17:40:07
+
+body:
+  sections:
+    - id: maintenance_tabs
+      selected: Maintenance
+
+    - type: action_row
+      id: maintenance_actions
+      align: center
+      items:
+        - text: Aperture blockage removal
+          variant: primary
+          disabled: false
+        - text: Aperture burning
+          variant: primary
+          disabled: false
+        - text: Whole machine conc. Cleanser soak
+          variant: primary
+          disabled: false
+        - text: Aperture Backflush
+          variant: primary
+          disabled: false

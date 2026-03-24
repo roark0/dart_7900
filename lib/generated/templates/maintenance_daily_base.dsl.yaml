@@ -1,0 +1,95 @@
+page:
+  template: maintenance_panel
+  size: 800x600
+
+theme:
+  variant: analyzer_default
+  tokens:
+    bg: "#C6D5E3"
+    topBar: "#2F6F9E"
+    sideBar: "#5E89B0"
+    panel: "#C8D6E4"
+    header: "#3E7AAA"
+    text: "#000000"
+    textOnDark: "#FFFFFF"
+    accent: "#DCE8F2"
+    border: "#8FAECC"
+  typography:
+    nav:
+      size: 14
+      weight: 600
+    sideNav:
+      size: 13
+      weight: 500
+    sectionTitle:
+      size: 14
+      weight: 500
+    button:
+      size: 13
+      weight: 500
+    tableHeader:
+      size: 12
+      weight: 500
+    tableCell:
+      size: 12
+      weight: 400
+    status:
+      size: 11
+      weight: 500
+  metrics:
+    ratios:
+      topBar: 12
+      content: 82
+      bottomBar: 6
+      sideNav: 13
+      mainPanel: 87
+    sizes:
+      subTabHeight: 42
+      actionButtonWidth: 126
+      actionButtonHeight: 80
+      cornerRadius: 12
+      borderWidth: 1
+
+shell:
+  top_nav:
+    selected: Maintenance
+  side_nav:
+    selected: Daily maintenance
+    items:
+      - Daily maintenance
+      - Data maintenance
+      - Version information
+      - Statistics
+      - Log information
+      - Status information
+      - Mechanical inspection
+      - Engineering commissioning
+      - Basic
+  status_bar:
+    left: Engineer
+    center: LIS
+    indicator: green
+
+body:
+  sections:
+    - type: action_row
+      id: maintenance_tabs
+      selected: Replace Reagents
+      items:
+        - text: Replace Reagents
+          variant: secondary
+          disabled: false
+        - text: Clean
+          variant: secondary
+          disabled: false
+        - text: Maintenance
+          variant: secondary
+          disabled: false
+        - text: Whole machine maintenance
+          variant: secondary
+          disabled: false
+
+actions:
+  bottom:
+    align: start
+    items: []

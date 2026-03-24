@@ -127,28 +127,27 @@ class _AnalyseView extends StatelessWidget {
               _FormItem(
                 'FileNo.',
                 value: '1',
-                width: 62,
-                labelWidth: 56,
+                width: 96,
+                labelWidth: 62,
                 dropdown: true,
               ),
-              _FormItem('LotNo.', width: 92, labelWidth: 58),
-              _FormItem('QC Level', width: 92, labelWidth: 74),
-              _FormItem('Exp.Date', width: 92, labelWidth: 72),
+              _FormItem('LotNo.', width: 96, labelWidth: 62),
+              _FormItem('QC Level', width: 96, labelWidth: 74),
             ],
             <_FormItem>[
-              _FormItem('FileName', width: 92, labelWidth: 68),
-              _FormItem('Mode', width: 92, labelWidth: 54),
-              _FormItem('QCNo.', width: 92, labelWidth: 58),
+              _FormItem('Exp.Date', width: 96, labelWidth: 72),
+              _FormItem('FileName', width: 96, labelWidth: 68),
+              _FormItem('Mode', width: 96, labelWidth: 54),
             ],
           ],
-          itemGap: 8,
+          itemGap: 10,
           rowGap: 8,
         ),
         SizedBox(height: 6),
         _QcTripletGrid(
           labels: <String>['Item', 'Result', 'Unit'],
           rows: _analyseRows,
-          darkColumns: <int>[0, 3, 6],
+          darkColumns: <int>[],
           headerHeight: 52,
           rowHeight: 23,
         ),
@@ -594,6 +593,49 @@ class _HistogramCard extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Container(color: UiPalette.chartBackground),
+          Positioned.fill(
+            child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
+                const double axisLeft = 18;
+                const double axisTop = 18;
+                const double axisBottom = 20;
+                final double usable =
+                    constraints.maxHeight - axisTop - axisBottom;
+                const List<double> tickFractions = <double>[
+                  0.0,
+                  0.33,
+                  0.66,
+                  1.0,
+                ];
+
+                return Stack(
+                  children: <Widget>[
+                    Positioned(
+                      left: axisLeft,
+                      top: axisTop,
+                      bottom: axisBottom,
+                      child: Container(
+                        width: 1,
+                        color: UiPalette.chartLine.withValues(alpha: 0.7),
+                      ),
+                    ),
+                    ...tickFractions.map((double fraction) {
+                      final double top = axisTop + usable * fraction;
+                      return Positioned(
+                        left: axisLeft,
+                        top: top,
+                        child: Container(
+                          width: 6,
+                          height: 1,
+                          color: UiPalette.chartLine.withValues(alpha: 0.7),
+                        ),
+                      );
+                    }),
+                  ],
+                );
+              },
+            ),
+          ),
           Positioned(
             left: 8,
             right: 8,
@@ -833,7 +875,8 @@ class _ActionButton extends StatelessWidget {
             )
           : Text(
               action.label ?? '',
-              style: UiTypography.buttonLabel.copyWith(
+              style: UiTypography.bottomActionLabel.copyWith(
+                height: 1.0,
                 color: muted ? const Color(0xFF8798A8) : UiPalette.foreground,
               ),
             ),
