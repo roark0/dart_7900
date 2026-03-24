@@ -342,6 +342,10 @@ def flutter_bundle_path(project_root: Path, build_mode: str) -> Path:
     return project_root / "build" / "linux" / arch / build_mode / "bundle" / app_name
 
 
+def flutter_build_stamp_path(project_root: Path, build_mode: str) -> Path:
+    return project_root / ".dart_tool" / f"headless_screenshot_linux_{build_mode}.stamp"
+
+
 def latest_mtime(path: Path) -> float:
     if not path.exists():
         return 0.0
@@ -361,18 +365,21 @@ def needs_flutter_build(
     binary: Path,
     rebuild: bool,
 ) -> bool:
-    del build_mode
     if rebuild or not binary.is_file():
         return True
 
-    binary_mtime = binary.stat().st_mtime
+    stamp_path = flutter_build_stamp_path(project_root, build_mode)
+    if not stamp_path.is_file():
+        return True
+
+    stamp_mtime = stamp_path.stat().st_mtime
     watched_paths = (
         project_root / "lib",
         project_root / "linux",
         project_root / "pubspec.yaml",
         project_root / "pubspec.lock",
     )
-    return any(latest_mtime(path) > binary_mtime for path in watched_paths)
+    return any(latest_mtime(path) > stamp_mtime for path in watched_paths)
 
 
 def run_checked(
@@ -395,6 +402,7 @@ def run_flutter_mode(args: argparse.Namespace, project_root: Path) -> int:
     default_name = f"{args.module}_{side_name}.png"
     output = resolve_output(project_root, args, default_name)
     binary = flutter_bundle_path(project_root, args.flutter_build_mode)
+    stamp_path = flutter_build_stamp_path(project_root, args.flutter_build_mode)
 
     if needs_flutter_build(project_root, args.flutter_build_mode, binary, args.rebuild):
         build_cmd = [
@@ -404,6 +412,8 @@ def run_flutter_mode(args: argparse.Namespace, project_root: Path) -> int:
             f"--{args.flutter_build_mode}",
         ]
         run_checked(build_cmd, cwd=project_root)
+        stamp_path.parent.mkdir(parents=True, exist_ok=True)
+        stamp_path.touch()
 
     if not binary.is_file():
         print(f"flutter binary not found: {binary}", file=sys.stderr)

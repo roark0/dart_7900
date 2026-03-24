@@ -35,48 +35,80 @@ class _SettingsView extends StatelessWidget {
         _HeaderPanel(
           rows: <List<_FormItem>>[
             <_FormItem>[
-              _FormItem('FileNo.', value: '1', width: 118, dropdown: true),
-              _FormItem('LotNo.', width: 118),
-              _FormItem('Exp.Date', value: '2026-03-18', width: 118),
+              _FormItem(
+                'FileNo.',
+                value: '1',
+                width: 100,
+                labelWidth: 70,
+                dropdown: true,
+              ),
+              _FormItem('LotNo.', width: 100, labelWidth: 70),
+              _FormItem(
+                'Exp.Date',
+                value: '2026-03-18',
+                width: 110,
+                labelWidth: 78,
+              ),
             ],
             <_FormItem>[
-              _FormItem('FileName', width: 118),
-              _FormItem('QC Level', value: 'M', width: 118, dropdown: true),
+              _FormItem('FileName', width: 100, labelWidth: 70),
+              _FormItem(
+                'QC Level',
+                value: 'M',
+                width: 100,
+                labelWidth: 78,
+                dropdown: true,
+              ),
               _FormItem(
                 'Mode',
                 value: 'Whole blood',
-                width: 118,
+                width: 110,
+                labelWidth: 70,
                 dropdown: true,
               ),
             ],
             <_FormItem>[
-              _FormItem('Set By', value: 'Engineer', width: 118, muted: true),
+              _FormItem(
+                'Set By',
+                value: 'Engineer',
+                width: 100,
+                labelWidth: 70,
+                muted: true,
+              ),
               _FormItem(
                 'Date Created',
                 value: '2026-03-18',
-                width: 118,
+                width: 110,
+                labelWidth: 92,
                 muted: true,
               ),
-              _FormItem('QCNo.', width: 118),
+              _FormItem('QCNo.', width: 110, labelWidth: 70),
             ],
           ],
+          itemGap: 6,
+          rowGap: 6,
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 6),
         Expanded(
           child: _QcTripletGrid(
             labels: <String>['Item', 'Target', 'Limit'],
             rows: _settingsRows,
             darkColumns: <int>[0, 3, 6],
+            headerHeight: 56,
+            rowHeight: 23,
+            fillRemaining: true,
           ),
         ),
-        SizedBox(height: 10),
+        SizedBox(height: 8),
         _ActionRow(
           actions: <_ActionDef>[
             _ActionDef(label: 'Save'),
             _ActionDef(label: 'Delete'),
           ],
+          buttonWidth: 108,
+          buttonHeight: 42,
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 6),
       ],
     );
   }
@@ -92,24 +124,33 @@ class _AnalyseView extends StatelessWidget {
         _HeaderPanel(
           rows: <List<_FormItem>>[
             <_FormItem>[
-              _FormItem('FileNo.', value: '1', width: 80, dropdown: true),
-              _FormItem('LotNo.', width: 100),
-              _FormItem('QC Level', width: 100),
-              _FormItem('Exp.Date', width: 100),
+              _FormItem(
+                'FileNo.',
+                value: '1',
+                width: 62,
+                labelWidth: 56,
+                dropdown: true,
+              ),
+              _FormItem('LotNo.', width: 92, labelWidth: 58),
+              _FormItem('QC Level', width: 92, labelWidth: 74),
+              _FormItem('Exp.Date', width: 92, labelWidth: 72),
             ],
             <_FormItem>[
-              _FormItem('FileName', width: 100),
-              _FormItem('Mode', width: 100),
-              _FormItem('QCNo.', width: 100),
+              _FormItem('FileName', width: 92, labelWidth: 68),
+              _FormItem('Mode', width: 92, labelWidth: 54),
+              _FormItem('QCNo.', width: 92, labelWidth: 58),
             ],
           ],
-          itemGap: 18,
+          itemGap: 8,
+          rowGap: 8,
         ),
         SizedBox(height: 6),
         _QcTripletGrid(
           labels: <String>['Item', 'Result', 'Unit'],
           rows: _analyseRows,
           darkColumns: <int>[0, 3, 6],
+          headerHeight: 52,
+          rowHeight: 23,
         ),
         SizedBox(height: 4),
         Expanded(
@@ -141,7 +182,7 @@ class _AnalyseView extends StatelessWidget {
         SizedBox(height: 4),
         Align(
           alignment: Alignment.centerLeft,
-          child: SoftButton(label: 'Start test', width: 92, height: 44),
+          child: SoftButton(label: 'Start test', width: 92, height: 36),
         ),
         SizedBox(height: 2),
       ],
@@ -159,16 +200,24 @@ class _GraphView extends StatelessWidget {
         _HeaderPanel(
           rows: <List<_FormItem>>[
             <_FormItem>[
-              _FormItem('FileNo.', value: '1', width: 100, dropdown: true),
-              _FormItem('LotNo.', width: 164),
-              _FormItem('Exp.date', width: 88),
+              _FormItem(
+                'FileNo.',
+                value: '1',
+                width: 100,
+                labelWidth: 70,
+                dropdown: true,
+              ),
+              _FormItem('LotNo.', width: 164, labelWidth: 70),
+              _FormItem('Exp.date', width: 88, labelWidth: 72),
             ],
             <_FormItem>[
-              _FormItem('Mode', width: 100),
-              _FormItem('Time', width: 164),
-              _FormItem('Location/Tot\nal', width: 88),
+              _FormItem('Mode', width: 100, labelWidth: 70),
+              _FormItem('Time', width: 164, labelWidth: 70),
+              _FormItem('Location/Tot\nal', width: 88, labelWidth: 92),
             ],
           ],
+          itemGap: 8,
+          rowGap: 8,
         ),
         SizedBox(height: 8),
         Expanded(
@@ -192,6 +241,8 @@ class _GraphView extends StatelessWidget {
             _ActionDef(label: 'Delete', muted: true),
             _ActionDef(icon: Icons.arrow_forward, muted: true),
           ],
+          buttonWidth: 112,
+          buttonHeight: 40,
         ),
         SizedBox(height: 8),
       ],
@@ -209,15 +260,23 @@ class _ListView extends StatelessWidget {
         _HeaderPanel(
           rows: <List<_FormItem>>[
             <_FormItem>[
-              _FormItem('FileNo.', value: '1', width: 108, dropdown: true),
-              _FormItem('LotNo.', width: 118),
-              _FormItem('Mode', width: 118),
+              _FormItem(
+                'FileNo.',
+                value: '1',
+                width: 90,
+                labelWidth: 70,
+                dropdown: true,
+              ),
+              _FormItem('LotNo.', width: 118, labelWidth: 64),
+              _FormItem('Mode', width: 118, labelWidth: 54),
             ],
             <_FormItem>[
-              _FormItem('level', width: 108),
-              _FormItem('Exp.date', width: 118),
+              _FormItem('level', width: 90, labelWidth: 70),
+              _FormItem('Exp.date', width: 118, labelWidth: 72),
             ],
           ],
+          itemGap: 12,
+          rowGap: 8,
         ),
         SizedBox(height: 4),
         Expanded(
@@ -226,9 +285,22 @@ class _ListView extends StatelessWidget {
               Expanded(
                 child: _QcTripletGrid(
                   labels: <String>['No.', 'Target', 'Limit'],
+                  headerValues: <String>[
+                    'No.',
+                    'Target',
+                    'Limit',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                  ],
                   rows: _listRows,
                   darkColumns: <int>[0, 1, 2],
-                  rightBlankRows: 4,
+                  headerHeight: 44,
+                  rowHeight: 23,
+                  fillRemaining: true,
                 ),
               ),
               SizedBox(width: 4),
@@ -238,7 +310,7 @@ class _ListView extends StatelessWidget {
         ),
         SizedBox(height: 2),
         _PageNavRow(),
-        SizedBox(height: 12),
+        SizedBox(height: 8),
         _ActionRow(
           compact: true,
           actions: <_ActionDef>[
@@ -246,6 +318,8 @@ class _ListView extends StatelessWidget {
             _ActionDef(label: 'Communicate', muted: true),
             _ActionDef(label: 'Export', muted: true),
           ],
+          buttonWidth: 116,
+          buttonHeight: 40,
         ),
         SizedBox(height: 6),
       ],
@@ -258,6 +332,7 @@ class _FormItem {
     this.label, {
     this.value = '',
     this.width = 110,
+    this.labelWidth = 84,
     this.dropdown = false,
     this.muted = false,
   });
@@ -265,15 +340,17 @@ class _FormItem {
   final String label;
   final String value;
   final double width;
+  final double labelWidth;
   final bool dropdown;
   final bool muted;
 }
 
 class _HeaderPanel extends StatelessWidget {
-  const _HeaderPanel({required this.rows, this.itemGap = 10});
+  const _HeaderPanel({required this.rows, this.itemGap = 10, this.rowGap = 8});
 
   final List<List<_FormItem>> rows;
   final double itemGap;
+  final double rowGap;
 
   @override
   Widget build(BuildContext context) {
@@ -289,7 +366,7 @@ class _HeaderPanel extends StatelessWidget {
             .map(
               (MapEntry<int, List<_FormItem>> entry) => Padding(
                 padding: EdgeInsets.only(
-                  bottom: entry.key == rows.length - 1 ? 0 : 8,
+                  bottom: entry.key == rows.length - 1 ? 0 : rowGap,
                 ),
                 child: Wrap(
                   spacing: itemGap,
@@ -314,12 +391,12 @@ class _HeaderField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: item.width + 86,
+      width: item.width + item.labelWidth + 2,
       child: Row(
         children: <Widget>[
           SizedBox(
-            width: 84,
-            child: Text(item.label, style: const TextStyle(fontSize: 12)),
+            width: item.labelWidth,
+            child: Text(item.label, style: const TextStyle(fontSize: 13)),
           ),
           Container(
             width: item.width,
@@ -366,14 +443,20 @@ class _QcTripletGrid extends StatelessWidget {
   const _QcTripletGrid({
     required this.labels,
     required this.rows,
+    this.headerValues,
     this.darkColumns = const <int>[],
-    this.rightBlankRows = 0,
+    this.headerHeight = 56,
+    this.rowHeight = 24,
+    this.fillRemaining = false,
   });
 
   final List<String> labels;
+  final List<String>? headerValues;
   final List<List<String>> rows;
   final List<int> darkColumns;
-  final int rightBlankRows;
+  final double headerHeight;
+  final double rowHeight;
+  final bool fillRemaining;
 
   @override
   Widget build(BuildContext context) {
@@ -383,11 +466,15 @@ class _QcTripletGrid extends StatelessWidget {
       ),
       child: Column(
         children: <Widget>[
-          _GridHeader(labels: labels),
+          _GridHeader(
+            labels: labels,
+            values: headerValues,
+            height: headerHeight,
+          ),
           ...rows.asMap().entries.map((MapEntry<int, List<String>> row) {
             final bool even = row.key.isEven;
             return SizedBox(
-              height: 28,
+              height: rowHeight,
               child: Row(
                 children: row.value.asMap().entries.map((
                   MapEntry<int, String> cell,
@@ -413,7 +500,7 @@ class _QcTripletGrid extends StatelessWidget {
                         cell.value,
                         style: TextStyle(
                           color: dark ? Colors.white : Colors.black,
-                          fontSize: 28 / 3,
+                          fontSize: 34 / 3,
                         ),
                       ),
                     ),
@@ -422,7 +509,7 @@ class _QcTripletGrid extends StatelessWidget {
               ),
             );
           }),
-          if (rightBlankRows > 0)
+          if (fillRemaining)
             Expanded(
               child: Row(
                 children: List<Widget>.generate(9, (int index) {
@@ -452,26 +539,23 @@ class _QcTripletGrid extends StatelessWidget {
 }
 
 class _GridHeader extends StatelessWidget {
-  const _GridHeader({required this.labels});
+  const _GridHeader({required this.labels, required this.height, this.values});
 
   final List<String> labels;
+  final List<String>? values;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
+    final List<String> headerCells =
+        values ??
+        List<String>.generate(9, (int index) => labels[index % labels.length]);
     return SizedBox(
-      height: 68,
+      height: height,
       child: Row(
-        children: List<Widget>.generate(3, (int _) {
-          return Expanded(
-            child: Row(
-              children: labels
-                  .map(
-                    (String label) => Expanded(child: _HeaderCell(text: label)),
-                  )
-                  .toList(),
-            ),
-          );
-        }),
+        children: headerCells
+            .map((String label) => Expanded(child: _HeaderCell(text: label)))
+            .toList(),
       ),
     );
   }
@@ -492,7 +576,7 @@ class _HeaderCell extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: const TextStyle(color: Colors.white, fontSize: 12),
+        style: const TextStyle(color: Colors.white, fontSize: 13),
       ),
     );
   }
@@ -526,7 +610,7 @@ class _HistogramCard extends StatelessWidget {
             child: Text(
               title,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.white, fontSize: 12),
+              style: const TextStyle(color: Colors.white, fontSize: 13),
             ),
           ),
           Positioned(
@@ -535,7 +619,7 @@ class _HistogramCard extends StatelessWidget {
             bottom: 2,
             child: Text(
               scale,
-              style: const TextStyle(color: Colors.white, fontSize: 8.5),
+              style: const TextStyle(color: Colors.white, fontSize: 9.5),
             ),
           ),
         ],
@@ -575,7 +659,7 @@ class _GraphFrame extends StatelessWidget {
             child: Text(
               label,
               textAlign: TextAlign.left,
-              style: const TextStyle(fontSize: 30 / 3),
+              style: const TextStyle(fontSize: 34 / 3),
             ),
           ),
           Expanded(
@@ -628,7 +712,7 @@ class _StatsBlock extends StatelessWidget {
             (String label) => Expanded(
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text(label, style: const TextStyle(fontSize: 12)),
+                child: Text(label, style: const TextStyle(fontSize: 13)),
               ),
             ),
           )
@@ -687,10 +771,17 @@ class _ActionDef {
 }
 
 class _ActionRow extends StatelessWidget {
-  const _ActionRow({required this.actions, this.compact = false});
+  const _ActionRow({
+    required this.actions,
+    this.compact = false,
+    this.buttonWidth,
+    this.buttonHeight,
+  });
 
   final List<_ActionDef> actions;
   final bool compact;
+  final double? buttonWidth;
+  final double? buttonHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -700,8 +791,8 @@ class _ActionRow extends StatelessWidget {
           .map(
             (_ActionDef action) => _ActionButton(
               action: action,
-              width: compact ? 112 : 108,
-              height: compact ? 42 : 52,
+              width: buttonWidth ?? (compact ? 112 : 108),
+              height: buttonHeight ?? (compact ? 42 : 52),
             ),
           )
           .toList(),
@@ -746,7 +837,7 @@ class _ActionButton extends StatelessWidget {
           : Text(
               action.label ?? '',
               style: TextStyle(
-                fontSize: 29 / 3,
+                fontSize: 34 / 3,
                 color: muted ? const Color(0xFF8798A8) : Colors.black,
               ),
             ),
