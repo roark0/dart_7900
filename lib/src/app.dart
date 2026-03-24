@@ -38,11 +38,7 @@ class AnalyzerDemoApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Analyzer UI Demo',
-      theme: ThemeData(
-        useMaterial3: false,
-        scaffoldBackgroundColor: const Color(0xFF284D6A),
-        fontFamily: 'Arial',
-      ),
+      theme: UiTheme.materialTheme(),
       home: const AnalyzerHomePage(),
     );
   }
