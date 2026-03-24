@@ -71,7 +71,8 @@ class _AnalyzerHomePageState extends State<AnalyzerHomePage> {
             ),
             child: InstrumentScaffold(
               selectedModule: _module,
-              onModuleChanged: (TopModule module) => setState(() => _module = module),
+              onModuleChanged: (TopModule module) =>
+                  setState(() => _module = module),
               clockText: _clockText,
               sideMenu: _resolveSideMenu(),
               selectedSideIndex: _resolveSideIndex(),
@@ -121,7 +122,7 @@ class _AnalyzerHomePageState extends State<AnalyzerHomePage> {
       case TopModule.listReview:
         return const ListReviewPage();
       case TopModule.ljQc:
-        return const LjQcPage();
+        return LjQcPage(selectedSideIndex: _ljSide);
       case TopModule.maintenance:
       case TopModule.addDiluent:
         return const MaintenancePage();
