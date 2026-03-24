@@ -1,135 +1,167 @@
 import 'package:flutter/material.dart';
 
+import '../../generated/maintenance_generated_base.dart';
 import '../style/palette.dart';
-import '../widgets/common.dart';
 
-class MaintenancePage extends StatelessWidget {
-  const MaintenancePage({super.key});
+class MaintenancePage extends StatefulWidget {
+  const MaintenancePage({super.key, this.selectedSideIndex = 0});
+
+  final int selectedSideIndex;
+
+  @override
+  State<MaintenancePage> createState() => _MaintenancePageState();
+}
+
+class _MaintenancePageState extends State<MaintenancePage> {
+  int _tabIndex = 0;
+
+  static const List<String> _tabs = <String>[
+    'Replace Reagents',
+    'Clean',
+    'Maintenance',
+    'Whole machine maintenance',
+  ];
 
   @override
   Widget build(BuildContext context) {
+    if (widget.selectedSideIndex != 0) {
+      return _PlaceholderPanel(label: _sideTitle(widget.selectedSideIndex));
+    }
+
     return Padding(
       padding: const EdgeInsets.all(UiMetrics.space6),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const _MaintenanceTabs(),
-          const SizedBox(height: UiMetrics.space8),
-          Expanded(
-            child: SectionBox(
-              title: 'Replace Reagents',
-              padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const <Widget>[
-                      SoftButton(label: 'All reagents', width: 104, height: 50),
-                      SoftButton(label: 'Diluent', width: 104, height: 50),
-                      SoftButton(label: 'Lyse', width: 104, height: 50),
-                    ],
-                  ),
-                  const SizedBox(height: 14),
-                  Expanded(
-                    child: SectionBox(
-                      title: 'Reagent information',
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            color: UiPalette.tableHeader,
-                            child: const Row(
-                              children: <Widget>[
-                                TableHeaderCell('Type'),
-                                TableHeaderCell('Lot No.'),
-                                TableHeaderCell('Remaining\nvolume'),
-                                TableHeaderCell('%'),
-                                TableHeaderCell('Original\ncapacity'),
-                                TableHeaderCell('Expired\ndate'),
-                              ],
-                            ),
-                          ),
-                          const ZebraRow(
-                            rowIndex: 0,
-                            accentFirst: true,
-                            values: <String>[
-                              'Diluent',
-                              'Dil',
-                              '1000',
-                              '100.00',
-                              '1000',
-                              '2122-06-01',
-                            ],
-                          ),
-                          const ZebraRow(
-                            rowIndex: 1,
-                            values: <String>[
-                              'Lyse',
-                              'Lys',
-                              '100',
-                              '100.00',
-                              '100',
-                              '2122-06-01',
-                            ],
-                          ),
-                          Expanded(
-                            child: Container(color: UiPalette.panelBackground),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          _MaintenanceTabs(
+            selectedIndex: _tabIndex,
+            onChanged: (int value) => setState(() => _tabIndex = value),
           ),
+          const SizedBox(height: UiMetrics.space8),
+          Expanded(child: _buildActivePanel()),
         ],
       ),
     );
   }
+
+  Widget _buildActivePanel() {
+    switch (_tabIndex) {
+      case 0:
+        return const MaintenanceReagentPanel();
+      case 1:
+        return const MaintenanceActionGrid(
+          items: <MaintenanceButtonAction>[
+            MaintenanceButtonAction('Liquid path\ncleaning'),
+            MaintenanceButtonAction('Sampling\nprobe cleaning'),
+            MaintenanceButtonAction('WBC chamber\ncleaning'),
+            MaintenanceButtonAction('RBC chamber\ncleaning'),
+          ],
+        );
+      case 2:
+        return const MaintenanceActionGrid(
+          items: <MaintenanceButtonAction>[
+            MaintenanceButtonAction('Aperture\nblockage\nremoval'),
+            MaintenanceButtonAction('Aperture\nburning'),
+            MaintenanceButtonAction('Whole\nmachine conc.\nCleanser soak'),
+            MaintenanceButtonAction('Aperture\nBackflush'),
+          ],
+        );
+      case 3:
+        return const MaintenanceActionGrid(
+          columns: 3,
+          mainAxisSpacing: 34,
+          crossAxisSpacing: 44,
+          topPadding: 94,
+          items: <MaintenanceButtonAction>[
+            MaintenanceButtonAction('Liquid path\nDrainage', width: 126),
+            MaintenanceButtonAction('WBC chamber\ndrainage', width: 126),
+            MaintenanceButtonAction('RBC chamber\ndrainage', width: 126),
+            MaintenanceButtonAction('Instrument\npack', width: 126),
+            MaintenanceButtonAction('Initialize', width: 126),
+          ],
+        );
+      default:
+        return const SizedBox.shrink();
+    }
+  }
+
+  String _sideTitle(int index) {
+    const List<String> titles = <String>[
+      'Daily maintenance',
+      'Data maintenance',
+      'Version information',
+      'Statistics',
+      'Log information',
+      'Status information',
+      'Mechanical inspection',
+      'Engineering commissioning',
+      'Basic',
+    ];
+    return titles[index];
+  }
 }
 
 class _MaintenanceTabs extends StatelessWidget {
-  const _MaintenanceTabs();
+  const _MaintenanceTabs({
+    required this.selectedIndex,
+    required this.onChanged,
+  });
+
+  final int selectedIndex;
+  final ValueChanged<int> onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: <Widget>[
-        _Tab(label: 'Replace Reagents', selected: true),
-        _Tab(label: 'Clean'),
-        _Tab(label: 'Maintenance'),
-        _Tab(label: 'Whole machine\nmaintenance'),
-      ],
+      children: List<Widget>.generate(_MaintenancePageState._tabs.length, (
+        int index,
+      ) {
+        final bool selected = index == selectedIndex;
+        final String label = _MaintenancePageState._tabs[index];
+        return Expanded(
+          child: GestureDetector(
+            onTap: () => onChanged(index),
+            child: Container(
+              height: 38,
+              margin: const EdgeInsets.only(right: UiMetrics.space4),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: selected ? UiPalette.tabHeader : UiPalette.border,
+                border: Border.all(color: UiPalette.sideNavBorder),
+                borderRadius: BorderRadius.circular(UiMetrics.radius),
+              ),
+              child: Text(
+                label == 'Whole machine maintenance'
+                    ? 'Whole machine\nmaintenance'
+                    : label,
+                textAlign: TextAlign.center,
+                style: selected
+                    ? UiTypography.buttonLabelOnPrimary
+                    : UiTypography.buttonLabel.copyWith(
+                        color: UiPalette.foreground,
+                      ),
+              ),
+            ),
+          ),
+        );
+      }),
     );
   }
 }
 
-class _Tab extends StatelessWidget {
-  const _Tab({required this.label, this.selected = false});
+class _PlaceholderPanel extends StatelessWidget {
+  const _PlaceholderPanel({required this.label});
 
   final String label;
-  final bool selected;
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        height: 38,
-        margin: const EdgeInsets.only(right: UiMetrics.space4),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: selected ? UiPalette.tabHeader : UiPalette.border,
-          border: Border.all(color: UiPalette.sideNavBorder),
-          borderRadius: BorderRadius.circular(UiMetrics.radius),
-        ),
-        child: Text(
-          label,
-          textAlign: TextAlign.center,
-          style: selected
-              ? UiTypography.buttonLabelOnPrimary
-              : UiTypography.buttonLabel.copyWith(color: UiPalette.foreground),
-        ),
+    return Container(
+      color: UiPalette.panelBackground,
+      alignment: Alignment.center,
+      child: Text(
+        '$label is not generated yet.',
+        style: UiTypography.sectionTitle,
       ),
     );
   }

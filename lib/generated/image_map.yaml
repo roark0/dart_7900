@@ -1,0 +1,65 @@
+images:
+  images/Maintenance/Maintenance.png:
+    dsl: lib/generated/maintenance/daily.dsl.yaml
+    state: replace_reagents
+  images/Maintenance/Maintenance_1_1.png:
+    dsl: lib/generated/maintenance/daily.dsl.yaml
+    state: replace_reagents
+  images/Maintenance/Maintenance_1_2.png:
+    dsl: lib/generated/maintenance/daily.dsl.yaml
+    state: clean
+  images/Maintenance/Maintenance_1_3.png:
+    dsl: lib/generated/maintenance/daily.dsl.yaml
+    state: maintenance
+  images/Maintenance/Maintenance_1_4.png:
+    dsl: lib/generated/maintenance/daily.dsl.yaml
+    state: whole_machine_maintenance
+  images/Maintenance/Maintenance_2_1.png:
+    dsl: lib/generated/maintenance/data.dsl.yaml
+  images/Maintenance/Maintenance_3_1.png:
+    dsl: lib/generated/maintenance/version.dsl.yaml
+  images/Maintenance/Maintenance_4_1.png:
+    dsl: lib/generated/maintenance/statistics.dsl.yaml
+  images/Maintenance/Maintenance_5_1.png:
+    dsl: lib/generated/maintenance/log.dsl.yaml
+  images/Maintenance/Maintenance_6_1.png:
+    dsl: lib/generated/maintenance/status.dsl.yaml
+  images/Maintenance/Maintenance_8_1.png:
+    dsl: lib/generated/maintenance/engineering.dsl.yaml
+    state: performance_parameters
+  images/Maintenance/Maintenance_8_2.png:
+    dsl: lib/generated/maintenance/engineering.dsl.yaml
+    state: probe_position
+  images/Maintenance/Maintenance_8_3.png:
+    dsl: lib/generated/maintenance/engineering.dsl.yaml
+    state: pressure_calibration
+  images/Maintenance/Maintenance_8_4.png:
+    dsl: lib/generated/maintenance/engineering.dsl.yaml
+    state: cbc_gain
+  images/Maintenance/Maintenance_8_5.png:
+    dsl: lib/generated/maintenance/engineering.dsl.yaml
+    state: cbc_raw_pulse_diagram
+  images/Maintenance/Maintenance_8_6.png:
+    dsl: lib/generated/maintenance/engineering.dsl.yaml
+    state: sensor_ad
+  images/Maintenance/Maintenance_8_7.png:
+    dsl: lib/generated/maintenance/engineering.dsl.yaml
+    state: aging
+  images/Maintenance/Maintenance_8_8.png:
+    dsl: lib/generated/maintenance/engineering.dsl.yaml
+    state: fluid_commissioning
+  images/Maintenance/Maintenance_9_1.png:
+    dsl: lib/generated/maintenance/basic.dsl.yaml
+    state: carryover
+  images/Maintenance/Maintenance_9_2.png:
+    dsl: lib/generated/maintenance/basic.dsl.yaml
+    state: precision
+  images/Maintenance/Maintenance_9_3.png:
+    dsl: lib/generated/maintenance/basic.dsl.yaml
+    state: comparability
+  images/Maintenance/Maintenance_9_4.png:
+    dsl: lib/generated/maintenance/basic.dsl.yaml
+    state: accuracy
+  images/Maintenance/Maintenance_9_6.png:
+    dsl: lib/generated/maintenance/basic.dsl.yaml
+    state: linear

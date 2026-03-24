@@ -1,0 +1,61 @@
+extends: lib/generated/templates/maintenance_shell_base.dsl.yaml
+
+source:
+  images:
+    - images/Maintenance/Maintenance_3_1.png
+  grouping: version
+
+page:
+  id: maintenance_version
+  output: lib/generated/maintenance_version.dart
+
+shell:
+  side_nav:
+    selected: Version information
+  status_bar:
+    right: 2026-03-18 16:40:39
+
+body:
+  sections:
+    - type: form_grid
+      id: version_information
+      title: Version information
+      columns: 1
+      rows:
+        - [operation_software]
+        - [fluid_path_timing_sequence]
+        - [algorithm_version]
+        - [reagent_consumption]
+        - [mcu_version]
+      fields:
+        operation_software:
+          label: Operation software
+          value: V2.0e
+          control: readonly
+        fluid_path_timing_sequence:
+          label: Fluid path timing sequence
+          value: ""
+          control: readonly
+        algorithm_version:
+          label: Algorithm version
+          value: 0.0.1.9
+          control: readonly
+        reagent_consumption:
+          label: Reagent consumption
+          value: V1.0-7900
+          control: readonly
+        mcu_version:
+          label: MCU version
+          value: ""
+          control: readonly
+    - type: action_row
+      id: system_upgrade_actions
+      title: System upgrade
+      align: center
+      items:
+        - text: Timing sequence upgrades
+          variant: primary
+          disabled: false
+        - text: MCU upgrade
+          variant: primary
+          disabled: false

@@ -54,7 +54,6 @@ shell:
   top_nav:
     selected: Maintenance
   side_nav:
-    selected: Daily maintenance
     items:
       - Daily maintenance
       - Data maintenance
@@ -69,25 +68,6 @@ shell:
     left: Engineer
     center: LIS
     indicator: green
-
-body:
-  sections:
-    - type: action_row
-      id: maintenance_tabs
-      selected: Replace Reagents
-      items:
-        - text: Replace Reagents
-          variant: secondary
-          disabled: false
-        - text: Clean
-          variant: secondary
-          disabled: false
-        - text: Maintenance
-          variant: secondary
-          disabled: false
-        - text: Whole machine maintenance
-          variant: secondary
-          disabled: false
 
 actions:
   bottom:

@@ -53,7 +53,7 @@ class AnalyzerHomePage extends StatefulWidget {
 
 class _AnalyzerHomePageState extends State<AnalyzerHomePage> {
   TopModule _module = _resolveInitialModule();
-  int _maintenanceSide = 8;
+  int _maintenanceSide = 0;
   int _ljSide = getStartLjSide();
   late Timer _timer;
   String _clockText = _formatTime(DateTime.now());
@@ -140,7 +140,7 @@ class _AnalyzerHomePageState extends State<AnalyzerHomePage> {
         return LjQcPage(selectedSideIndex: _ljSide);
       case TopModule.maintenance:
       case TopModule.addDiluent:
-        return const MaintenancePage();
+        return MaintenancePage(selectedSideIndex: _maintenanceSide);
       case TopModule.print:
         return const PrintPage();
     }

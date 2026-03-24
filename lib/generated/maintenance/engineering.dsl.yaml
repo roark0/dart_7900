@@ -1,0 +1,716 @@
+extends: lib/generated/templates/maintenance_shell_base.dsl.yaml
+
+page:
+  id: maintenance_engineering
+  output: lib/generated/maintenance_engineering.dart
+
+shell:
+  side_nav:
+    selected: Engineering commissioning
+
+body:
+  sections:
+    - type: action_row
+      id: commissioning_tabs
+      selected: Performance parameters
+      items:
+        - text: Performance parameters
+          variant: secondary
+          disabled: false
+        - text: Probe position
+          variant: secondary
+          disabled: false
+        - text: Pressure calibration
+          variant: secondary
+          disabled: false
+        - text: CBC gain
+          variant: secondary
+          disabled: false
+        - text: CBC raw pulse diagram
+          variant: secondary
+          disabled: false
+        - text: Sensor AD
+          variant: secondary
+          disabled: false
+        - text: Aging
+          variant: secondary
+          disabled: false
+        - text: Fluid commissioning
+          variant: secondary
+          disabled: false
+
+states:
+  performance_parameters:
+    status_bar:
+      right: 2026-03-24 17:42:17
+    body:
+      sections:
+        - id: commissioning_tabs
+          selected: Performance parameters
+        - type: form_grid
+          id: performance_parameters
+          columns: 4
+          rows:
+            - [wbc_gain, wbc_gain_value, wbc_threshold, wbc_threshold_value]
+            - [rbc_gain, rbc_gain_value, rbc_threshold, rbc_threshold_value]
+            - [hgb_gain, hgb_gain_value, setup_top, blank_top]
+            - [ambient_temperature, ambient_temperature_value, ambient_temperature_offset, ambient_temperature_unit]
+            - [blank_bottom, blank_value, setup_bottom, blank_bottom_2]
+          fields:
+            wbc_gain:
+              label: WBC gain
+              value: ""
+              control: readonly
+            wbc_gain_value:
+              label: ""
+              value: "100"
+              control: readonly
+            wbc_threshold:
+              label: WBC threshold
+              value: ""
+              control: readonly
+            wbc_threshold_value:
+              label: ""
+              value: "120"
+              control: readonly
+            rbc_gain:
+              label: RBC gain
+              value: ""
+              control: readonly
+            rbc_gain_value:
+              label: ""
+              value: "100"
+              control: readonly
+            rbc_threshold:
+              label: RBC threshold
+              value: ""
+              control: readonly
+            rbc_threshold_value:
+              label: ""
+              value: "50"
+              control: readonly
+            hgb_gain:
+              label: HGB gain
+              value: ""
+              control: readonly
+            hgb_gain_value:
+              label: ""
+              value: "100"
+              control: readonly
+            setup_top:
+              label: ""
+              value: Set up
+              control: readonly
+            blank_top:
+              label: ""
+              value: ""
+              control: readonly
+            ambient_temperature:
+              label: Ambient temperature
+              value: ""
+              control: readonly
+            ambient_temperature_value:
+              label: ""
+              value: ""
+              control: readonly
+            ambient_temperature_offset:
+              label: ""
+              value: + 0
+              control: readonly
+            ambient_temperature_unit:
+              label: ""
+              value: °C
+              control: readonly
+            blank_bottom:
+              label: ""
+              value: ""
+              control: readonly
+            blank_value:
+              label: ""
+              value: ""
+              control: readonly
+            setup_bottom:
+              label: ""
+              value: Set up
+              control: readonly
+            blank_bottom_2:
+              label: ""
+              value: ""
+              control: readonly
+  probe_position:
+    status_bar:
+      right: 2026-03-24 17:41:02
+    body:
+      sections:
+        - id: commissioning_tabs
+          selected: Probe position
+        - type: form_grid
+          id: horizontal_motor_position_steps
+          title: Horizontal motor position steps
+          columns: 3
+          rows:
+            - [sampling, wbc, rbc]
+          fields:
+            sampling:
+              label: Sampling
+              value: "0"
+              control: readonly
+            wbc:
+              label: WBC
+              value: "0"
+              control: readonly
+            rbc:
+              label: RBC
+              value: "0"
+              control: readonly
+        - type: action_row
+          id: horizontal_actions_adjust
+          align: center
+          items:
+            - text: Adjust
+              variant: primary
+              disabled: false
+            - text: Adjust
+              variant: primary
+              disabled: false
+            - text: Adjust
+              variant: primary
+              disabled: false
+        - type: action_row
+          id: horizontal_actions_detect
+          align: center
+          items:
+            - text: Detect
+              variant: primary
+              disabled: false
+            - text: Detect
+              variant: primary
+              disabled: false
+            - text: Detect
+              variant: primary
+              disabled: false
+        - type: form_grid
+          id: vertical_motor_position_steps
+          title: Vertical motor position steps
+          columns: 6
+          rows:
+            - [upper, v_wbc, v_rbc, blocks_air, v_sampling, swab]
+          fields:
+            upper:
+              label: Upper
+              value: "0"
+              control: readonly
+            v_wbc:
+              label: WBC
+              value: "0"
+              control: readonly
+            v_rbc:
+              label: RBC
+              value: "0"
+              control: readonly
+            blocks_air:
+              label: Blocks air
+              value: "550"
+              control: readonly
+            v_sampling:
+              label: Sampling
+              value: "4200"
+              control: readonly
+            swab:
+              label: Swab
+              value: "0"
+              control: readonly
+        - type: action_row
+          id: vertical_actions_adjust
+          align: center
+          items:
+            - text: Adjust
+              variant: primary
+              disabled: false
+            - text: Adjust
+              variant: primary
+              disabled: false
+            - text: Adjust
+              variant: primary
+              disabled: false
+            - text: Adjust
+              variant: primary
+              disabled: false
+            - text: Adjust
+              variant: primary
+              disabled: false
+            - text: Adjust
+              variant: primary
+              disabled: false
+        - type: action_row
+          id: vertical_actions_detect
+          align: center
+          items:
+            - text: Detect
+              variant: primary
+              disabled: false
+            - text: Detect
+              variant: primary
+              disabled: false
+            - text: Detect
+              variant: primary
+              disabled: false
+            - text: Detect
+              variant: primary
+              disabled: false
+            - text: Detect
+              variant: primary
+              disabled: false
+            - text: Detect
+              variant: primary
+              disabled: false
+        - type: action_row
+          id: motor_control_actions
+          title: Motor control
+          align: center
+          items:
+            - text: The horizontal motor deactivate
+              variant: primary
+              disabled: false
+            - text: Horizontal motor incoming activate
+              variant: primary
+              disabled: false
+            - text: The vertical motor deactivate
+              variant: primary
+              disabled: false
+            - text: Vertical motor activate
+              variant: primary
+              disabled: false
+        - type: action_row
+          id: component_actions
+          align: center
+          items:
+            - text: Save
+              variant: primary
+              disabled: false
+            - text: Search
+              variant: primary
+              disabled: false
+            - text: Component initialization
+              variant: primary
+              disabled: false
+  pressure_calibration:
+    status_bar:
+      right: 2026-03-24 17:41:15
+    body:
+      sections:
+        - id: commissioning_tabs
+          selected: Pressure calibration
+        - type: form_grid
+          id: pressure_calibration
+          columns: 4
+          rows:
+            - [pos_ad, pos_ad_value, pos_kpa, pos_kpa_value]
+            - [pos_chart, pos_actions, pos_chart2, neg_actions]
+            - [pos_formula, pos_formula2, neg_formula, neg_formula2]
+            - [pos_input, pos_detection, neg_input, neg_detection]
+            - [blank1, pos_stop, blank2, neg_stop]
+            - [blank3, pos_releases, blank4, neg_releases]
+            - [blank5, pos_save, blank6, neg_save]
+          fields:
+            pos_ad:
+              label: AD
+              value: ""
+              control: readonly
+            pos_ad_value:
+              label: ""
+              value: ""
+              control: readonly
+            pos_kpa:
+              label: KPa
+              value: ""
+              control: readonly
+            pos_kpa_value:
+              label: ""
+              value: ""
+              control: readonly
+            pos_chart:
+              label: Establish posi. press.
+              value: ""
+              control: readonly
+            pos_actions:
+              label: ""
+              value: Add to / Delete / Remove / Fit
+              control: readonly
+            pos_chart2:
+              label: ""
+              value: ""
+              control: readonly
+            neg_actions:
+              label: Establish neg. press.
+              value: Add to / Delete / Remove / Fit
+              control: readonly
+            pos_formula:
+              label: Y=
+              value: 96.386
+              control: readonly
+            pos_formula2:
+              label: X+
+              value: 3.058
+              control: readonly
+            neg_formula:
+              label: Y=
+              value: 100.644
+              control: readonly
+            neg_formula2:
+              label: X+
+              value: 35.331
+              control: readonly
+            pos_input:
+              label: KPa
+              value: ""
+              control: readonly
+            pos_detection:
+              label: ""
+              value: Posi. press. detection
+              control: readonly
+            neg_input:
+              label: KPa
+              value: ""
+              control: readonly
+            neg_detection:
+              label: ""
+              value: Neg. press. detection
+              control: readonly
+            blank1:
+              label: ""
+              value: ""
+              control: readonly
+            pos_stop:
+              label: ""
+              value: Stop
+              control: readonly
+            blank2:
+              label: ""
+              value: ""
+              control: readonly
+            neg_stop:
+              label: ""
+              value: Stop
+              control: readonly
+            blank3:
+              label: ""
+              value: ""
+              control: readonly
+            pos_releases:
+              label: ""
+              value: Releases
+              control: readonly
+            blank4:
+              label: ""
+              value: ""
+              control: readonly
+            neg_releases:
+              label: ""
+              value: Releases
+              control: readonly
+            blank5:
+              label: ""
+              value: ""
+              control: readonly
+            pos_save:
+              label: ""
+              value: Save
+              control: readonly
+            blank6:
+              label: ""
+              value: ""
+              control: readonly
+            neg_save:
+              label: ""
+              value: Save
+              control: readonly
+  cbc_gain:
+    status_bar:
+      right: 2026-03-24 17:41:28
+    body:
+      sections:
+        - id: commissioning_tabs
+          selected: CBC gain
+        - type: chart_row
+          id: cbc_gain_charts
+          items:
+            - title: WBC
+              kind: histogram
+              x_axis: "0 100 200 300 400 fL"
+              y_axis: true
+            - title: RBC
+              kind: histogram
+              x_axis: "0 50 100 150 200 250 fL"
+              y_axis: true
+            - title: PLT
+              kind: histogram
+              x_axis: "0 10 20 30 fL"
+              y_axis: true
+        - type: form_grid
+          id: cbc_gain_values
+          columns: 4
+          rows:
+            - [wbc_gain, wbc_gain_value, rbc_gain, rbc_gain_value]
+            - [hgb_gain, hgb_gain_value, setup_action, blank]
+            - [lymphocyte_peaks, lymphocyte_peaks_value, mcv, mcv_value]
+            - [granulocyte_peaks, granulocyte_peaks_value, rbc_main_peak, rbc_main_peak_value]
+            - [hgb_blank_ad, hgb_blank_ad_value, mpv, mpv_value]
+            - [hgb_sample_ad, hgb_sample_ad_value, blank2, blank3]
+          fields:
+            wbc_gain:
+              label: WBC gain
+              value: ""
+              control: readonly
+            wbc_gain_value:
+              label: ""
+              value: 100 (0-255)
+              control: readonly
+            rbc_gain:
+              label: RBC gain
+              value: ""
+              control: readonly
+            rbc_gain_value:
+              label: ""
+              value: 100 (0-255)
+              control: readonly
+            hgb_gain:
+              label: HGB gain
+              value: ""
+              control: readonly
+            hgb_gain_value:
+              label: ""
+              value: 100 (0-255)
+              control: readonly
+            setup_action:
+              label: ""
+              value: Set up
+              control: readonly
+            blank:
+              label: ""
+              value: ""
+              control: readonly
+            lymphocyte_peaks:
+              label: Lymphocyte peaks
+              value: ""
+              control: readonly
+            lymphocyte_peaks_value:
+              label: ""
+              value: ""
+              control: readonly
+            mcv:
+              label: MCV
+              value: ""
+              control: readonly
+            mcv_value:
+              label: ""
+              value: ""
+              control: readonly
+            granulocyte_peaks:
+              label: Granulocyte peaks
+              value: ""
+              control: readonly
+            granulocyte_peaks_value:
+              label: ""
+              value: ""
+              control: readonly
+            rbc_main_peak:
+              label: RBC main peak
+              value: ""
+              control: readonly
+            rbc_main_peak_value:
+              label: ""
+              value: ""
+              control: readonly
+            hgb_blank_ad:
+              label: HGB blank AD
+              value: ""
+              control: readonly
+            hgb_blank_ad_value:
+              label: ""
+              value: ""
+              control: readonly
+            mpv:
+              label: MPV
+              value: ""
+              control: readonly
+            mpv_value:
+              label: ""
+              value: ""
+              control: readonly
+            hgb_sample_ad:
+              label: HGB sample AD
+              value: ""
+              control: readonly
+            hgb_sample_ad_value:
+              label: ""
+              value: ""
+              control: readonly
+            blank2:
+              label: ""
+              value: ""
+              control: readonly
+            blank3:
+              label: ""
+              value: ""
+              control: readonly
+  cbc_raw_pulse_diagram:
+    status_bar:
+      right: 2026-03-24 17:41:42
+    body:
+      sections:
+        - id: commissioning_tabs
+          selected: CBC raw pulse diagram
+        - type: info_bar
+          id: raw_pulse_display
+          title: CBC raw pulse diagram
+          items:
+            - WBC Position: 0 Pulse Number: 44262
+            - RBC Position: 0 Pulse Number: 44262
+            - PLT Position: 0 Pulse Number: 44262
+        - type: action_row
+          id: raw_pulse_actions
+          align: center
+          items:
+            - text: Forward
+              variant: primary
+              disabled: false
+            - text: Backward
+              variant: primary
+              disabled: false
+            - text: Load
+              variant: primary
+              disabled: false
+  sensor_ad:
+    status_bar:
+      right: 2026-03-24 17:42:04
+    body:
+      sections:
+        - id: commissioning_tabs
+          selected: Sensor AD
+        - type: form_grid
+          id: sensor_ad_values
+          columns: 3
+          rows:
+            - [diluent_sensor, diluent_threshold, diluent_measured]
+            - [lyse_sensor, lyse_threshold, lyse_measured]
+            - [blank, save_action, blank2]
+          fields:
+            diluent_sensor:
+              label: Diluent sensor
+              value: 0 [0-1023]
+              control: readonly
+            diluent_threshold:
+              label: AD threshold
+              value: "0"
+              control: readonly
+            diluent_measured:
+              label: Measured AD
+              value: ""
+              control: readonly
+            lyse_sensor:
+              label: Lyse sensor
+              value: 0 [0-1023]
+              control: readonly
+            lyse_threshold:
+              label: AD threshold
+              value: "0"
+              control: readonly
+            lyse_measured:
+              label: Measured AD
+              value: ""
+              control: readonly
+            blank:
+              label: ""
+              value: ""
+              control: readonly
+            save_action:
+              label: ""
+              value: Save
+              control: readonly
+            blank2:
+              label: ""
+              value: ""
+              control: readonly
+  aging:
+    status_bar:
+      right: 2026-03-24 17:42:17
+    body:
+      sections:
+        - id: commissioning_tabs
+          selected: Aging
+        - type: form_grid
+          id: aging_values
+          columns: 3
+          rows:
+            - [aging_times, aging_times_value, aging_hint]
+            - [analysis_times, analysis_times_value, blank]
+            - [blank2, initiate_action, blank3]
+          fields:
+            aging_times:
+              label: Aging times
+              value: ""
+              control: readonly
+            aging_times_value:
+              label: ""
+              value: ""
+              control: readonly
+            aging_hint:
+              label: ""
+              value: -1: Unlimited times
+              control: readonly
+            analysis_times:
+              label: Analysis times
+              value: ""
+              control: readonly
+            analysis_times_value:
+              label: ""
+              value: ""
+              control: readonly
+            blank:
+              label: ""
+              value: ""
+              control: readonly
+            blank2:
+              label: ""
+              value: ""
+              control: readonly
+            initiate_action:
+              label: ""
+              value: Initiate
+              control: readonly
+            blank3:
+              label: ""
+              value: ""
+              control: readonly
+  fluid_commissioning:
+    status_bar:
+      right: 2026-03-24 17:42:29
+    body:
+      sections:
+        - id: commissioning_tabs
+          selected: Fluid commissioning
+        - type: form_grid
+          id: fluid_commissioning
+          title: Timing testing
+          columns: 2
+          rows:
+            - [timing_input_1, execute_1]
+            - [timing_input_2, execute_2]
+          fields:
+            timing_input_1:
+              label: ""
+              value: ""
+              control: readonly
+            execute_1:
+              label: ""
+              value: Execute
+              control: readonly
+            timing_input_2:
+              label: ""
+              value: ""
+              control: readonly
+            execute_2:
+              label: ""
+              value: Execute
+              control: readonly

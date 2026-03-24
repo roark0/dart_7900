@@ -1,0 +1,50 @@
+extends: lib/generated/templates/maintenance_shell_base.dsl.yaml
+
+source:
+  images:
+    - images/Maintenance/Maintenance_6_1.png
+  grouping: status
+
+page:
+  id: maintenance_status
+  output: lib/generated/maintenance_status.dart
+
+shell:
+  side_nav:
+    selected: Status information
+  status_bar:
+    right: 2026-03-18 16:41:42
+
+body:
+  sections:
+    - type: matrix_table
+      id: pressure_table
+      title: Pressure
+      groups:
+        - ["", KPa, Range]
+      rows:
+        - [Vacuum, "", ""]
+      zebra: true
+      dense: true
+    - type: matrix_table
+      id: sensor_table
+      title: Sensor
+      groups:
+        - [Device components, Status]
+      rows:
+        - [Waste floater sensor, ""]
+        - [Sampling probe horizontal..., ""]
+        - [Sampling probe vertical ..., ""]
+        - [Sample syringe opticalco..., ""]
+        - [Aspiration key, ""]
+      zebra: true
+      dense: true
+    - type: matrix_table
+      id: ad_table
+      title: AD
+      groups:
+        - ["", AD, Range]
+      rows:
+        - [HGB, "", ""]
+      zebra: true
+      dense: true

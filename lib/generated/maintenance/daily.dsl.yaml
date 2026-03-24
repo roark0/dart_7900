@@ -1,0 +1,150 @@
+extends: lib/generated/templates/maintenance_shell_base.dsl.yaml
+
+source:
+  images:
+    - images/Maintenance/Maintenance.png
+    - images/Maintenance/Maintenance_1_1.png
+    - images/Maintenance/Maintenance_1_2.png
+    - images/Maintenance/Maintenance_1_3.png
+    - images/Maintenance/Maintenance_1_4.png
+  grouping: daily
+
+page:
+  id: maintenance_daily
+  output: lib/generated/maintenance_daily.dart
+
+shell:
+  side_nav:
+    selected: Daily maintenance
+
+body:
+  sections:
+    - type: action_row
+      id: maintenance_tabs
+      selected: Replace Reagents
+      items:
+        - text: Replace Reagents
+          variant: secondary
+          disabled: false
+        - text: Clean
+          variant: secondary
+          disabled: false
+        - text: Maintenance
+          variant: secondary
+          disabled: false
+        - text: Whole machine maintenance
+          variant: secondary
+          disabled: false
+
+states:
+  replace_reagents:
+    source:
+      image: images/Maintenance/Maintenance_1_1.png
+    status_bar:
+      right: 2026-03-18 16:39:57
+    body:
+      sections:
+        - id: maintenance_tabs
+          selected: Replace Reagents
+        - type: action_row
+          id: reagent_actions
+          title: Replace Reagents
+          align: center
+          items:
+            - text: All reagents
+              variant: primary
+              disabled: false
+            - text: Diluent
+              variant: primary
+              disabled: false
+            - text: Lyse
+              variant: primary
+              disabled: false
+        - type: matrix_table
+          id: reagent_info
+          title: Reagent information
+          groups:
+            - [Type, Lot No., Remaining volume, "%", Original capacity, Expired date]
+          rows:
+            - [Diluent, Dil, "1000", "100.00", "1000", 2122-06-01]
+            - [Lyse, Lys, "100", "100.00", "100", 2122-06-01]
+          zebra: true
+          dense: true
+  clean:
+    source:
+      image: images/Maintenance/Maintenance_1_2.png
+    status_bar:
+      right: 2026-03-24 17:39:51
+    body:
+      sections:
+        - id: maintenance_tabs
+          selected: Clean
+        - type: action_row
+          id: clean_actions
+          align: center
+          items:
+            - text: Liquid path cleaning
+              variant: primary
+              disabled: false
+            - text: Sampling probe cleaning
+              variant: primary
+              disabled: false
+            - text: WBC chamber cleaning
+              variant: primary
+              disabled: false
+            - text: RBC chamber cleaning
+              variant: primary
+              disabled: false
+  maintenance:
+    source:
+      image: images/Maintenance/Maintenance_1_3.png
+    status_bar:
+      right: 2026-03-24 17:40:07
+    body:
+      sections:
+        - id: maintenance_tabs
+          selected: Maintenance
+        - type: action_row
+          id: maintenance_actions
+          align: center
+          items:
+            - text: Aperture blockage removal
+              variant: primary
+              disabled: false
+            - text: Aperture burning
+              variant: primary
+              disabled: false
+            - text: Whole machine conc. Cleanser soak
+              variant: primary
+              disabled: false
+            - text: Aperture Backflush
+              variant: primary
+              disabled: false
+  whole_machine_maintenance:
+    source:
+      image: images/Maintenance/Maintenance_1_4.png
+    status_bar:
+      right: 2026-03-24 17:40:20
+    body:
+      sections:
+        - id: maintenance_tabs
+          selected: Whole machine maintenance
+        - type: action_row
+          id: whole_machine_actions
+          align: center
+          items:
+            - text: Liquid path Drainage
+              variant: primary
+              disabled: false
+            - text: WBC chamber drainage
+              variant: primary
+              disabled: false
+            - text: RBC chamber drainage
+              variant: primary
+              disabled: false
+            - text: Instrument pack
+              variant: primary
+              disabled: false
+            - text: Initialize
+              variant: primary
+              disabled: false

@@ -1,0 +1,288 @@
+extends: lib/generated/templates/maintenance_shell_base.dsl.yaml
+
+page:
+  id: maintenance_basic
+  output: lib/generated/maintenance_basic.dart
+
+shell:
+  side_nav:
+    selected: Basic
+
+body:
+  sections:
+    - type: action_row
+      id: basic_tabs
+      selected: Carryover
+      items:
+        - text: Carryover
+          variant: secondary
+          disabled: false
+        - text: Precision
+          variant: secondary
+          disabled: false
+        - text: Comparability
+          variant: secondary
+          disabled: false
+        - text: Accuracy
+          variant: secondary
+          disabled: false
+        - text: Linear
+          variant: secondary
+          disabled: false
+
+states:
+  carryover:
+    status_bar:
+      right: 2026-03-18 16:42:34
+    body:
+      sections:
+        - id: basic_tabs
+          selected: Carryover
+        - type: form_grid
+          id: carryover_controls
+          columns: 2
+          rows:
+            - [mode, item]
+          fields:
+            mode:
+              label: Mode
+              value: Whole blood
+              control: select
+            item:
+              label: Item
+              value: WBC+PLT
+              control: select
+        - type: matrix_table
+          id: carryover_table
+          groups:
+            - [Item, WBC, RBC, HGB, PLT, HCT]
+          rows:
+            - [H1, "", "", "", "", ""]
+            - [H2, "", "", "", "", ""]
+            - [H3, "", "", "", "", ""]
+            - [L1, "", "", "", "", ""]
+            - [L2, "", "", "", "", ""]
+            - [L3, "", "", "", "", ""]
+            - [CV%, "", "", "", "", ""]
+            - [Range, 0.5%, 0.5%, 0.5%, 1.0%, 0.5%]
+            - [Result, "", "", "", "", ""]
+          zebra: true
+          dense: true
+        - type: info_bar
+          id: carryover_hint
+          items:
+            - H1
+            - Press the aspiration key to test
+        - type: action_row
+          id: carryover_actions
+          align: center
+          items:
+            - text: Calc
+              variant: primary
+              disabled: false
+            - text: Delete
+              variant: primary
+              disabled: false
+            - text: Export
+              variant: primary
+              disabled: false
+  precision:
+    status_bar:
+      right: 2026-03-24 17:42:49
+    body:
+      sections:
+        - id: basic_tabs
+          selected: Precision
+        - type: info_bar
+          id: precision_header
+          items:
+            - Mode: Whole blood
+            - 1
+            - Press the aspiration key to test
+        - type: matrix_table
+          id: precision_table
+          groups:
+            - [Item, WBC, RBC, HGB, MCV, PLT, MPV, LYMP%, Mid%, Gran%]
+          rows:
+            - [1, "", "", "", "", "", "", "", "", ""]
+            - [2, "", "", "", "", "", "", "", "", ""]
+            - [3, "", "", "", "", "", "", "", "", ""]
+            - [4, "", "", "", "", "", "", "", "", ""]
+            - [5, "", "", "", "", "", "", "", "", ""]
+            - [6, "", "", "", "", "", "", "", "", ""]
+            - [7, "", "", "", "", "", "", "", "", ""]
+            - [8, "", "", "", "", "", "", "", "", ""]
+            - [9, "", "", "", "", "", "", "", "", ""]
+            - [10, "", "", "", "", "", "", "", "", ""]
+            - [Std, "", "", "", "", "", "", "", "", ""]
+            - [Ave, "", "", "", "", "", "", "", "", ""]
+            - [CV%, "", "", "", "", "", "", "", "", ""]
+            - [Range, 2%, 1.5%, 1.5%, 1.0%, 4%, 4%, 4, 3, 5]
+            - [Result, "", "", "", "", "", "", "", "", ""]
+          zebra: true
+          dense: true
+        - type: action_row
+          id: precision_actions
+          align: center
+          items:
+            - text: Calc
+              variant: primary
+              disabled: false
+            - text: Delete
+              variant: primary
+              disabled: false
+            - text: Export
+              variant: primary
+              disabled: false
+  comparability:
+    status_bar:
+      right: 2026-03-24 17:43:00
+    body:
+      sections:
+        - id: basic_tabs
+          selected: Comparability
+        - type: info_bar
+          id: comparability_header
+          items:
+            - Mode: Whole blood
+            - 1
+            - Press the aspiration key to test
+        - type: matrix_table
+          id: comparability_table
+          groups:
+            - [Item, WBC, RBC, HGB, MCV, HCT, PLT]
+          rows:
+            - [1, "", "", "", "", "", ""]
+            - [2, "", "", "", "", "", ""]
+            - [3, "", "", "", "", "", ""]
+            - [4, "", "", "", "", "", ""]
+            - [5, "", "", "", "", "", ""]
+            - [Target, "", "", "", "", "", ""]
+            - [Std, "", "", "", "", "", ""]
+            - [Ave, "", "", "", "", "", ""]
+            - [CV%, "", "", "", "", "", ""]
+            - [Dev%, "", "", "", "", "", ""]
+            - [Range, 5%, 2.5%, 2.5%, 3.0%, 3.0%, 8.0%]
+            - [Result, "", "", "", "", "", ""]
+          zebra: true
+          dense: true
+        - type: action_row
+          id: comparability_actions
+          align: center
+          items:
+            - text: Calc
+              variant: primary
+              disabled: false
+            - text: Delete
+              variant: primary
+              disabled: false
+            - text: Export
+              variant: primary
+              disabled: false
+  accuracy:
+    status_bar:
+      right: 2026-03-24 17:43:10
+    body:
+      sections:
+        - id: basic_tabs
+          selected: Accuracy
+        - type: form_grid
+          id: accuracy_controls
+          columns: 2
+          rows:
+            - [mode, sample_type]
+          fields:
+            mode:
+              label: Mode
+              value: Whole blood
+              control: select
+            sample_type:
+              label: Sample type
+              value: Sample type1
+              control: select
+        - type: matrix_table
+          id: accuracy_table
+          groups:
+            - [Item, WBC, RBC, HGB, MCV, HCT, PLT]
+          rows:
+            - [1, "", "", "", "", "", ""]
+            - [2, "", "", "", "", "", ""]
+            - [3, "", "", "", "", "", ""]
+            - [Target, "", "", "", "", "", ""]
+            - [Dev1%, "", "", "", "", "", ""]
+            - [Dev2%, "", "", "", "", "", ""]
+            - [Dev3%, "", "", "", "", "", ""]
+            - [Range, 15.0%, 6.0%, 6.0%, 7.0%, 9.0%, 20.0%]
+            - [Result, "", "", "", "", "", ""]
+          zebra: true
+          dense: true
+        - type: info_bar
+          id: accuracy_hint
+          items:
+            - "1"
+            - Press the aspiration key to test
+        - type: action_row
+          id: accuracy_actions
+          align: center
+          items:
+            - text: Calc
+              variant: primary
+              disabled: false
+            - text: Delete
+              variant: primary
+              disabled: false
+            - text: Export
+              variant: primary
+              disabled: false
+  linear:
+    status_bar:
+      right: 2026-03-24 17:43:19
+    body:
+      sections:
+        - id: basic_tabs
+          selected: Linear
+        - type: info_bar
+          id: linear_header
+          items:
+            - Mode: WBC
+            - 100.0%-1
+            - Press the aspiration key to test
+        - type: matrix_table
+          id: linear_table_upper
+          groups:
+            - [Con%, 1, 2, 3, Ave, Fitted., Dev, Dev%, Std., Std.%, Result]
+          rows:
+            - [100.0%, "", "", "", "", "", "", "", 10, "", ""]
+            - [75.0%, "", "", "", "", "", "", "", 10, "", ""]
+            - [50.0%, "", "", "", "", "", "", "", 10, "", ""]
+            - [37.5%, "", "", "", "", "", "", "", 10, "", ""]
+            - [25.0%, "", "", "", "", "", "", "", 10, "", ""]
+            - [K, "", B, "", Corre, "", Range, "", 0.99, Result, ""]
+          zebra: true
+          dense: true
+        - type: matrix_table
+          id: linear_table_lower
+          groups:
+            - [Con%, 1, 2, 3, Ave, Fitted., Dev, Dev%, Std., Std.%, Result]
+          rows:
+            - [50.0%, "", "", "", "", "", "", "", 0.5, 5, ""]
+            - [25.0%, "", "", "", "", "", "", "", 0.5, 5, ""]
+            - [6.25%, "", "", "", "", "", "", "", 0.5, 5, ""]
+            - [1.5625%, "", "", "", "", "", "", "", 0.5, 5, ""]
+            - [0.390625..., "", "", "", "", "", "", "", 0.5, 5, ""]
+            - [K, "", B, "", Corre, "", Range, "", 0.99, Result, ""]
+          zebra: true
+          dense: true
+        - type: action_row
+          id: linear_actions
+          align: center
+          items:
+            - text: Calc
+              variant: primary
+              disabled: false
+            - text: Delete
+              variant: primary
+              disabled: false
+            - text: Export
+              variant: primary
+              disabled: false
