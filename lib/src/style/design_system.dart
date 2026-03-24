@@ -13,7 +13,7 @@ class UiPalette {
   static const Color sidebarButton = Color(0xFF2D6FA0);
   static const Color statusBar = Color(0xFF0D3A5C);
 
-  // Neutral/supporting tokens derived from the existing analyzer shell.
+  // Neutral/supporting tokens derived from the analyzer shell.
   static const Color background = Color(0xFFE8F2F8);
   static const Color foreground = Color(0xFF1E293B);
   static const Color surface = Color(0xFFFFFFFF);
@@ -23,6 +23,15 @@ class UiPalette {
   static const Color inputBorder = Color(0xFF8EA1B1);
   static const Color disabledForeground = Color(0xFF888888);
   static const Color success = Color(0xFF49BB3E);
+
+  // Extended semantic tokens for shared widgets/screens.
+  static const Color sideNavButtonIdle = Color(0xFFD0DEEA);
+  static const Color sideNavBorder = Color(0xFF8BB1CC);
+  static const Color softButtonBackground = Color(0xFFBCD1E2);
+  static const Color softButtonBorder = Color(0xFF7EA2C0);
+  static const Color chartBackground = Color(0xFF0A0A0A);
+  static const Color chartLine = Color(0xFFFFFFFF);
+  static const Color chartBorder = Color(0xFF2F4F69);
 
   // Compatibility aliases for the current Flutter codebase.
   static const Color chromeTop = navPrimary;
@@ -132,6 +141,12 @@ class UiTypography {
     color: Colors.white,
   );
 
+  static const TextStyle chartScale = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 9.5,
+    color: Colors.white,
+  );
+
   static TextTheme textTheme = const TextTheme(
     titleSmall: sectionTitle,
     bodyLarge: inputValue,
@@ -164,6 +179,7 @@ class UiMetrics {
   static const double sideButtonHeight = 48;
   static const double formFieldHeight = 32;
   static const double tableHeaderHeight = 40;
+  static const double tableRowHeight = 28;
 }
 
 class UiTheme {
@@ -179,9 +195,7 @@ class UiTheme {
       onSurface: UiPalette.foreground,
       error: Colors.red,
       onError: Colors.white,
-    ).copyWith(
-      outline: UiPalette.border,
-    );
+    ).copyWith(outline: UiPalette.border);
 
     return ThemeData(
       useMaterial3: false,

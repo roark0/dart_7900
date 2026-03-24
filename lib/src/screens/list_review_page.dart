@@ -32,15 +32,21 @@ class ListReviewPage extends StatelessWidget {
         children: <Widget>[
           Row(
             children: const <Widget>[
-              SizedBox(width: 150, child: Text('Sample list', style: TextStyle(fontSize: 32 / 3))),
+              SizedBox(
+                width: 150,
+                child: Text('Sample list', style: UiTypography.fieldLabel),
+              ),
               InputBox(value: 'Sample of the present day', width: 268),
               SizedBox(width: 24),
-              Text('The number of records in total:', style: TextStyle(fontSize: 32 / 3)),
+              Text(
+                'The number of records in total:',
+                style: UiTypography.fieldLabel,
+              ),
               SizedBox(width: 14),
-              Text('0', style: TextStyle(fontSize: 32 / 3)),
+              Text('0', style: UiTypography.fieldLabel),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: UiMetrics.space8),
           Expanded(
             child: Row(
               children: <Widget>[
@@ -72,19 +78,25 @@ class ListReviewPage extends StatelessWidget {
                                     alignment: Alignment.center,
                                     child: Text(
                                       labels[index],
-                                      style: const TextStyle(color: Colors.white, fontSize: 30 / 3),
+                                      style: UiTypography.buttonLabelOnPrimary,
                                     ),
                                   ),
                                   Expanded(
                                     child: Container(
-                                      color: even ? UiPalette.tableRowA : UiPalette.tableRowB,
+                                      color: even
+                                          ? UiPalette.tableRowA
+                                          : UiPalette.tableRowB,
                                       child: Row(
                                         children: List<Widget>.generate(
                                           6,
                                           (int i) => Expanded(
                                             child: Container(
                                               decoration: const BoxDecoration(
-                                                border: Border(right: BorderSide(color: Color(0xFFE5EDF4))),
+                                                border: Border(
+                                                  right: BorderSide(
+                                                    color: Color(0xFFE5EDF4),
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -104,7 +116,7 @@ class ListReviewPage extends StatelessWidget {
                 Container(
                   width: 36,
                   margin: const EdgeInsets.only(left: 3),
-                  color: const Color(0xFFD6DDE4),
+                  color: UiPalette.border,
                   child: Column(
                     children: <Widget>[
                       Expanded(
@@ -114,10 +126,17 @@ class ListReviewPage extends StatelessWidget {
                             gradient: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
-                              colors: <Color>[Color(0xFFF4F4F4), Color(0xFFCFCFCF)],
+                              colors: <Color>[
+                                Color(0xFFF4F4F4),
+                                Color(0xFFCFCFCF),
+                              ],
                             ),
                           ),
-                          child: const Icon(Icons.arrow_drop_up, color: Color(0xFFADB5BC), size: 36),
+                          child: const Icon(
+                            Icons.arrow_drop_up,
+                            color: Color(0xFFADB5BC),
+                            size: 36,
+                          ),
                         ),
                       ),
                       Expanded(
@@ -127,10 +146,17 @@ class ListReviewPage extends StatelessWidget {
                             gradient: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
-                              colors: <Color>[Color(0xFFDCE5EC), Color(0xFFC4D2DE)],
+                              colors: <Color>[
+                                Color(0xFFDCE5EC),
+                                Color(0xFFC4D2DE),
+                              ],
                             ),
                           ),
-                          child: const Icon(Icons.arrow_drop_down, color: Color(0xFF7693AF), size: 36),
+                          child: const Icon(
+                            Icons.arrow_drop_down,
+                            color: Color(0xFF7693AF),
+                            size: 36,
+                          ),
                         ),
                       ),
                     ],
@@ -141,9 +167,9 @@ class ListReviewPage extends StatelessWidget {
           ),
           Container(
             height: 42,
-            margin: const EdgeInsets.only(top: 2),
+            margin: const EdgeInsets.only(top: UiMetrics.space2),
             decoration: BoxDecoration(
-              border: Border.all(color: const Color(0xFF9CAAB8)),
+              border: Border.all(color: UiPalette.inputBorder),
               gradient: const LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -160,7 +186,7 @@ class ListReviewPage extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: UiMetrics.space6),
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[

@@ -356,7 +356,7 @@ class _HeaderPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: const Color(0xFFB8C6D4),
+      color: UiPalette.panelBackground,
       padding: const EdgeInsets.fromLTRB(8, 6, 8, 6),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -396,14 +396,14 @@ class _HeaderField extends StatelessWidget {
         children: <Widget>[
           SizedBox(
             width: item.labelWidth,
-            child: Text(item.label, style: const TextStyle(fontSize: 13)),
+            child: Text(item.label, style: UiTypography.fieldLabel),
           ),
           Container(
             width: item.width,
-            height: 30,
+            height: UiMetrics.formFieldHeight,
             decoration: BoxDecoration(
-              color: const Color(0xFFD5D5D5),
-              border: Border.all(color: const Color(0xFF8A9BAB)),
+              color: UiPalette.input,
+              border: Border.all(color: UiPalette.inputBorder),
             ),
             child: Row(
               children: <Widget>[
@@ -415,8 +415,10 @@ class _HeaderField extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontSize: 12,
-                        color: item.muted ? Colors.grey.shade700 : Colors.black,
+                        fontSize: UiTypography.inputValue.fontSize,
+                        color: item.muted
+                            ? Colors.grey.shade700
+                            : UiPalette.foreground,
                       ),
                     ),
                   ),
@@ -427,7 +429,7 @@ class _HeaderField extends StatelessWidget {
                     child: Icon(
                       Icons.keyboard_arrow_down,
                       size: 18,
-                      color: Color(0xFF6D7A86),
+                      color: UiPalette.inputBorder,
                     ),
                   ),
               ],
@@ -461,9 +463,7 @@ class _QcTripletGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFFD9E2E9)),
-      ),
+      decoration: BoxDecoration(border: Border.all(color: UiPalette.border)),
       child: Column(
         children: <Widget>[
           _GridHeader(
@@ -500,7 +500,7 @@ class _QcTripletGrid extends StatelessWidget {
                         cell.value,
                         style: TextStyle(
                           color: dark ? Colors.white : Colors.black,
-                          fontSize: 34 / 3,
+                          fontSize: UiTypography.dataValue.fontSize,
                         ),
                       ),
                     ),
@@ -572,12 +572,9 @@ class _HeaderCell extends StatelessWidget {
       alignment: Alignment.center,
       decoration: const BoxDecoration(
         color: UiPalette.tableHeaderLight,
-        border: Border(right: BorderSide(color: Color(0xFFE5EDF4), width: 0.8)),
+        border: Border(right: BorderSide(color: UiPalette.border, width: 0.8)),
       ),
-      child: Text(
-        text,
-        style: const TextStyle(color: Colors.white, fontSize: 13),
-      ),
+      child: Text(text, style: UiTypography.tableHeader),
     );
   }
 }
@@ -592,16 +589,19 @@ class _HistogramCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFF2F4F69)),
+        border: Border.all(color: UiPalette.chartBorder),
       ),
       child: Stack(
         children: <Widget>[
-          Container(color: Colors.black),
+          Container(color: UiPalette.chartBackground),
           Positioned(
             left: 8,
             right: 8,
             bottom: 20,
-            child: Container(height: 1, color: Colors.white70),
+            child: Container(
+              height: 1,
+              color: UiPalette.chartLine.withValues(alpha: 0.7),
+            ),
           ),
           Positioned(
             top: 6,
@@ -610,17 +610,14 @@ class _HistogramCard extends StatelessWidget {
             child: Text(
               title,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.white, fontSize: 13),
+              style: UiTypography.tableHeader,
             ),
           ),
           Positioned(
             left: 3,
             right: 2,
             bottom: 2,
-            child: Text(
-              scale,
-              style: const TextStyle(color: Colors.white, fontSize: 9.5),
-            ),
+            child: Text(scale, style: UiTypography.chartScale),
           ),
         ],
       ),
@@ -651,7 +648,7 @@ class _GraphFrame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xFFC5D6E6),
+      color: UiPalette.tableRowLight,
       child: Row(
         children: <Widget>[
           SizedBox(
@@ -659,7 +656,7 @@ class _GraphFrame extends StatelessWidget {
             child: Text(
               label,
               textAlign: TextAlign.left,
-              style: const TextStyle(fontSize: 34 / 3),
+              style: UiTypography.dataValue,
             ),
           ),
           Expanded(
@@ -712,7 +709,7 @@ class _StatsBlock extends StatelessWidget {
             (String label) => Expanded(
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text(label, style: const TextStyle(fontSize: 13)),
+                child: Text(label, style: UiTypography.fieldLabel),
               ),
             ),
           )
@@ -825,8 +822,8 @@ class _ActionButton extends StatelessWidget {
               ? const <Color>[Color(0xFFD7E2EC), Color(0xFFA7B8C8)]
               : const <Color>[Color(0xFFC8DCEB), Color(0xFFAAC3D5)],
         ),
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: const Color(0xFF87A7C0)),
+        borderRadius: BorderRadius.circular(UiMetrics.buttonRadius),
+        border: Border.all(color: UiPalette.sideNavBorder),
       ),
       alignment: Alignment.center,
       child: action.icon != null
@@ -836,9 +833,8 @@ class _ActionButton extends StatelessWidget {
             )
           : Text(
               action.label ?? '',
-              style: TextStyle(
-                fontSize: 34 / 3,
-                color: muted ? const Color(0xFF8798A8) : Colors.black,
+              style: UiTypography.buttonLabel.copyWith(
+                color: muted ? const Color(0xFF8798A8) : UiPalette.foreground,
               ),
             ),
     );
@@ -872,14 +868,14 @@ class _NavCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      height: UiMetrics.tableHeaderHeight,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: <Color>[Color(0xFFECECEC), Color(0xFFBCBCBC)],
         ),
-        border: Border.all(color: const Color(0xFF9DAAB7)),
+        border: Border.all(color: UiPalette.inputBorder),
       ),
       child: Icon(icon, color: const Color(0xFFBEC4CA), size: 28),
     );

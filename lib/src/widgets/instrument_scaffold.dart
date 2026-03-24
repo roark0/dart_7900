@@ -59,7 +59,7 @@ class _TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 74,
+      height: UiMetrics.topBarHeight,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -71,7 +71,7 @@ class _TopBar extends StatelessWidget {
         children: <Widget>[
           const SizedBox(width: 14),
           const _MenuEntry(),
-          const SizedBox(width: 6),
+          const SizedBox(width: UiMetrics.space6),
           ...topNavItems.map(
             (TopNavItem item) => Expanded(
               child: _TopTab(
@@ -81,7 +81,7 @@ class _TopBar extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: UiMetrics.space8),
         ],
       ),
     );
@@ -97,10 +97,7 @@ class _MenuEntry extends StatelessWidget {
       width: 94,
       child: Row(
         children: const <Widget>[
-          Text(
-            'Menu',
-            style: TextStyle(color: Colors.white, fontSize: 31 / 2, fontWeight: FontWeight.w600),
-          ),
+          Text('Menu', style: UiTypography.topMenuLabel),
           Icon(Icons.arrow_drop_down, color: Colors.white, size: 20),
         ],
       ),
@@ -109,7 +106,11 @@ class _MenuEntry extends StatelessWidget {
 }
 
 class _TopTab extends StatelessWidget {
-  const _TopTab({required this.item, required this.selected, required this.onTap});
+  const _TopTab({
+    required this.item,
+    required this.selected,
+    required this.onTap,
+  });
 
   final TopNavItem item;
   final bool selected;
@@ -120,24 +121,32 @@ class _TopTab extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.only(top: 2, right: 2),
+        margin: const EdgeInsets.only(
+          top: UiMetrics.space2,
+          right: UiMetrics.space2,
+        ),
         decoration: BoxDecoration(
           color: selected ? UiPalette.selectedTab : Colors.transparent,
           borderRadius: selected
-              ? const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))
+              ? const BorderRadius.only(
+                  topLeft: Radius.circular(UiMetrics.buttonRadius),
+                  topRight: Radius.circular(UiMetrics.buttonRadius),
+                )
               : BorderRadius.zero,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Icon(item.icon, color: selected ? Colors.black : Colors.white, size: 26),
-            const SizedBox(height: 2),
+            Icon(
+              item.icon,
+              color: selected ? Colors.black : Colors.white,
+              size: 26,
+            ),
+            const SizedBox(height: UiMetrics.space2),
             Text(
               item.label,
-              style: TextStyle(
+              style: UiTypography.navLabel.copyWith(
                 color: selected ? Colors.black : Colors.white,
-                fontSize: 27 / 3,
-                fontWeight: FontWeight.w600,
               ),
             ),
           ],
@@ -148,7 +157,11 @@ class _TopTab extends StatelessWidget {
 }
 
 class _SideBar extends StatelessWidget {
-  const _SideBar({required this.items, required this.selectedIndex, required this.onChanged});
+  const _SideBar({
+    required this.items,
+    required this.selectedIndex,
+    required this.onChanged,
+  });
 
   final List<SideNavItem> items;
   final int selectedIndex;
@@ -160,25 +173,31 @@ class _SideBar extends StatelessWidget {
       width: 104,
       color: UiPalette.sideNav,
       child: ListView.separated(
-        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 2),
+        padding: const EdgeInsets.symmetric(
+          vertical: UiMetrics.space4,
+          horizontal: UiMetrics.space2,
+        ),
         itemCount: items.length,
-        separatorBuilder: (_, int index) => const SizedBox(height: 2),
+        separatorBuilder: (_, int index) =>
+            const SizedBox(height: UiMetrics.space2),
         itemBuilder: (BuildContext context, int index) {
           final bool selected = index == selectedIndex;
           return GestureDetector(
             onTap: onChanged == null ? null : () => onChanged!(index),
             child: Container(
-              height: 48,
+              height: UiMetrics.sideButtonHeight,
               decoration: BoxDecoration(
-                color: selected ? UiPalette.sideNavSelected : const Color(0xFFD0DEEA),
-                border: Border.all(color: const Color(0xFF8BB1CC)),
-                borderRadius: BorderRadius.circular(10),
+                color: selected
+                    ? UiPalette.sideNavSelected
+                    : UiPalette.sideNavButtonIdle,
+                border: Border.all(color: UiPalette.sideNavBorder),
+                borderRadius: BorderRadius.circular(UiMetrics.buttonRadius),
               ),
               alignment: Alignment.center,
               child: Text(
                 items[index].label,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 29 / 3, color: Colors.black),
+                style: UiTypography.buttonLabel,
               ),
             ),
           );
@@ -196,8 +215,8 @@ class _BottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 34,
-      padding: const EdgeInsets.symmetric(horizontal: 4),
+      height: UiMetrics.bottomBarHeight,
+      padding: const EdgeInsets.symmetric(horizontal: UiMetrics.space4),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -207,19 +226,28 @@ class _BottomBar extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          const Text('Engineer', style: TextStyle(color: Colors.white, fontSize: 28 / 3)),
+          const Text('Engineer', style: UiTypography.status),
           const Spacer(),
           const Icon(Icons.arrow_right_alt, color: Colors.white),
-          const Text('LIS', style: TextStyle(color: Colors.white, fontSize: 28 / 3)),
+          const Text('LIS', style: UiTypography.status),
           const SizedBox(width: 36),
-          Text(clockText, style: const TextStyle(color: Colors.white, fontSize: 28 / 3)),
+          Text(clockText, style: UiTypography.status),
           const SizedBox(width: 14),
           Container(
             width: 19,
             height: 19,
-            decoration: const BoxDecoration(color: Color(0xFF49BB3E), shape: BoxShape.circle),
+            decoration: const BoxDecoration(
+              color: UiPalette.success,
+              shape: BoxShape.circle,
+            ),
             alignment: Alignment.center,
-            child: const Text('?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            child: const Text(
+              '?',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ],
       ),

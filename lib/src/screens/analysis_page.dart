@@ -14,7 +14,7 @@ class AnalysisPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const _TopInfo(),
-          const SizedBox(height: 6),
+          const SizedBox(height: UiMetrics.space6),
           Expanded(
             child: Row(
               children: <Widget>[
@@ -22,27 +22,45 @@ class AnalysisPage extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       const _TripleResultTable(),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: UiMetrics.space8),
                       Expanded(
                         child: Row(
                           children: const <Widget>[
-                            Expanded(child: _ChartBox(title: 'WBC', scale: '0      100      200      300      400 fL')),
-                            SizedBox(width: 2),
-                            Expanded(child: _ChartBox(title: 'RBC', scale: '0       50      100      150      200      250 fL')),
-                            SizedBox(width: 2),
-                            Expanded(child: _ChartBox(title: 'PLT', scale: '0          10          20          30 fL')),
+                            Expanded(
+                              child: _ChartBox(
+                                title: 'WBC',
+                                scale:
+                                    '0      100      200      300      400 fL',
+                              ),
+                            ),
+                            SizedBox(width: UiMetrics.space2),
+                            Expanded(
+                              child: _ChartBox(
+                                title: 'RBC',
+                                scale:
+                                    '0       50      100      150      200      250 fL',
+                              ),
+                            ),
+                            SizedBox(width: UiMetrics.space2),
+                            Expanded(
+                              child: _ChartBox(
+                                title: 'PLT',
+                                scale:
+                                    '0          10          20          30 fL',
+                              ),
+                            ),
                           ],
                         ),
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(width: 8),
+                const SizedBox(width: UiMetrics.space8),
                 const _FlagPanel(),
               ],
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: UiMetrics.space8),
           const _BottomActions(),
         ],
       ),
@@ -64,12 +82,12 @@ class _TopInfo extends StatelessWidget {
             FieldLabel('Gender', width: 120),
           ],
         ),
-        SizedBox(height: 4),
+        SizedBox(height: UiMetrics.space4),
         Row(
           children: <Widget>[
             FieldLabel('Inspection time', width: 196),
             FieldLabel('Mode', width: 76),
-            Text('Whole blood', style: TextStyle(fontSize: 32 / 3)),
+            Text('Whole blood', style: UiTypography.dataValue),
             Spacer(),
             FieldLabel('Age', width: 120),
           ],
@@ -131,9 +149,9 @@ class _FlagPanel extends StatelessWidget {
       child: Column(
         children: <Widget>[
           _FlagSlot(title: 'WBC Flag'),
-          const SizedBox(height: 4),
+          const SizedBox(height: UiMetrics.space4),
           _FlagSlot(title: 'RBC Flag'),
-          const SizedBox(height: 4),
+          const SizedBox(height: UiMetrics.space4),
           _FlagSlot(title: 'PLT Flag'),
         ],
       ),
@@ -155,16 +173,9 @@ class _FlagSlot extends StatelessWidget {
             height: 34,
             color: UiPalette.tableHeaderLight,
             alignment: Alignment.center,
-            child: Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
-            ),
+            child: Text(title, style: UiTypography.tableHeader),
           ),
-          Expanded(
-            child: Container(
-              color: const Color(0xFFB8C8D9),
-            ),
-          ),
+          Expanded(child: Container(color: UiPalette.tableRowLight)),
         ],
       ),
     );
@@ -180,27 +191,36 @@ class _ChartBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(border: Border.all(color: const Color(0xFF2F4F69))),
+      decoration: BoxDecoration(
+        border: Border.all(color: UiPalette.chartBorder),
+      ),
       child: Stack(
         children: <Widget>[
-          Container(color: Colors.black),
+          Container(color: UiPalette.chartBackground),
           Positioned(
             left: 5,
             right: 5,
             bottom: 18,
-            child: Container(height: 1, color: Colors.white70),
+            child: Container(
+              height: 1,
+              color: UiPalette.chartLine.withValues(alpha: 0.7),
+            ),
           ),
           Positioned(
             top: 8,
             left: 0,
             right: 0,
-            child: Text(title, textAlign: TextAlign.center, style: const TextStyle(color: Colors.white, fontSize: 20 / 2)),
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: UiTypography.buttonLabelOnPrimary,
+            ),
           ),
           Positioned(
             left: 2,
             right: 2,
             bottom: 2,
-            child: Text(scale, style: const TextStyle(color: Colors.white, fontSize: 8.5)),
+            child: Text(scale, style: UiTypography.chartScale),
           ),
         ],
       ),

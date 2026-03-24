@@ -82,7 +82,7 @@ class _AnalyzerHomePageState extends State<AnalyzerHomePage> {
           child: Container(
             decoration: BoxDecoration(
               color: UiPalette.frameBackground,
-              border: Border.all(color: const Color(0xFF89A5BC), width: 1.5),
+              border: Border.all(color: UiPalette.border, width: 1.5),
             ),
             child: InstrumentScaffold(
               selectedModule: _module,

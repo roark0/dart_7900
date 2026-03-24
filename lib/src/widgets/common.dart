@@ -19,9 +19,11 @@ class SoftButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final BoxDecoration decoration = BoxDecoration(
-      color: selected ? UiPalette.sideNavSelected : const Color(0xFFBCD1E2),
+      color: selected
+          ? UiPalette.sideNavSelected
+          : UiPalette.softButtonBackground,
       borderRadius: BorderRadius.circular(11),
-      border: Border.all(color: const Color(0xFF7EA2C0)),
+      border: Border.all(color: UiPalette.softButtonBorder),
     );
 
     return Container(
@@ -32,7 +34,7 @@ class SoftButton extends StatelessWidget {
       child: Text(
         label,
         textAlign: TextAlign.center,
-        style: const TextStyle(fontSize: 31 / 3, color: Colors.black),
+        style: UiTypography.buttonLabel,
       ),
     );
   }
@@ -61,8 +63,8 @@ class SectionBox extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(title, style: const TextStyle(fontSize: 14, color: Colors.black)),
-          const SizedBox(height: 6),
+          Text(title, style: UiTypography.sectionTitle),
+          const SizedBox(height: UiMetrics.space6),
           child,
         ],
       ),
@@ -80,7 +82,7 @@ class FieldLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
-      child: Text(label, style: const TextStyle(fontSize: 13)),
+      child: Text(label, style: UiTypography.fieldLabel),
     );
   }
 }
@@ -90,7 +92,7 @@ class InputBox extends StatelessWidget {
     super.key,
     this.value = '',
     this.width = 110,
-    this.height = 32,
+    this.height = UiMetrics.formFieldHeight,
     this.grayText = false,
     this.center = false,
   });
@@ -106,15 +108,17 @@ class InputBox extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: UiMetrics.space8),
       alignment: center ? Alignment.center : Alignment.centerLeft,
       decoration: BoxDecoration(
-        color: const Color(0xFFD8D8D8),
-        border: Border.all(color: const Color(0xFF8EA1B1)),
+        color: UiPalette.input,
+        border: Border.all(color: UiPalette.inputBorder),
       ),
       child: Text(
         value,
-        style: TextStyle(fontSize: 12, color: grayText ? Colors.grey.shade700 : Colors.black),
+        style: UiTypography.inputValue.copyWith(
+          color: grayText ? Colors.grey.shade700 : UiPalette.foreground,
+        ),
       ),
     );
   }
@@ -131,7 +135,7 @@ class TableHeaderCell extends StatelessWidget {
     return Expanded(
       flex: flex,
       child: Container(
-        height: 40,
+        height: UiMetrics.tableHeaderHeight,
         alignment: Alignment.center,
         decoration: const BoxDecoration(
           color: UiPalette.tableHeader,
@@ -140,7 +144,7 @@ class TableHeaderCell extends StatelessWidget {
         child: Text(
           text,
           textAlign: TextAlign.center,
-          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 14),
+          style: UiTypography.tableHeader,
         ),
       ),
     );
@@ -170,13 +174,14 @@ class ZebraRow extends StatelessWidget {
             .map(
               (MapEntry<int, String> entry) => Expanded(
                 child: Container(
-                  height: 28,
+                  height: UiMetrics.tableRowHeight,
                   alignment: Alignment.center,
                   child: Text(
                     entry.value,
-                    style: TextStyle(
-                      color: accentFirst && entry.key == 0 ? Colors.white : Colors.black,
-                      fontSize: 14,
+                    style: UiTypography.dataValue.copyWith(
+                      color: accentFirst && entry.key == 0
+                          ? Colors.white
+                          : UiPalette.foreground,
                     ),
                   ),
                 ),

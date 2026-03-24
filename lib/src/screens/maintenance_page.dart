@@ -9,12 +9,12 @@ class MaintenancePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(6),
+      padding: const EdgeInsets.all(UiMetrics.space6),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const _MaintenanceTabs(),
-          const SizedBox(height: 8),
+          const SizedBox(height: UiMetrics.space8),
           Expanded(
             child: SectionBox(
               title: 'Replace Reagents',
@@ -52,16 +52,28 @@ class MaintenancePage extends StatelessWidget {
                           const ZebraRow(
                             rowIndex: 0,
                             accentFirst: true,
-                            values: <String>['Diluent', 'Dil', '1000', '100.00', '1000', '2122-06-01'],
+                            values: <String>[
+                              'Diluent',
+                              'Dil',
+                              '1000',
+                              '100.00',
+                              '1000',
+                              '2122-06-01',
+                            ],
                           ),
                           const ZebraRow(
                             rowIndex: 1,
-                            values: <String>['Lyse', 'Lys', '100', '100.00', '100', '2122-06-01'],
+                            values: <String>[
+                              'Lyse',
+                              'Lys',
+                              '100',
+                              '100.00',
+                              '100',
+                              '2122-06-01',
+                            ],
                           ),
                           Expanded(
-                            child: Container(
-                              color: UiPalette.panelBackground,
-                            ),
+                            child: Container(color: UiPalette.panelBackground),
                           ),
                         ],
                       ),
@@ -104,17 +116,19 @@ class _Tab extends StatelessWidget {
     return Expanded(
       child: Container(
         height: 38,
-        margin: const EdgeInsets.only(right: 4),
+        margin: const EdgeInsets.only(right: UiMetrics.space4),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: selected ? UiPalette.tabHeader : const Color(0xFFB5C8DC),
-          border: Border.all(color: const Color(0xFF5D8FBB)),
-          borderRadius: BorderRadius.circular(4),
+          color: selected ? UiPalette.tabHeader : UiPalette.border,
+          border: Border.all(color: UiPalette.sideNavBorder),
+          borderRadius: BorderRadius.circular(UiMetrics.radius),
         ),
         child: Text(
           label,
           textAlign: TextAlign.center,
-          style: TextStyle(color: selected ? Colors.white : Colors.black, fontSize: 13),
+          style: selected
+              ? UiTypography.buttonLabelOnPrimary
+              : UiTypography.buttonLabel.copyWith(color: UiPalette.foreground),
         ),
       ),
     );
