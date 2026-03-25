@@ -272,13 +272,29 @@ images:
 字段：
 
 - `selected`: 当前选中模块
+- `items`: 可选，导航项数组
+
+`items` 推荐写成对象数组，而不是纯文本数组，例如：
+
+```yaml
+items:
+  - text: Analysis
+    target: {module: analysis, page: analysis_main}
+  - text: L-J QC
+    target: {module: lj_qc, page: lj_qc_main, state: settings}
+```
 
 ### `side_nav`
 
 字段：
 
 - `selected`: 当前选中项
-- `items`: 文本数组
+- `items`: 导航项数组
+
+`side_nav.items` 优先写成对象数组，每项至少包含：
+
+- `text`
+- `target`
 
 ### `status_bar`
 
@@ -288,6 +304,26 @@ images:
 - `center`
 - `right`
 - `indicator`: 可选
+
+## `target`
+
+`target` 用于显式表达 DSL 中的跳转或动作，避免后续生成 Dart 时只能靠
+`selected`、文本匹配或页面命名去猜。
+
+字段只允许：
+
+- `module`: 顶部模块跳转目标，例如 `analysis`、`lj_qc`
+- `page`: 逻辑页面 id，例如 `maintenance_daily`
+- `state`: 页面内部状态 id，例如 `replace_reagents`、`graph`
+- `action`: 非页面跳转动作，例如 `save`、`delete`、`close_dialog`
+
+规则：
+
+1. 顶部导航优先写 `module + page`
+2. 左侧菜单优先写 `page`，同页多标签时补 `state`
+3. 同页标签切换优先写 `state`
+4. 纯命令按钮不写页面跳转时，写 `action`
+5. 不要混用多个语义冲突的目标
 
 ## `body`
 
@@ -308,6 +344,13 @@ images:
 - `zebra`
 - `dense`
 - `selected`
+
+其中交互型 `items` 优先写成对象数组，每项可包含：
+
+- `text`
+- `variant`
+- `disabled`
+- `target`
 
 ## `states`
 

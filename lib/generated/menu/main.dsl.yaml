@@ -1,79 +1,183 @@
 extends: lib/generated/templates/app_shell_base.dsl.yaml
-
 source:
   images:
-    - images/Menu/Menu_0.png
-    - images/Menu/Menu_1.png
-    - images/Menu/Menu_2.png
-    - images/Menu/Menu_3.png
-    - images/Menu/Menu_4.png
-    - images/Menu/Menu_5.png
-    - images/Menu/Menu_6.png
-    - images/Menu/Menu_7.png
+  - images/Menu/Menu_0.png
+  - images/Menu/Menu_1.png
+  - images/Menu/Menu_2.png
+  - images/Menu/Menu_3.png
+  - images/Menu/Menu_4.png
+  - images/Menu/Menu_5.png
+  - images/Menu/Menu_6.png
+  - images/Menu/Menu_7.png
   grouping: menu_overlay
-
 page:
   id: menu_overlay
   template: menu_overlay
   size: 800x600
   output: lib/generated/menu_overlay.dart
-
 shell:
   top_nav:
     selected: Analysis
   status_bar:
     right: 2026-03-25 08:04:53
-
 body:
   sections:
-    - type: action_row
-      id: main_menu
-      selected: Analysis
-      items:
-        - {text: Analysis, variant: secondary, disabled: false}
-        - {text: List Review, variant: secondary, disabled: false}
-        - {text: QC, variant: secondary, disabled: false}
-        - {text: Calibration, variant: secondary, disabled: false}
-        - {text: Service, variant: secondary, disabled: false}
-        - {text: System settings, variant: secondary, disabled: false}
-        - {text: Shutdown, variant: secondary, disabled: false}
-    - type: form_grid
-      id: analysis_summary_header
-      columns: 3
-      rows:
-        - [name, mode, age]
-      fields:
-        name: {label: Name, value: "", control: readonly}
-        mode: {label: Mode, value: Whole blood, control: select}
-        age: {label: Age, value: "", control: readonly}
-    - type: triplet_table
-      id: analysis_summary_table
-      groups:
-        - [Result, Unit, ""]
-        - [Result, Unit, ""]
-        - [Result, Unit, WBC Flag]
-      rows:
-        - [PLT, "", "", PLT, "", "", WBC Flag, "", ""]
-        - [P-LCR, "", "", P-LCC, "", "", "", "", ""]
-        - [PDW-CV, "", "", PDW-SD, "", "", "", "", ""]
-        - [PCT, "", "", MPV, "", "", "", "", ""]
-      zebra: true
-      dense: true
-    - type: chart_row
-      id: analysis_summary_charts
-      items:
-        - {title: RBC, kind: histogram, x_axis: "", y_axis: false}
-        - {title: PLT, kind: histogram, x_axis: "", y_axis: false}
-    - type: action_row
-      id: analysis_actions
-      align: center
-      items:
-        - {text: Next sample, variant: primary, disabled: false}
-        - {text: Mode, variant: primary, disabled: false}
-        - {text: Retest, variant: primary, disabled: false}
-        - {text: Verify, variant: primary, disabled: false}
-        - {text: Start test, variant: primary, disabled: false}
-
+  - type: action_row
+    id: main_menu
+    selected: Analysis
+    items:
+    - text: Analysis
+      variant: secondary
+      disabled: false
+      target:
+        module: analysis
+        page: analysis_main
+    - text: List Review
+      variant: secondary
+      disabled: false
+      target:
+        module: list_review
+        page: list_review_main
+    - text: QC
+      variant: secondary
+      disabled: false
+      target:
+        page: menu_qc
+        state: lj_qc_setting
+    - text: Calibration
+      variant: secondary
+      disabled: false
+      target:
+        page: menu_calibration
+        state: factors
+    - text: Service
+      variant: secondary
+      disabled: false
+      target:
+        page: maintenance_daily
+        state: whole_machine_maintenance
+    - text: System settings
+      variant: secondary
+      disabled: false
+      target:
+        page: menu_system_settings
+        state: reference_range
+    - text: Shutdown
+      variant: secondary
+      disabled: false
+      target:
+        action: shutdown
+  - type: form_grid
+    id: analysis_summary_header
+    columns: 3
+    rows:
+    - - name
+      - mode
+      - age
+    fields:
+      name:
+        label: Name
+        value: ''
+        control: readonly
+      mode:
+        label: Mode
+        value: Whole blood
+        control: select
+      age:
+        label: Age
+        value: ''
+        control: readonly
+  - type: triplet_table
+    id: analysis_summary_table
+    groups:
+    - - Result
+      - Unit
+      - ''
+    - - Result
+      - Unit
+      - ''
+    - - Result
+      - Unit
+      - WBC Flag
+    rows:
+    - - PLT
+      - ''
+      - ''
+      - PLT
+      - ''
+      - ''
+      - WBC Flag
+      - ''
+      - ''
+    - - P-LCR
+      - ''
+      - ''
+      - P-LCC
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - PDW-CV
+      - ''
+      - ''
+      - PDW-SD
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - PCT
+      - ''
+      - ''
+      - MPV
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    zebra: true
+    dense: true
+  - type: chart_row
+    id: analysis_summary_charts
+    items:
+    - title: RBC
+      kind: histogram
+      x_axis: ''
+      y_axis: false
+    - title: PLT
+      kind: histogram
+      x_axis: ''
+      y_axis: false
+  - type: action_row
+    id: analysis_actions
+    align: center
+    items:
+    - text: Next sample
+      variant: primary
+      disabled: false
+      target:
+        action: next_sample
+    - text: Mode
+      variant: primary
+      disabled: false
+      target:
+        action: change_mode
+    - text: Retest
+      variant: primary
+      disabled: false
+      target:
+        action: retest
+    - text: Verify
+      variant: primary
+      disabled: false
+      target:
+        action: verify
+    - text: Start test
+      variant: primary
+      disabled: false
+      target:
+        action: start_test
 states:
   menu_open:
     source:
@@ -83,8 +187,8 @@ states:
         right: 2026-03-25 08:04:53
     body:
       sections:
-        - id: main_menu
-          selected: Analysis
+      - id: main_menu
+        selected: Analysis
   analysis:
     source:
       image: images/Menu/Menu_1.png
@@ -93,8 +197,8 @@ states:
         right: 2026-03-25 08:10:13
     body:
       sections:
-        - id: main_menu
-          selected: Analysis
+      - id: main_menu
+        selected: Analysis
   list_review:
     source:
       image: images/Menu/Menu_2.png
@@ -103,8 +207,8 @@ states:
         right: 2026-03-25 08:10:54
     body:
       sections:
-        - id: main_menu
-          selected: List Review
+      - id: main_menu
+        selected: List Review
   qc:
     source:
       image: images/Menu/Menu_3.png
@@ -113,8 +217,8 @@ states:
         right: 2026-03-25 08:11:23
     body:
       sections:
-        - id: main_menu
-          selected: QC
+      - id: main_menu
+        selected: QC
   calibration:
     source:
       image: images/Menu/Menu_4.png
@@ -123,8 +227,8 @@ states:
         right: 2026-03-25 08:11:41
     body:
       sections:
-        - id: main_menu
-          selected: Calibration
+      - id: main_menu
+        selected: Calibration
   service:
     source:
       image: images/Menu/Menu_5.png
@@ -133,8 +237,8 @@ states:
         right: 2026-03-25 08:12:05
     body:
       sections:
-        - id: main_menu
-          selected: Service
+      - id: main_menu
+        selected: Service
   system_settings:
     source:
       image: images/Menu/Menu_6.png
@@ -143,8 +247,8 @@ states:
         right: 2026-03-25 08:12:34
     body:
       sections:
-        - id: main_menu
-          selected: System settings
+      - id: main_menu
+        selected: System settings
   shutdown:
     source:
       image: images/Menu/Menu_7.png
@@ -153,5 +257,5 @@ states:
         right: 2026-03-25 08:12:54
     body:
       sections:
-        - id: main_menu
-          selected: Shutdown
+      - id: main_menu
+        selected: Shutdown

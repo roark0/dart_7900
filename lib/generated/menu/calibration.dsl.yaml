@@ -1,32 +1,37 @@
 extends: lib/generated/templates/app_shell_base.dsl.yaml
-
 source:
   images:
-    - images/Menu/4_Calibration/Calibration_1.png
-    - images/Menu/4_Calibration/Calibration_2.png
+  - images/Menu/4_Calibration/Calibration_1.png
+  - images/Menu/4_Calibration/Calibration_2.png
   grouping: menu_calibration
-
 page:
   id: menu_calibration
   template: calibration_panel
   size: 800x600
   output: lib/generated/menu_calibration.dart
-
 shell:
   top_nav:
     selected: Analysis
   status_bar:
     right: 2026-03-25 08:45:11
-
 body:
   sections:
-    - type: action_row
-      id: calibration_mode
-      selected: Whole blood
-      items:
-        - {text: Whole blood, variant: secondary, disabled: false}
-        - {text: Pre-dilution, variant: secondary, disabled: false}
-
+  - type: action_row
+    id: calibration_mode
+    selected: Whole blood
+    items:
+    - text: Whole blood
+      variant: secondary
+      disabled: false
+      target:
+        page: menu_calibration
+        state: factors
+    - text: Pre-dilution
+      variant: secondary
+      disabled: false
+      target:
+        page: menu_calibration
+        state: target_table
 states:
   factors:
     source:
@@ -36,38 +41,74 @@ states:
         right: 2026-03-25 08:45:11
     body:
       sections:
-        - id: calibration_mode
-          selected: Whole blood
-        - type: matrix_table
-          id: wb_factor_table
-          title: Whole blood
-          groups:
-            - [Item, Coef, Date]
-            - [Item, Coef, Date]
-          rows:
-            - [WBC, 100, 2021-05-12, WBC, 100, 2021-05-12]
-            - [RBC, 100, 2021-05-12, RBC, 100, 2021-05-12]
-            - [HGB, 100, 2021-05-12, HGB, 100, 2021-05-12]
-            - [PLT, 100, 2021-05-12, PLT, 100, 2021-05-12]
-          zebra: true
-          dense: true
-        - type: matrix_table
-          id: pb_factor_table
-          title: Peripheral blood
-          groups:
-            - [Item, Coef, Date]
-          rows:
-            - [WBC, 100, 2021-05-12]
-            - [RBC, 100, 2021-05-12]
-            - [HGB, 100, 2021-05-12]
-            - [PLT, 100, 2021-05-12]
-          zebra: true
-          dense: true
+      - id: calibration_mode
+        selected: Whole blood
+      - type: matrix_table
+        id: wb_factor_table
+        title: Whole blood
+        groups:
+        - - Item
+          - Coef
+          - Date
+        - - Item
+          - Coef
+          - Date
+        rows:
+        - - WBC
+          - 100
+          - 2021-05-12
+          - WBC
+          - 100
+          - 2021-05-12
+        - - RBC
+          - 100
+          - 2021-05-12
+          - RBC
+          - 100
+          - 2021-05-12
+        - - HGB
+          - 100
+          - 2021-05-12
+          - HGB
+          - 100
+          - 2021-05-12
+        - - PLT
+          - 100
+          - 2021-05-12
+          - PLT
+          - 100
+          - 2021-05-12
+        zebra: true
+        dense: true
+      - type: matrix_table
+        id: pb_factor_table
+        title: Peripheral blood
+        groups:
+        - - Item
+          - Coef
+          - Date
+        rows:
+        - - WBC
+          - 100
+          - 2021-05-12
+        - - RBC
+          - 100
+          - 2021-05-12
+        - - HGB
+          - 100
+          - 2021-05-12
+        - - PLT
+          - 100
+          - 2021-05-12
+        zebra: true
+        dense: true
     actions:
       bottom:
         align: center
         items:
-          - {text: Save, variant: primary, disabled: false}
+        - text: Save
+          variant: primary
+          disabled: false
   target_table:
     source:
       image: images/Menu/4_Calibration/Calibration_2.png
@@ -76,35 +117,90 @@ states:
         right: 2026-03-25 08:45:28
     body:
       sections:
-        - id: calibration_mode
-          selected: Pre-dilution
-        - type: form_grid
-          id: calibration_header
-          columns: 4
-          rows:
-            - [test_by, lot_no, exp_date, mode]
-          fields:
-            test_by: {label: Test by, value: "", control: readonly}
-            lot_no: {label: LotNo., value: "", control: readonly}
-            exp_date: {label: Exp.date, value: "", control: readonly}
-            mode: {label: Mode, value: "", control: readonly}
-        - type: matrix_table
-          id: calibration_targets
-          groups:
-            - [Target, WBC, RBC, HGB, MCV, PLT, MPV]
-          rows:
-            - [Coef, "", "", "", "", "", ""]
-            - [MEA, "", "", "", "", "", ""]
-            - [SD, "", "", "", "", "", ""]
-            - [AverageCoef, "", "", "", "", "", ""]
-          zebra: true
-          dense: true
+      - id: calibration_mode
+        selected: Pre-dilution
+      - type: form_grid
+        id: calibration_header
+        columns: 4
+        rows:
+        - - test_by
+          - lot_no
+          - exp_date
+          - mode
+        fields:
+          test_by:
+            label: Test by
+            value: ''
+            control: readonly
+          lot_no:
+            label: LotNo.
+            value: ''
+            control: readonly
+          exp_date:
+            label: Exp.date
+            value: ''
+            control: readonly
+          mode:
+            label: Mode
+            value: ''
+            control: readonly
+      - type: matrix_table
+        id: calibration_targets
+        groups:
+        - - Target
+          - WBC
+          - RBC
+          - HGB
+          - MCV
+          - PLT
+          - MPV
+        rows:
+        - - Coef
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+        - - MEA
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+        - - SD
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+        - - AverageCoef
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+        zebra: true
+        dense: true
     actions:
       bottom:
         align: center
         items:
-          - {text: Set, variant: primary, disabled: false}
-          - {text: Save, variant: primary, disabled: false}
-          - {text: Delete, variant: primary, disabled: false}
-          - {text: Reset, variant: primary, disabled: false}
-          - {text: Start test, variant: primary, disabled: false}
+        - text: Set
+          variant: primary
+          disabled: false
+        - text: Save
+          variant: primary
+          disabled: false
+        - text: Delete
+          variant: primary
+          disabled: false
+        - text: Reset
+          variant: primary
+          disabled: false
+        - text: Start test
+          variant: primary
+          disabled: false

@@ -23,15 +23,27 @@ body:
     - text: Replace Reagents
       variant: secondary
       disabled: false
+      target:
+        page: maintenance_daily
+        state: replace_reagents
     - text: Clean
       variant: secondary
       disabled: false
+      target:
+        page: maintenance_daily
+        state: clean
     - text: Maintenance
       variant: secondary
       disabled: false
+      target:
+        page: maintenance_daily
+        state: maintenance
     - text: Whole machine maintenance
       variant: secondary
       disabled: false
+      target:
+        page: maintenance_daily
+        state: whole_machine_maintenance
 states:
   replace_reagents:
     source:

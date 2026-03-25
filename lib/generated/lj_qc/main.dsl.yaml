@@ -1,55 +1,73 @@
 extends: lib/generated/templates/app_shell_base.dsl.yaml
-
 source:
   images:
-    - images/LQ_QC/LJ_QC.png
-    - images/LQ_QC/LJ_QC_2.png
-    - images/LQ_QC/LJ_QC_3.png
-    - images/LQ_QC/LJ_QC_4.png
+  - images/LQ_QC/LJ_QC.png
+  - images/LQ_QC/LJ_QC_2.png
+  - images/LQ_QC/LJ_QC_3.png
+  - images/LQ_QC/LJ_QC_4.png
   grouping: lj_qc
-
 page:
   id: lj_qc_main
   template: qc_panel
   size: 800x600
   output: lib/generated/lj_qc_main.dart
-
-
 shell:
   top_nav:
     selected: L-J QC
   side_nav:
     selected: L-J QC Settings
     items:
-      - L-J QC Settings
-      - L-J QC Analyse
-      - L-J QC Graph
-      - L-J QC list
+    - text: L-J QC Settings
+      target:
+        page: lj_qc_main
+        state: settings
+    - text: L-J QC Analyse
+      target:
+        page: lj_qc_main
+        state: analyse
+    - text: L-J QC Graph
+      target:
+        page: lj_qc_main
+        state: graph
+    - text: L-J QC list
+      target:
+        page: lj_qc_main
+        state: list
   status_bar:
     left: Engineer
     center: LIS
     right: 2026-03-18 15:58:39
     indicator: green
-
 body:
   sections:
-    - type: action_row
-      id: lj_qc_side_state
-      selected: L-J QC Settings
-      items:
-        - text: L-J QC Settings
-          variant: secondary
-          disabled: false
-        - text: L-J QC Analyse
-          variant: secondary
-          disabled: false
-        - text: L-J QC Graph
-          variant: secondary
-          disabled: false
-        - text: L-J QC list
-          variant: secondary
-          disabled: false
-
+  - type: action_row
+    id: lj_qc_side_state
+    selected: L-J QC Settings
+    items:
+    - text: L-J QC Settings
+      variant: secondary
+      disabled: false
+      target:
+        page: lj_qc_main
+        state: settings
+    - text: L-J QC Analyse
+      variant: secondary
+      disabled: false
+      target:
+        page: lj_qc_main
+        state: analyse
+    - text: L-J QC Graph
+      variant: secondary
+      disabled: false
+      target:
+        page: lj_qc_main
+        state: graph
+    - text: L-J QC list
+      variant: secondary
+      disabled: false
+      target:
+        page: lj_qc_main
+        state: list
 states:
   settings:
     source:
@@ -61,52 +79,155 @@ states:
         right: 2026-03-18 15:58:39
     body:
       sections:
-        - id: lj_qc_side_state
-          selected: L-J QC Settings
-        - type: form_grid
-          id: qc_settings_header
-          columns: 3
-          rows:
-            - [file_no, lot_no, exp_date]
-            - [file_name, qc_level, mode]
-            - [set_by, date_created, qc_no]
-          fields:
-            file_no: {label: FileNo., value: "1", control: select}
-            lot_no: {label: LotNo., value: "", control: readonly}
-            exp_date: {label: Exp.Date, value: 2026-03-18, control: select}
-            file_name: {label: FileName, value: "", control: readonly}
-            qc_level: {label: QC Level, value: M, control: select}
-            mode: {label: Mode, value: Whole blood, control: select}
-            set_by: {label: Set By, value: Engineer, control: readonly}
-            date_created: {label: Date Created, value: 2026-03-18, control: readonly}
-            qc_no: {label: QCNo., value: "", control: readonly}
-        - type: triplet_table
-          id: qc_settings_table
-          groups:
-            - [Item, Target, Limit]
-            - [Item, Target, Limit]
-            - [Item, Target, Limit]
-          rows:
-            - [WBC, "", "", RBC, "", "", PLT, "", ""]
-            - [Lym%, "", "", HGB, "", "", MPV, "", ""]
-            - [Mid%, "", "", HCT, "", "", PDW-CV, "", ""]
-            - [Gran%, "", "", MCV, "", "", PDW-SD, "", ""]
-            - [Lym#, "", "", MCH, "", "", PCT, "", ""]
-            - [Mid#, "", "", MCHC, "", "", P-LCR, "", ""]
-            - [Gran#, "", "", RDW-CV, "", "", P-LCC, "", ""]
-            - ["", "", "", RDW-SD, "", "", "", "", ""]
-          zebra: true
-          dense: true
+      - id: lj_qc_side_state
+        selected: L-J QC Settings
+      - type: form_grid
+        id: qc_settings_header
+        columns: 3
+        rows:
+        - - file_no
+          - lot_no
+          - exp_date
+        - - file_name
+          - qc_level
+          - mode
+        - - set_by
+          - date_created
+          - qc_no
+        fields:
+          file_no:
+            label: FileNo.
+            value: '1'
+            control: select
+          lot_no:
+            label: LotNo.
+            value: ''
+            control: readonly
+          exp_date:
+            label: Exp.Date
+            value: 2026-03-18
+            control: select
+          file_name:
+            label: FileName
+            value: ''
+            control: readonly
+          qc_level:
+            label: QC Level
+            value: M
+            control: select
+          mode:
+            label: Mode
+            value: Whole blood
+            control: select
+          set_by:
+            label: Set By
+            value: Engineer
+            control: readonly
+          date_created:
+            label: Date Created
+            value: 2026-03-18
+            control: readonly
+          qc_no:
+            label: QCNo.
+            value: ''
+            control: readonly
+      - type: triplet_table
+        id: qc_settings_table
+        groups:
+        - - Item
+          - Target
+          - Limit
+        - - Item
+          - Target
+          - Limit
+        - - Item
+          - Target
+          - Limit
+        rows:
+        - - WBC
+          - ''
+          - ''
+          - RBC
+          - ''
+          - ''
+          - PLT
+          - ''
+          - ''
+        - - Lym%
+          - ''
+          - ''
+          - HGB
+          - ''
+          - ''
+          - MPV
+          - ''
+          - ''
+        - - Mid%
+          - ''
+          - ''
+          - HCT
+          - ''
+          - ''
+          - PDW-CV
+          - ''
+          - ''
+        - - Gran%
+          - ''
+          - ''
+          - MCV
+          - ''
+          - ''
+          - PDW-SD
+          - ''
+          - ''
+        - - Lym#
+          - ''
+          - ''
+          - MCH
+          - ''
+          - ''
+          - PCT
+          - ''
+          - ''
+        - - Mid#
+          - ''
+          - ''
+          - MCHC
+          - ''
+          - ''
+          - P-LCR
+          - ''
+          - ''
+        - - Gran#
+          - ''
+          - ''
+          - RDW-CV
+          - ''
+          - ''
+          - P-LCC
+          - ''
+          - ''
+        - - ''
+          - ''
+          - ''
+          - RDW-SD
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+        zebra: true
+        dense: true
     actions:
       bottom:
         align: center
         items:
-          - text: Save
-            variant: primary
-            disabled: false
-          - text: Delete
-            variant: primary
-            disabled: false
+        - text: Save
+          variant: primary
+          disabled: false
+        - text: Delete
+          variant: primary
+          disabled: false
   analyse:
     source:
       image: images/LQ_QC/LJ_QC_2.png
@@ -117,55 +238,167 @@ states:
         right: 2026-03-24 17:35:48
     body:
       sections:
-        - id: lj_qc_side_state
-          selected: L-J QC Analyse
-        - type: form_grid
-          id: qc_analyse_header
-          columns: 3
-          rows:
-            - [file_no, lot_no, qc_level]
-            - [exp_date, file_name, mode]
-            - [qc_no, blank1, blank2]
-          fields:
-            file_no: {label: FileNo., value: "1", control: select}
-            lot_no: {label: LotNo., value: "", control: readonly}
-            qc_level: {label: QC Level, value: "", control: readonly}
-            exp_date: {label: Exp.Date, value: "", control: readonly}
-            file_name: {label: FileName, value: "", control: readonly}
-            mode: {label: Mode, value: "", control: readonly}
-            qc_no: {label: QCNo., value: "", control: readonly}
-            blank1: {label: "", value: "", control: readonly}
-            blank2: {label: "", value: "", control: readonly}
-        - type: triplet_table
-          id: qc_analyse_table
-          groups:
-            - [Item, Result, Unit]
-            - [Item, Result, Unit]
-            - [Item, Result, Unit]
-          rows:
-            - [WBC, "", "", RBC, "", "", PLT, "", ""]
-            - [Lym%, "", "", HGB, "", "", MPV, "", ""]
-            - [Mid%, "", "", HCT, "", "", PDW-CV, "", ""]
-            - [Gran%, "", "", MCV, "", "", PDW-SD, "", ""]
-            - [Lym#, "", "", MCH, "", "", PCT, "", ""]
-            - [Mid#, "", "", MCHC, "", "", P-LCR, "", ""]
-            - [Gran#, "", "", RDW-CV, "", "", P-LCC, "", ""]
-            - ["", "", "", RDW-SD, "", "", "", "", ""]
-          zebra: true
-          dense: true
-        - type: chart_row
-          id: qc_analyse_charts
-          items:
-            - {title: WBC, kind: histogram, x_axis: "0 100 200 300 400 fL", y_axis: true}
-            - {title: RBC, kind: histogram, x_axis: "0 50 100 150 200 250 fL", y_axis: true}
-            - {title: PLT, kind: histogram, x_axis: "0 10 20 30 fL", y_axis: true}
+      - id: lj_qc_side_state
+        selected: L-J QC Analyse
+      - type: form_grid
+        id: qc_analyse_header
+        columns: 3
+        rows:
+        - - file_no
+          - lot_no
+          - qc_level
+        - - exp_date
+          - file_name
+          - mode
+        - - qc_no
+          - blank1
+          - blank2
+        fields:
+          file_no:
+            label: FileNo.
+            value: '1'
+            control: select
+          lot_no:
+            label: LotNo.
+            value: ''
+            control: readonly
+          qc_level:
+            label: QC Level
+            value: ''
+            control: readonly
+          exp_date:
+            label: Exp.Date
+            value: ''
+            control: readonly
+          file_name:
+            label: FileName
+            value: ''
+            control: readonly
+          mode:
+            label: Mode
+            value: ''
+            control: readonly
+          qc_no:
+            label: QCNo.
+            value: ''
+            control: readonly
+          blank1:
+            label: ''
+            value: ''
+            control: readonly
+          blank2:
+            label: ''
+            value: ''
+            control: readonly
+      - type: triplet_table
+        id: qc_analyse_table
+        groups:
+        - - Item
+          - Result
+          - Unit
+        - - Item
+          - Result
+          - Unit
+        - - Item
+          - Result
+          - Unit
+        rows:
+        - - WBC
+          - ''
+          - ''
+          - RBC
+          - ''
+          - ''
+          - PLT
+          - ''
+          - ''
+        - - Lym%
+          - ''
+          - ''
+          - HGB
+          - ''
+          - ''
+          - MPV
+          - ''
+          - ''
+        - - Mid%
+          - ''
+          - ''
+          - HCT
+          - ''
+          - ''
+          - PDW-CV
+          - ''
+          - ''
+        - - Gran%
+          - ''
+          - ''
+          - MCV
+          - ''
+          - ''
+          - PDW-SD
+          - ''
+          - ''
+        - - Lym#
+          - ''
+          - ''
+          - MCH
+          - ''
+          - ''
+          - PCT
+          - ''
+          - ''
+        - - Mid#
+          - ''
+          - ''
+          - MCHC
+          - ''
+          - ''
+          - P-LCR
+          - ''
+          - ''
+        - - Gran#
+          - ''
+          - ''
+          - RDW-CV
+          - ''
+          - ''
+          - P-LCC
+          - ''
+          - ''
+        - - ''
+          - ''
+          - ''
+          - RDW-SD
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+        zebra: true
+        dense: true
+      - type: chart_row
+        id: qc_analyse_charts
+        items:
+        - title: WBC
+          kind: histogram
+          x_axis: 0 100 200 300 400 fL
+          y_axis: true
+        - title: RBC
+          kind: histogram
+          x_axis: 0 50 100 150 200 250 fL
+          y_axis: true
+        - title: PLT
+          kind: histogram
+          x_axis: 0 10 20 30 fL
+          y_axis: true
     actions:
       bottom:
         align: start
         items:
-          - text: Start test
-            variant: primary
-            disabled: false
+        - text: Start test
+          variant: primary
+          disabled: false
   graph:
     source:
       image: images/LQ_QC/LJ_QC_3.png
@@ -176,45 +409,67 @@ states:
         right: 2026-03-24 17:36:22
     body:
       sections:
-        - id: lj_qc_side_state
-          selected: L-J QC Graph
-        - type: form_grid
-          id: qc_graph_header
-          columns: 3
-          rows:
-            - [file_no, lot_no, exp_date]
-            - [mode, time, location_total]
-          fields:
-            file_no: {label: FileNo., value: "1", control: select}
-            lot_no: {label: LotNo., value: "", control: readonly}
-            exp_date: {label: Exp.date, value: "", control: readonly}
-            mode: {label: Mode, value: "", control: readonly}
-            time: {label: Time, value: "", control: readonly}
-            location_total: {label: Location/Total, value: "", control: readonly}
-        - type: stats_panel
-          id: qc_graph_panels
-          items:
-            - WBC
-            - RBC
-            - Mean
-            - SD
-            - CV%
+      - id: lj_qc_side_state
+        selected: L-J QC Graph
+      - type: form_grid
+        id: qc_graph_header
+        columns: 3
+        rows:
+        - - file_no
+          - lot_no
+          - exp_date
+        - - mode
+          - time
+          - location_total
+        fields:
+          file_no:
+            label: FileNo.
+            value: '1'
+            control: select
+          lot_no:
+            label: LotNo.
+            value: ''
+            control: readonly
+          exp_date:
+            label: Exp.date
+            value: ''
+            control: readonly
+          mode:
+            label: Mode
+            value: ''
+            control: readonly
+          time:
+            label: Time
+            value: ''
+            control: readonly
+          location_total:
+            label: Location/Total
+            value: ''
+            control: readonly
+      - type: stats_panel
+        id: qc_graph_panels
+        items:
+        - WBC
+        - RBC
+        - Mean
+        - SD
+        - CV%
     actions:
       bottom:
         align: center
         items:
-          - text: ←
-            variant: primary
-            disabled: false
-          - text: ItemSort
-            variant: muted
-            disabled: true
-          - text: Delete
-            variant: muted
-            disabled: true
-          - text: →
-            variant: primary
-            disabled: false
+        - text: ←
+          variant: primary
+          disabled: false
+        - text: ItemSort
+          variant: muted
+          disabled: true
+        - text: Delete
+          variant: muted
+          disabled: true
+        - text: →
+          variant: primary
+          disabled: false
   list:
     source:
       image: images/LQ_QC/LJ_QC_4.png
@@ -225,49 +480,143 @@ states:
         right: 2026-03-24 17:36:53
     body:
       sections:
-        - id: lj_qc_side_state
-          selected: L-J QC list
-        - type: form_grid
-          id: qc_list_header
-          columns: 3
-          rows:
-            - [file_no, lot_no, mode]
-            - [level, exp_date, blank]
-          fields:
-            file_no: {label: FileNo., value: "1", control: select}
-            lot_no: {label: LotNo., value: "", control: readonly}
-            mode: {label: Mode, value: "", control: readonly}
-            level: {label: level, value: "", control: readonly}
-            exp_date: {label: Exp.date, value: "", control: readonly}
-            blank: {label: "", value: "", control: readonly}
-        - type: matrix_table
-          id: qc_list_table
-          groups:
-            - [No., Target, Limit, "", "", "", ""]
-          rows:
-            - [Date, "", "", "", "", "", ""]
-            - [Time, "", "", "", "", "", ""]
-            - [WBC, "", "", "", "", "", ""]
-            - [Lym%, "", "", "", "", "", ""]
-            - [Mid%, "", "", "", "", "", ""]
-            - [Gran%, "", "", "", "", "", ""]
-            - [Lym#, "", "", "", "", "", ""]
-            - [Mid#, "", "", "", "", "", ""]
-            - [Gran#, "", "", "", "", "", ""]
-            - [RBC, "", "", "", "", "", ""]
-            - [HGB, "", "", "", "", "", ""]
-          zebra: true
-          dense: true
+      - id: lj_qc_side_state
+        selected: L-J QC list
+      - type: form_grid
+        id: qc_list_header
+        columns: 3
+        rows:
+        - - file_no
+          - lot_no
+          - mode
+        - - level
+          - exp_date
+          - blank
+        fields:
+          file_no:
+            label: FileNo.
+            value: '1'
+            control: select
+          lot_no:
+            label: LotNo.
+            value: ''
+            control: readonly
+          mode:
+            label: Mode
+            value: ''
+            control: readonly
+          level:
+            label: level
+            value: ''
+            control: readonly
+          exp_date:
+            label: Exp.date
+            value: ''
+            control: readonly
+          blank:
+            label: ''
+            value: ''
+            control: readonly
+      - type: matrix_table
+        id: qc_list_table
+        groups:
+        - - No.
+          - Target
+          - Limit
+          - ''
+          - ''
+          - ''
+          - ''
+        rows:
+        - - Date
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+        - - Time
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+        - - WBC
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+        - - Lym%
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+        - - Mid%
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+        - - Gran%
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+        - - Lym#
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+        - - Mid#
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+        - - Gran#
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+        - - RBC
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+        - - HGB
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+          - ''
+        zebra: true
+        dense: true
     actions:
       bottom:
         align: center
         items:
-          - text: Delete
-            variant: muted
-            disabled: true
-          - text: Communicate
-            variant: muted
-            disabled: true
-          - text: Export
-            variant: muted
-            disabled: true
+        - text: Delete
+          variant: muted
+          disabled: true
+        - text: Communicate
+          variant: muted
+          disabled: true
+        - text: Export
+          variant: muted
+          disabled: true

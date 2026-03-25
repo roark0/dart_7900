@@ -1,19 +1,18 @@
 page:
   template: maintenance_panel
   size: 800x600
-
 theme:
   variant: analyzer_default
   tokens:
-    bg: "#C6D5E3"
-    topBar: "#2F6F9E"
-    sideBar: "#5E89B0"
-    panel: "#C8D6E4"
-    header: "#3E7AAA"
-    text: "#000000"
-    textOnDark: "#FFFFFF"
-    accent: "#DCE8F2"
-    border: "#8FAECC"
+    bg: '#C6D5E3'
+    topBar: '#2F6F9E'
+    sideBar: '#5E89B0'
+    panel: '#C8D6E4'
+    header: '#3E7AAA'
+    text: '#000000'
+    textOnDark: '#FFFFFF'
+    accent: '#DCE8F2'
+    border: '#8FAECC'
   typography:
     nav:
       size: 14
@@ -49,26 +48,72 @@ theme:
       actionButtonHeight: 80
       cornerRadius: 12
       borderWidth: 1
-
 shell:
   top_nav:
     selected: Maintenance
+    items:
+    - text: Analysis
+      target:
+        module: analysis
+        page: analysis_main
+    - text: List Review
+      target:
+        module: list_review
+        page: list_review_main
+    - text: L-J QC
+      target:
+        module: lj_qc
+        page: lj_qc_main
+        state: settings
+    - text: Maintenance
+      target:
+        module: maintenance
+        page: maintenance_daily
+        state: replace_reagents
+    - text: Add Diluent
+      target:
+        module: add_diluent
+        page: add_diluent
+    - text: Print
+      target:
+        module: print
+        page: print
   side_nav:
     items:
-      - Daily maintenance
-      - Data maintenance
-      - Version information
-      - Statistics
-      - Log information
-      - Status information
-      - Mechanical inspection
-      - Engineering commissioning
-      - Basic
+    - text: Daily maintenance
+      target:
+        page: maintenance_daily
+        state: replace_reagents
+    - text: Data maintenance
+      target:
+        page: maintenance_data
+    - text: Version information
+      target:
+        page: maintenance_version
+    - text: Statistics
+      target:
+        page: maintenance_statistics
+    - text: Log information
+      target:
+        page: maintenance_log
+    - text: Status information
+      target:
+        page: maintenance_status
+    - text: Mechanical inspection
+      target:
+        action: pending_mechanical_inspection
+    - text: Engineering commissioning
+      target:
+        page: maintenance_engineering
+        state: performance_parameters
+    - text: Basic
+      target:
+        page: maintenance_basic
+        state: carryover
   status_bar:
     left: Engineer
     center: LIS
     indicator: green
-
 actions:
   bottom:
     align: start
