@@ -1,7 +1,7 @@
 extends: lib/generated/templates/maintenance_shell_base.dsl.yaml
 page:
   id: maintenance_basic
-  output: lib/generated/maintenance_basic.dart
+  output: lib/src/features/maintenance/maintenance_basic.dart
 shell:
   side_nav:
     selected: Basic

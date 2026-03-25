@@ -1,4 +1,4 @@
-import 'package:dart_demo/src/app.dart';
+import 'package:dart_demo/src/app/app.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

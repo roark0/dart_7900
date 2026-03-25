@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../model/navigation.dart';
-import '../style/palette.dart';
+import 'navigation.dart';
+import '../design_system/palette.dart';
 
 class InstrumentScaffold extends StatelessWidget {
   const InstrumentScaffold({

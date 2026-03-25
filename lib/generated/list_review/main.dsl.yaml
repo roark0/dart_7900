@@ -7,7 +7,7 @@ source:
 page:
   id: list_review_main
   template: list_review
-  output: lib/generated/list_review_main.dart
+  output: lib/src/features/list_review/list_review_main.dart
 shell:
   top_nav:
     selected: List Review

@@ -169,11 +169,12 @@ images:
 - `id`: 页面唯一标识，使用 snake_case，例如 `maintenance_basic`
 - `template`: 页面模板名，例如 `maintenance_panel`
 - `size`: 固定写成 `800x600`
-- `output`: 输出 Dart 文件路径，固定写成 `lib/generated/<id>.dart`
+- `output`: 输出 Dart 文件路径，优先写成 `lib/src/features/<domain>/<page_id>.dart`
 
 建议：
 
 - 页面 DSL 本身优先保存到 `lib/generated/<domain>/...dsl.yaml`
+- 生成的 Dart 页面优先输出到 `lib/src/features/<domain>/`
 - 不要再按截图编号作为长期文件名，除非只是临时识别阶段
 
 ## `theme`

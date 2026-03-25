@@ -1,163 +1,283 @@
 extends: lib/generated/templates/dialog_base.dsl.yaml
-
 source:
   images:
-    - images/List Review/dialog/Conn..png
-    - images/List Review/dialog/cv.png
-    - images/List Review/dialog/Delete.png
-    - images/List Review/dialog/Detail.png
-    - images/List Review/dialog/export.png
-    - images/List Review/dialog/Next sample.png
-    - images/List Review/dialog/Verify.png
+  - images/List Review/dialog/Conn..png
+  - images/List Review/dialog/cv.png
+  - images/List Review/dialog/Delete.png
+  - images/List Review/dialog/Detail.png
+  - images/List Review/dialog/export.png
+  - images/List Review/dialog/Next sample.png
+  - images/List Review/dialog/Verify.png
   grouping: list_review_dialogs
-
 page:
   id: list_review_dialogs
-  output: lib/generated/list_review_dialogs.dart
-
+  output: lib/src/features/list_review/list_review_dialogs.dart
 states:
   prompt_not_connected:
     source:
       image: images/List Review/dialog/Conn..png
     body:
       sections:
-        - type: info_bar
-          id: prompt_not_connected
-          title: Prompt
-          items:
-            - The net is not connected
+      - type: info_bar
+        id: prompt_not_connected
+        title: Prompt
+        items:
+        - The net is not connected
     actions:
       bottom:
         align: center
         items:
-          - {text: OK, variant: primary, disabled: false}
+        - text: OK
+          variant: primary
+          disabled: false
   prompt_no_data_detail:
     source:
       image: images/List Review/dialog/Detail.png
     body:
       sections:
-        - type: info_bar
-          id: prompt_no_data_detail
-          items:
-            - No data is selected
+      - type: info_bar
+        id: prompt_no_data_detail
+        items:
+        - No data is selected
     actions:
       bottom:
         align: center
         items:
-          - {text: OK, variant: primary, disabled: false}
+        - text: OK
+          variant: primary
+          disabled: false
   prompt_no_data_verify:
     source:
       image: images/List Review/dialog/Verify.png
     body:
       sections:
-        - type: info_bar
-          id: prompt_no_data_verify
-          title: Prompt
-          items:
-            - No data is selected
+      - type: info_bar
+        id: prompt_no_data_verify
+        title: Prompt
+        items:
+        - No data is selected
     actions:
       bottom:
         align: center
         items:
-          - {text: OK, variant: primary, disabled: false}
+        - text: OK
+          variant: primary
+          disabled: false
   prompt_no_data_cv:
     source:
       image: images/List Review/dialog/cv.png
     body:
       sections:
-        - type: info_bar
-          id: prompt_no_data_cv
-          title: Prompt
-          items:
-            - No data is selected
+      - type: info_bar
+        id: prompt_no_data_cv
+        title: Prompt
+        items:
+        - No data is selected
     actions:
       bottom:
         align: center
         items:
-          - {text: OK, variant: primary, disabled: false}
+        - text: OK
+          variant: primary
+          disabled: false
   delete_dialog:
     source:
       image: images/List Review/dialog/Delete.png
     body:
       sections:
-        - type: info_bar
-          id: delete_title
-          title: Delete
-          items:
-            - Select a record
-            - All data
+      - type: info_bar
+        id: delete_title
+        title: Delete
+        items:
+        - Select a record
+        - All data
     actions:
       bottom:
         align: center
         items:
-          - {text: OK, variant: primary, disabled: false}
-          - {text: Cancel, variant: primary, disabled: false}
+        - text: OK
+          variant: primary
+          disabled: false
+        - text: Cancel
+          variant: primary
+          disabled: false
   export_dialog:
     source:
       image: images/List Review/dialog/export.png
     body:
       sections:
-        - type: form_grid
-          id: export_dialog
-          columns: 2
-          rows:
-            - [export_directory, browse]
-            - [all_records, export_inf]
-            - [select_record, blank1]
-            - [specify_date, date_range]
-          fields:
-            export_directory: {label: Export directory, value: 'C:\Users\lord\Desktop\Hemaray\Hemaray_History\202603241', control: readonly}
-            browse: {label: "", value: '...', control: readonly}
-            all_records: {label: Export mode, value: All records, control: readonly}
-            export_inf: {label: "", value: Export Inf data, control: readonly}
-            select_record: {label: "", value: Select a record, control: readonly}
-            blank1: {label: "", value: "", control: readonly}
-            specify_date: {label: "", value: Specify a date, control: readonly}
-            date_range: {label: "", value: '2026-03-24 --- 2026-03-24', control: readonly}
+      - type: form_grid
+        id: export_dialog
+        columns: 2
+        rows:
+        - - export_directory
+          - browse
+        - - all_records
+          - export_inf
+        - - select_record
+          - blank1
+        - - specify_date
+          - date_range
+        fields:
+          export_directory:
+            label: Export directory
+            value: C:\Users\lord\Desktop\Hemaray\Hemaray_History\202603241
+            control: readonly
+          browse:
+            label: ''
+            value: '...'
+            control: readonly
+          all_records:
+            label: Export mode
+            value: All records
+            control: readonly
+          export_inf:
+            label: ''
+            value: Export Inf data
+            control: readonly
+          select_record:
+            label: ''
+            value: Select a record
+            control: readonly
+          blank1:
+            label: ''
+            value: ''
+            control: readonly
+          specify_date:
+            label: ''
+            value: Specify a date
+            control: readonly
+          date_range:
+            label: ''
+            value: 2026-03-24 --- 2026-03-24
+            control: readonly
     actions:
       bottom:
         align: center
         items:
-          - {text: OK, variant: primary, disabled: false}
-          - {text: Cancel, variant: primary, disabled: false}
+        - text: OK
+          variant: primary
+          disabled: false
+        - text: Cancel
+          variant: primary
+          disabled: false
   next_sample_dialog:
     source:
       image: images/List Review/dialog/Next sample.png
     body:
       sections:
-        - type: form_grid
-          id: next_sample_form
-          columns: 4
-          rows:
-            - [sample_no, medical_record_no, gender, birth_date]
-            - [name, age, patient_type, reference_groups]
-            - [department, bed_no, submitter, charge_type]
-            - [clinical_diagnosis, clinical_diagnosis_value, blank1, blank2]
-            - [remarks, remarks_value, blank3, blank4]
-          fields:
-            sample_no: {label: Sample No., value: "", control: readonly}
-            medical_record_no: {label: Medical record No., value: "", control: readonly}
-            gender: {label: Gender, value: Man, control: select}
-            birth_date: {label: Birth Date, value: 2026-03-24, control: select}
-            name: {label: Name, value: "", control: readonly}
-            age: {label: Age, value: year, control: select}
-            patient_type: {label: Patient type, value: Outpatient, control: select}
-            reference_groups: {label: Reference groups, value: General, control: select}
-            department: {label: Department, value: "", control: select}
-            bed_no: {label: Bed No., value: "", control: readonly}
-            submitter: {label: Submitter, value: "", control: select}
-            charge_type: {label: Charge Type, value: At own expense, control: select}
-            clinical_diagnosis: {label: Clinical diagnosis, value: "", control: select}
-            clinical_diagnosis_value: {label: "", value: "", control: readonly}
-            blank1: {label: "", value: "", control: readonly}
-            blank2: {label: "", value: "", control: readonly}
-            remarks: {label: Remarks, value: "", control: readonly}
-            remarks_value: {label: "", value: "", control: readonly}
-            blank3: {label: "", value: "", control: readonly}
-            blank4: {label: "", value: "", control: readonly}
+      - type: form_grid
+        id: next_sample_form
+        columns: 4
+        rows:
+        - - sample_no
+          - medical_record_no
+          - gender
+          - birth_date
+        - - name
+          - age
+          - patient_type
+          - reference_groups
+        - - department
+          - bed_no
+          - submitter
+          - charge_type
+        - - clinical_diagnosis
+          - clinical_diagnosis_value
+          - blank1
+          - blank2
+        - - remarks
+          - remarks_value
+          - blank3
+          - blank4
+        fields:
+          sample_no:
+            label: Sample No.
+            value: ''
+            control: readonly
+          medical_record_no:
+            label: Medical record No.
+            value: ''
+            control: readonly
+          gender:
+            label: Gender
+            value: Man
+            control: select
+          birth_date:
+            label: Birth Date
+            value: 2026-03-24
+            control: select
+          name:
+            label: Name
+            value: ''
+            control: readonly
+          age:
+            label: Age
+            value: year
+            control: select
+          patient_type:
+            label: Patient type
+            value: Outpatient
+            control: select
+          reference_groups:
+            label: Reference groups
+            value: General
+            control: select
+          department:
+            label: Department
+            value: ''
+            control: select
+          bed_no:
+            label: Bed No.
+            value: ''
+            control: readonly
+          submitter:
+            label: Submitter
+            value: ''
+            control: select
+          charge_type:
+            label: Charge Type
+            value: At own expense
+            control: select
+          clinical_diagnosis:
+            label: Clinical diagnosis
+            value: ''
+            control: select
+          clinical_diagnosis_value:
+            label: ''
+            value: ''
+            control: readonly
+          blank1:
+            label: ''
+            value: ''
+            control: readonly
+          blank2:
+            label: ''
+            value: ''
+            control: readonly
+          remarks:
+            label: Remarks
+            value: ''
+            control: readonly
+          remarks_value:
+            label: ''
+            value: ''
+            control: readonly
+          blank3:
+            label: ''
+            value: ''
+            control: readonly
+          blank4:
+            label: ''
+            value: ''
+            control: readonly
     actions:
       bottom:
         align: center
         items:
-          - {text: OK, variant: primary, disabled: false}
-          - {text: Cancel, variant: primary, disabled: false}
+        - text: OK
+          variant: primary
+          disabled: false
+        - text: Cancel
+          variant: primary
+          disabled: false

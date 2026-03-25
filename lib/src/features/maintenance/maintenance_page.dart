@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../generated/maintenance_generated_base.dart';
-import '../style/palette.dart';
+import 'maintenance_generated_base.dart';
+import '../../design_system/palette.dart';
 
 class MaintenancePage extends StatefulWidget {
   const MaintenancePage({super.key, this.selectedSideIndex = 0});

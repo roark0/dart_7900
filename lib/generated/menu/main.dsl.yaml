@@ -14,7 +14,7 @@ page:
   id: menu_overlay
   template: menu_overlay
   size: 800x600
-  output: lib/generated/menu_overlay.dart
+  output: lib/src/features/menu/menu_overlay.dart
 shell:
   top_nav:
     selected: Analysis

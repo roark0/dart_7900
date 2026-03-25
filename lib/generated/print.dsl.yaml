@@ -1,14 +1,11 @@
 extends: lib/generated/maintenance/daily.dsl.yaml
-
 source:
   images:
-    - images/Print.png
+  - images/Print.png
   grouping: print
-
 page:
   id: print
-  output: lib/generated/print.dart
-
+  output: lib/src/features/print/print.dart
 shell:
   top_nav:
     selected: Print

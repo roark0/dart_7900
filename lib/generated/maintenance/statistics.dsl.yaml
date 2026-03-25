@@ -1,76 +1,80 @@
 extends: lib/generated/templates/maintenance_shell_base.dsl.yaml
-
 source:
   images:
-    - images/Maintenance/Maintenance_4_1.png
+  - images/Maintenance/Maintenance_4_1.png
   grouping: statistics
-
 page:
   id: maintenance_statistics
-  output: lib/generated/maintenance_statistics.dart
-
+  output: lib/src/features/maintenance/maintenance_statistics.dart
 shell:
   side_nav:
     selected: Statistics
   status_bar:
     right: 2026-03-18 16:40:53
-
 body:
   sections:
-    - type: form_grid
-      id: statistics_grid
-      columns: 3
-      rows:
-        - [sample_testing_times, sample_testing_value, sample_testing_detail]
-        - [quality_control_testing_times, quality_control_value, quality_control_detail]
-        - [automatic_calibration_test_times, automatic_calibration_value, automatic_calibration_detail]
-        - [blank_testing_times, blank_testing_value, reset_action]
-      fields:
-        sample_testing_times:
-          label: Sample testing times
-          value: ""
-          control: readonly
-        sample_testing_value:
-          label: ""
-          value: "0"
-          control: readonly
-        sample_testing_detail:
-          label: ""
-          value: Details
-          control: readonly
-        quality_control_testing_times:
-          label: Quality control testing Times
-          value: ""
-          control: readonly
-        quality_control_value:
-          label: ""
-          value: "0"
-          control: readonly
-        quality_control_detail:
-          label: ""
-          value: Details
-          control: readonly
-        automatic_calibration_test_times:
-          label: Automatic calibration Test times
-          value: ""
-          control: readonly
-        automatic_calibration_value:
-          label: ""
-          value: "0"
-          control: readonly
-        automatic_calibration_detail:
-          label: ""
-          value: Details
-          control: readonly
-        blank_testing_times:
-          label: Blank testing times
-          value: ""
-          control: readonly
-        blank_testing_value:
-          label: ""
-          value: "0"
-          control: readonly
-        reset_action:
-          label: ""
-          value: Reset
-          control: readonly
+  - type: form_grid
+    id: statistics_grid
+    columns: 3
+    rows:
+    - - sample_testing_times
+      - sample_testing_value
+      - sample_testing_detail
+    - - quality_control_testing_times
+      - quality_control_value
+      - quality_control_detail
+    - - automatic_calibration_test_times
+      - automatic_calibration_value
+      - automatic_calibration_detail
+    - - blank_testing_times
+      - blank_testing_value
+      - reset_action
+    fields:
+      sample_testing_times:
+        label: Sample testing times
+        value: ''
+        control: readonly
+      sample_testing_value:
+        label: ''
+        value: '0'
+        control: readonly
+      sample_testing_detail:
+        label: ''
+        value: Details
+        control: readonly
+      quality_control_testing_times:
+        label: Quality control testing Times
+        value: ''
+        control: readonly
+      quality_control_value:
+        label: ''
+        value: '0'
+        control: readonly
+      quality_control_detail:
+        label: ''
+        value: Details
+        control: readonly
+      automatic_calibration_test_times:
+        label: Automatic calibration Test times
+        value: ''
+        control: readonly
+      automatic_calibration_value:
+        label: ''
+        value: '0'
+        control: readonly
+      automatic_calibration_detail:
+        label: ''
+        value: Details
+        control: readonly
+      blank_testing_times:
+        label: Blank testing times
+        value: ''
+        control: readonly
+      blank_testing_value:
+        label: ''
+        value: '0'
+        control: readonly
+      reset_action:
+        label: ''
+        value: Reset
+        control: readonly

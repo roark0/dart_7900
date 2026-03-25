@@ -21,12 +21,36 @@ class SideNavItem {
 }
 
 const List<TopNavItem> topNavItems = <TopNavItem>[
-  TopNavItem(module: TopModule.analysis, label: 'Analysis', icon: Icons.assessment_outlined),
-  TopNavItem(module: TopModule.listReview, label: 'List Review', icon: Icons.bar_chart),
-  TopNavItem(module: TopModule.ljQc, label: 'L-J QC', icon: Icons.balance_outlined),
-  TopNavItem(module: TopModule.maintenance, label: 'Maintenance', icon: Icons.build_outlined),
-  TopNavItem(module: TopModule.addDiluent, label: 'Add Diluent', icon: Icons.water_drop_outlined),
-  TopNavItem(module: TopModule.print, label: 'Print', icon: Icons.print_outlined),
+  TopNavItem(
+    module: TopModule.analysis,
+    label: 'Analysis',
+    icon: Icons.assessment_outlined,
+  ),
+  TopNavItem(
+    module: TopModule.listReview,
+    label: 'List Review',
+    icon: Icons.bar_chart,
+  ),
+  TopNavItem(
+    module: TopModule.ljQc,
+    label: 'L-J QC',
+    icon: Icons.balance_outlined,
+  ),
+  TopNavItem(
+    module: TopModule.maintenance,
+    label: 'Maintenance',
+    icon: Icons.build_outlined,
+  ),
+  TopNavItem(
+    module: TopModule.addDiluent,
+    label: 'Add Diluent',
+    icon: Icons.water_drop_outlined,
+  ),
+  TopNavItem(
+    module: TopModule.print,
+    label: 'Print',
+    icon: Icons.print_outlined,
+  ),
 ];
 
 const List<SideNavItem> maintenanceSideMenu = <SideNavItem>[

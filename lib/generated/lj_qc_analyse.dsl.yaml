@@ -2,109 +2,177 @@ page:
   id: lj_qc_analyse
   template: qc_analyse
   size: 800x600
-  output: lib/generated/lj_qc_analyse.dart
-
+  output: lib/src/features/lj_qc/lj_qc_analyse.dart
 theme:
   variant: analyzer_default
   tokens:
-    bg: "#C6D5E3"
-    topBar: "#2F6F9E"
-    sideBar: "#6E95BA"
-    panel: "#C2D3E2"
-    header: "#6F97BE"
-    text: "#000000"
-    textOnDark: "#FFFFFF"
-    accent: "#DCE8F2"
-    border: "#9CB2C5"
-
+    bg: '#C6D5E3'
+    topBar: '#2F6F9E'
+    sideBar: '#6E95BA'
+    panel: '#C2D3E2'
+    header: '#6F97BE'
+    text: '#000000'
+    textOnDark: '#FFFFFF'
+    accent: '#DCE8F2'
+    border: '#9CB2C5'
 shell:
   top_nav:
     selected: L-J QC
   side_nav:
     selected: L-J QC Analyse
     items:
-      - L-J QC Settings
-      - L-J QC Analyse
-      - L-J QC Graph
-      - L-J QC list
+    - L-J QC Settings
+    - L-J QC Analyse
+    - L-J QC Graph
+    - L-J QC list
   status_bar:
     left: Engineer
     center: LIS
     right: 2026-03-24 17:35:48
     indicator: green
-
 body:
   sections:
-    - type: form_grid
-      id: qc_meta
-      columns: 3
-      rows:
-        - [file_no, lot_no, qc_level]
-        - [file_name, mode, qc_no]
-      fields:
-        file_no:
-          label: FileNo.
-          value: "1"
-          control: select
-        lot_no:
-          label: LotNo.
-          value: ""
-          control: input
-        qc_level:
-          label: QC Level
-          value: ""
-          control: input
-        file_name:
-          label: FileName
-          value: ""
-          control: input
-        mode:
-          label: Mode
-          value: ""
-          control: input
-        qc_no:
-          label: QCNo.
-          value: ""
-          control: input
-
-    - type: triplet_table
-      id: qc_results
-      groups:
-        - [Item, Result, Unit]
-        - [Item, Result, Unit]
-        - [Item, Result, Unit]
-      rows:
-        - [WBC, "", "", RBC, "", "", PLT, "", ""]
-        - [Lym%, "", "", HGB, "", "", MPV, "", ""]
-        - [Mid%, "", "", HCT, "", "", PDW-CV, "", ""]
-        - [Gran%, "", "", MCV, "", "", PDW-SD, "", ""]
-        - [Lym#, "", "", MCH, "", "", PCT, "", ""]
-        - [Mid#, "", "", MCHC, "", "", P-LCR, "", ""]
-        - [Gran#, "", "", RDW-CV, "", "", P-LCC, "", ""]
-        - ["", "", "", RDW-SD, "", "", "", "", ""]
-      zebra: true
-      dense: true
-
-    - type: chart_row
-      id: histograms
-      items:
-        - title: WBC
-          kind: histogram
-          x_axis: "0 100 200 300 400 fL"
-          y_axis: true
-        - title: RBC
-          kind: histogram
-          x_axis: "0 50 100 150 200 250 fL"
-          y_axis: true
-        - title: PLT
-          kind: histogram
-          x_axis: "0 10 20 30 fL"
-          y_axis: true
-
+  - type: form_grid
+    id: qc_meta
+    columns: 3
+    rows:
+    - - file_no
+      - lot_no
+      - qc_level
+    - - file_name
+      - mode
+      - qc_no
+    fields:
+      file_no:
+        label: FileNo.
+        value: '1'
+        control: select
+      lot_no:
+        label: LotNo.
+        value: ''
+        control: input
+      qc_level:
+        label: QC Level
+        value: ''
+        control: input
+      file_name:
+        label: FileName
+        value: ''
+        control: input
+      mode:
+        label: Mode
+        value: ''
+        control: input
+      qc_no:
+        label: QCNo.
+        value: ''
+        control: input
+  - type: triplet_table
+    id: qc_results
+    groups:
+    - - Item
+      - Result
+      - Unit
+    - - Item
+      - Result
+      - Unit
+    - - Item
+      - Result
+      - Unit
+    rows:
+    - - WBC
+      - ''
+      - ''
+      - RBC
+      - ''
+      - ''
+      - PLT
+      - ''
+      - ''
+    - - Lym%
+      - ''
+      - ''
+      - HGB
+      - ''
+      - ''
+      - MPV
+      - ''
+      - ''
+    - - Mid%
+      - ''
+      - ''
+      - HCT
+      - ''
+      - ''
+      - PDW-CV
+      - ''
+      - ''
+    - - Gran%
+      - ''
+      - ''
+      - MCV
+      - ''
+      - ''
+      - PDW-SD
+      - ''
+      - ''
+    - - Lym#
+      - ''
+      - ''
+      - MCH
+      - ''
+      - ''
+      - PCT
+      - ''
+      - ''
+    - - Mid#
+      - ''
+      - ''
+      - MCHC
+      - ''
+      - ''
+      - P-LCR
+      - ''
+      - ''
+    - - Gran#
+      - ''
+      - ''
+      - RDW-CV
+      - ''
+      - ''
+      - P-LCC
+      - ''
+      - ''
+    - - ''
+      - ''
+      - ''
+      - RDW-SD
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    zebra: true
+    dense: true
+  - type: chart_row
+    id: histograms
+    items:
+    - title: WBC
+      kind: histogram
+      x_axis: 0 100 200 300 400 fL
+      y_axis: true
+    - title: RBC
+      kind: histogram
+      x_axis: 0 50 100 150 200 250 fL
+      y_axis: true
+    - title: PLT
+      kind: histogram
+      x_axis: 0 10 20 30 fL
+      y_axis: true
 actions:
   bottom:
     align: left
     items:
-      - text: Start test
-        variant: primary
-        disabled: false
+    - text: Start test
+      variant: primary
+      disabled: false

@@ -9,7 +9,7 @@ page:
   id: menu_qc
   template: qc_panel
   size: 800x600
-  output: lib/generated/menu_qc.dart
+  output: lib/src/features/menu/menu_qc.dart
 shell:
   top_nav:
     selected: Analysis

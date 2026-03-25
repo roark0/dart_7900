@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../style/palette.dart';
+import '../design_system/palette.dart';
 
 class SoftButton extends StatelessWidget {
   const SoftButton({

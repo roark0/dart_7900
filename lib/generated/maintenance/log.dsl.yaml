@@ -1,58 +1,57 @@
 extends: lib/generated/templates/maintenance_shell_base.dsl.yaml
-
 source:
   images:
-    - images/Maintenance/Maintenance_5_1.png
+  - images/Maintenance/Maintenance_5_1.png
   grouping: log
-
 page:
   id: maintenance_log
-  output: lib/generated/maintenance_log.dart
-
+  output: lib/src/features/maintenance/maintenance_log.dart
 shell:
   side_nav:
     selected: Log information
   status_bar:
     right: 2026-03-18 16:41:10
-
 body:
   sections:
-    - type: action_row
-      id: log_tabs
-      selected: Calibration records
-      items:
-        - text: Calibration records
-          variant: secondary
-          disabled: false
-        - text: Parameter modification
-          variant: secondary
-          disabled: false
-        - text: Fault information
-          variant: secondary
-          disabled: false
-        - text: Daily maintenance
-          variant: secondary
-          disabled: false
-        - text: Delete the operation
-          variant: secondary
-          disabled: false
-        - text: Other actions
-          variant: secondary
-          disabled: false
-    - type: matrix_table
-      id: log_table
-      groups:
-        - [No., Time, Event, User]
-      rows: []
-      zebra: true
-      dense: true
-    - type: action_row
-      id: log_actions
-      align: center
-      items:
-        - text: Export
-          variant: primary
-          disabled: false
-        - text: Delete
-          variant: primary
-          disabled: false
+  - type: action_row
+    id: log_tabs
+    selected: Calibration records
+    items:
+    - text: Calibration records
+      variant: secondary
+      disabled: false
+    - text: Parameter modification
+      variant: secondary
+      disabled: false
+    - text: Fault information
+      variant: secondary
+      disabled: false
+    - text: Daily maintenance
+      variant: secondary
+      disabled: false
+    - text: Delete the operation
+      variant: secondary
+      disabled: false
+    - text: Other actions
+      variant: secondary
+      disabled: false
+  - type: matrix_table
+    id: log_table
+    groups:
+    - - No.
+      - Time
+      - Event
+      - User
+    rows: []
+    zebra: true
+    dense: true
+  - type: action_row
+    id: log_actions
+    align: center
+    items:
+    - text: Export
+      variant: primary
+      disabled: false
+    - text: Delete
+      variant: primary
+      disabled: false

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../src/model/navigation.dart';
-import '../src/widgets/instrument_scaffold.dart';
+import '../../core/navigation.dart';
+import '../../core/instrument_scaffold.dart';
 
 const _MaintenanceDslTheme _maintenanceTheme = _MaintenanceDslTheme();
 

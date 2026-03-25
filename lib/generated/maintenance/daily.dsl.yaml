@@ -10,7 +10,7 @@ source:
   grouping: daily
 page:
   id: maintenance_daily
-  output: lib/generated/maintenance_daily.dart
+  output: lib/src/features/maintenance/maintenance_daily.dart
 shell:
   side_nav:
     selected: Daily maintenance

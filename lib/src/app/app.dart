@@ -2,15 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'model/navigation.dart';
-import 'screens/analysis_page.dart';
-import 'screens/lj_qc_page.dart';
-import 'screens/list_review_page.dart';
-import 'screens/maintenance_page.dart';
-import 'screens/print_page.dart';
+import '../core/navigation.dart';
+import '../features/analysis/analysis_page.dart';
+import '../features/lj_qc/lj_qc_page.dart';
+import '../features/list_review/list_review_page.dart';
+import '../features/maintenance/maintenance_page.dart';
+import '../features/print/print_page.dart';
 import 'startup_config.dart';
-import 'style/palette.dart';
-import 'widgets/instrument_scaffold.dart';
+import '../design_system/palette.dart';
+import '../core/instrument_scaffold.dart';
 
 TopModule _resolveInitialModule() {
   switch (getStartModule()) {

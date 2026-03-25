@@ -8,7 +8,7 @@ page:
   id: menu_calibration
   template: calibration_panel
   size: 800x600
-  output: lib/generated/menu_calibration.dart
+  output: lib/src/features/menu/menu_calibration.dart
 shell:
   top_nav:
     selected: Analysis

@@ -1,72 +1,72 @@
 extends: lib/generated/templates/maintenance_shell_base.dsl.yaml
-
 source:
   images:
-    - images/Maintenance/Maintenance_2_1.png
+  - images/Maintenance/Maintenance_2_1.png
   grouping: data
-
 page:
   id: maintenance_data
-  output: lib/generated/maintenance_data.dart
-
+  output: lib/src/features/maintenance/maintenance_data.dart
 shell:
   side_nav:
     selected: Data maintenance
   status_bar:
     right: 2026-03-18 16:40:19
-
 body:
   sections:
-    - type: action_row
-      id: system_data_actions
-      title: System data
-      align: center
-      items:
-        - text: Backup
-          variant: primary
-          disabled: false
-        - text: Recover
-          variant: primary
-          disabled: false
-    - type: action_row
-      id: config_parameter_actions
-      title: Configure parameters
-      align: center
-      items:
-        - text: Export
-          variant: primary
-          disabled: false
-        - text: Import
-          variant: primary
-          disabled: false
-    - type: form_grid
-      id: data_cleanup
-      columns: 3
-      rows:
-        - [list_review_option, quality_control_option, delete_action]
-        - [log_option, all_data_option, blank]
-      fields:
-        list_review_option:
-          label: Data cleanup
-          value: List review
-          control: readonly
-        quality_control_option:
-          label: ""
-          value: Quality control data
-          control: readonly
-        delete_action:
-          label: ""
-          value: Delete
-          control: readonly
-        log_option:
-          label: ""
-          value: Log
-          control: readonly
-        all_data_option:
-          label: ""
-          value: All data
-          control: readonly
-        blank:
-          label: ""
-          value: ""
-          control: readonly
+  - type: action_row
+    id: system_data_actions
+    title: System data
+    align: center
+    items:
+    - text: Backup
+      variant: primary
+      disabled: false
+    - text: Recover
+      variant: primary
+      disabled: false
+  - type: action_row
+    id: config_parameter_actions
+    title: Configure parameters
+    align: center
+    items:
+    - text: Export
+      variant: primary
+      disabled: false
+    - text: Import
+      variant: primary
+      disabled: false
+  - type: form_grid
+    id: data_cleanup
+    columns: 3
+    rows:
+    - - list_review_option
+      - quality_control_option
+      - delete_action
+    - - log_option
+      - all_data_option
+      - blank
+    fields:
+      list_review_option:
+        label: Data cleanup
+        value: List review
+        control: readonly
+      quality_control_option:
+        label: ''
+        value: Quality control data
+        control: readonly
+      delete_action:
+        label: ''
+        value: Delete
+        control: readonly
+      log_option:
+        label: ''
+        value: Log
+        control: readonly
+      all_data_option:
+        label: ''
+        value: All data
+        control: readonly
+      blank:
+        label: ''
+        value: ''
+        control: readonly

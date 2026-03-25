@@ -1,7 +1,7 @@
 extends: lib/generated/templates/maintenance_shell_base.dsl.yaml
 page:
   id: maintenance_engineering
-  output: lib/generated/maintenance_engineering.dart
+  output: lib/src/features/maintenance/maintenance_engineering.dart
 shell:
   side_nav:
     selected: Engineering commissioning

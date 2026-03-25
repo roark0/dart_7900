@@ -5,7 +5,7 @@ source:
   grouping: menu_calibration_dialogs
 page:
   id: menu_calibration_dialogs
-  output: lib/generated/menu_calibration_dialogs.dart
+  output: lib/src/features/menu/menu_calibration_dialogs.dart
 states:
   wbc_factor:
     source:

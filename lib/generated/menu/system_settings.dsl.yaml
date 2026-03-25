@@ -20,7 +20,7 @@ page:
   id: menu_system_settings
   template: system_settings_panel
   size: 800x600
-  output: lib/generated/menu_system_settings.dart
+  output: lib/src/features/menu/menu_system_settings.dart
 shell:
   top_nav:
     selected: Analysis

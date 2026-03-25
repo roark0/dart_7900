@@ -10,7 +10,7 @@ page:
   id: lj_qc_main
   template: qc_panel
   size: 800x600
-  output: lib/generated/lj_qc_main.dart
+  output: lib/src/features/lj_qc/lj_qc_main.dart
 shell:
   top_nav:
     selected: L-J QC

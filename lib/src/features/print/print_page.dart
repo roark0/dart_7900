@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/common.dart';
+import '../../core/common_widgets.dart';
 
 class PrintPage extends StatelessWidget {
   const PrintPage({super.key});
@@ -12,7 +12,10 @@ class PrintPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text('Print', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+          const Text(
+            'Print',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          ),
           const SizedBox(height: 12),
           Expanded(
             child: SectionBox(
