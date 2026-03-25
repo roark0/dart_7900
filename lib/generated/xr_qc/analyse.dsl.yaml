@@ -4,24 +4,27 @@ shell:
   side_nav:
     selected: X-R QC Analyse
   status_bar:
-    right: 2026-03-25 08:15:00
+    right: '2026-03-25 12:42:55'
 body:
   sections:
   - id: xr_qc_side_state
     selected: X-R QC Analyse
   - type: form_grid
     id: xr_qc_analyse_header
-    columns: 3
+    columns: 6
     rows:
     - - file_no
       - lot_no
-      - qc_level
-    - - exp_date
-      - file_name
-      - mode
-    - - qc_no
+      - exp_date
       - blank1
+      - cancel
+      - start_test
+    - - qc_level
+      - mode
       - blank2
+      - blank3
+      - blank4
+      - blank5
     fields:
       file_no:
         label: FileNo.
@@ -31,127 +34,121 @@ body:
         label: LotNo.
         value: ''
         control: readonly
-      qc_level:
-        label: QC Level
-        value: ''
-        control: readonly
       exp_date:
-        label: Exp.Date
-        value: ''
-        control: readonly
-      file_name:
-        label: FileName
-        value: ''
-        control: readonly
-      mode:
-        label: Mode
-        value: ''
-        control: readonly
-      qc_no:
-        label: QCNo.
+        label: Exp.date
         value: ''
         control: readonly
       blank1:
         label: ''
         value: ''
         control: readonly
+      cancel:
+        label: ''
+        value: Cancel
+        control: readonly
+      start_test:
+        label: ''
+        value: Start test
+        control: readonly
+      qc_level:
+        label: QC Level
+        value: ''
+        control: readonly
+      mode:
+        label: Mode
+        value: ''
+        control: readonly
       blank2:
         label: ''
         value: ''
         control: readonly
-  - type: triplet_table
+      blank3:
+        label: ''
+        value: ''
+        control: readonly
+      blank4:
+        label: ''
+        value: ''
+        control: readonly
+      blank5:
+        label: ''
+        value: ''
+        control: readonly
+  - type: matrix_table
     id: xr_qc_analyse_table
     groups:
     - - Item
-      - Result
-      - Unit
-    - - Item
-      - Result
-      - Unit
-    - - Item
-      - Result
+      - First Test
+      - Second Test
+      - Mean
+      - CV
       - Unit
     rows:
     - - WBC
       - ''
       - ''
-      - RBC
       - ''
       - ''
-      - PLT
-      - ''
-      - ''
+      - 10^9/L
     - - Lym%
       - ''
       - ''
-      - HGB
       - ''
       - ''
-      - MPV
-      - ''
-      - ''
+      - '%'
     - - Mid%
       - ''
       - ''
-      - HCT
       - ''
       - ''
-      - PDW-CV
-      - ''
-      - ''
+      - '%'
     - - Gran%
       - ''
       - ''
-      - MCV
       - ''
       - ''
-      - PDW-SD
-      - ''
-      - ''
+      - '%'
     - - Lym#
       - ''
       - ''
-      - MCH
       - ''
       - ''
-      - PCT
-      - ''
-      - ''
+      - 10^9/L
     - - Mid#
       - ''
       - ''
-      - MCHC
       - ''
       - ''
-      - P-LCR
-      - ''
-      - ''
+      - 10^9/L
     - - Gran#
       - ''
       - ''
-      - RDW-CV
       - ''
       - ''
-      - P-LCC
-      - ''
-      - ''
-    - - ''
-      - ''
-      - ''
-      - RDW-SD
+      - 10^9/L
+    - - RBC
       - ''
       - ''
       - ''
       - ''
+      - 10^12/L
+    - - HGB
       - ''
+      - ''
+      - ''
+      - ''
+      - g/L
+    - - HCT
+      - ''
+      - ''
+      - ''
+      - ''
+      - '%'
+    - - MCV
+      - ''
+      - ''
+      - ''
+      - ''
+      - fL
     zebra: true
     dense: true
-actions:
-  bottom:
-    align: start
-    items:
-    - text: Start test
-      variant: primary
-      disabled: false
-      target:
-        action: start_test

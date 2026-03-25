@@ -12,11 +12,11 @@ page:
   output: lib/src/features/xb_qc/xb_qc_main.dart
 shell:
   top_nav:
-    selected: L-J QC
+    selected: Menu
   side_nav:
-    selected: X-B QC Settings
+    selected: X-B QC Setting
     items:
-    - text: X-B QC Settings
+    - text: X-B QC Setting
       target:
         page: xb_qc_main
         state: settings
@@ -37,9 +37,9 @@ body:
   sections:
   - type: action_row
     id: xb_qc_side_state
-    selected: X-B QC Settings
+    selected: X-B QC Setting
     items:
-    - text: X-B QC Settings
+    - text: X-B QC Setting
       variant: secondary
       disabled: false
       target:

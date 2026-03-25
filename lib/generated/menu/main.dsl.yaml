@@ -15,16 +15,80 @@ page:
   template: menu_overlay
   size: 800x600
   output: lib/src/features/menu/menu_overlay.dart
+theme:
+  variant: analyzer_menu
+  tokens:
+    bg: '#C6D5E3'
+    topBar: '#2F6F9E'
+    sideBar: '#5E89B0'
+    panel: '#C8D6E4'
+    header: '#6F97BE'
+    text: '#000000'
+    textOnDark: '#FFFFFF'
+    accent: '#DCE8F2'
+    border: '#8FAECC'
+    overlayShadow: '#1E3A57'
+  typography:
+    nav:
+      size: 14
+      weight: 600
+    sideNav:
+      size: 13
+      weight: 500
+    sectionTitle:
+      size: 14
+      weight: 500
+    button:
+      size: 13
+      weight: 500
+    tableHeader:
+      size: 12
+      weight: 500
+    tableCell:
+      size: 12
+      weight: 400
+    status:
+      size: 11
+      weight: 500
+    overlayLabel:
+      size: 13
+      weight: 600
+  metrics:
+    ratios:
+      topBar: 12
+      content: 82
+      bottomBar: 6
+      menuWidth: 28
+      hostVisibleWidth: 72
+    sizes:
+      menuButtonHeight: 44
+      submenuButtonHeight: 38
+      submenuIndent: 18
+      cornerRadius: 12
+      borderWidth: 1
+presentation:
+  type: overlay
+  modal: false
+  keep_host_visible: true
+  anchor: left-top
+  coverage: partial
+  overlay_width_ratio: 0.42
+  host_page_visible_ratio: 0.58
+  z_index: 10
 shell:
   top_nav:
-    selected: Analysis
+    selected: Menu
   status_bar:
-    right: 2026-03-25 08:04:53
+    left: Engineer
+    center: LIS
+    right: '2026-03-25 08:04:53'
+    indicator: green
 body:
   sections:
-  - type: action_row
+  - type: cascade_menu
     id: main_menu
     selected: Analysis
+    expanded: ''
     items:
     - text: Analysis
       variant: secondary
@@ -41,10 +105,22 @@ body:
     - text: QC
       variant: secondary
       disabled: false
-      target:
-        page: lj_qc_main
-        file: lib/generated/lj_qc/main.dsl.yaml
-        state: settings
+      children:
+      - text: L-J QC
+        target:
+          page: lj_qc_main
+          file: lib/generated/lj_qc/main.dsl.yaml
+          state: settings
+      - text: X-B QC
+        target:
+          page: xb_qc_main
+          file: lib/generated/xb_qc/main.dsl.yaml
+          state: settings
+      - text: X-R QC
+        target:
+          page: xr_qc_main
+          file: lib/generated/xr_qc/main.dsl.yaml
+          state: settings
     - text: Calibration
       variant: secondary
       disabled: false
@@ -61,204 +137,175 @@ body:
     - text: System settings
       variant: secondary
       disabled: false
-      target:
-        page: menu_system_settings
-        file: lib/generated/setings/main.dsl.yaml
-        state: reference_range
+      children:
+      - text: Reference range
+        target:
+          page: menu_system_settings
+          file: lib/generated/setings/main.dsl.yaml
+          state: reference_range
+      - text: Unit
+        target:
+          page: menu_system_settings
+          file: lib/generated/setings/main.dsl.yaml
+          state: unit
+      - text: Print
+        target:
+          page: menu_system_settings
+          file: lib/generated/setings/main.dsl.yaml
+          state: print
     - text: Shutdown
       variant: secondary
       disabled: false
       target:
         action: shutdown
-  - type: form_grid
-    id: analysis_summary_header
-    columns: 3
-    rows:
-    - - name
-      - mode
-      - age
-    fields:
-      name:
-        label: Name
-        value: ''
-        control: readonly
-      mode:
-        label: Mode
-        value: Whole blood
-        control: select
-      age:
-        label: Age
-        value: ''
-        control: readonly
-  - type: triplet_table
-    id: analysis_summary_table
-    groups:
-    - - Result
-      - Unit
-      - ''
-    - - Result
-      - Unit
-      - ''
-    - - Result
-      - Unit
-      - WBC Flag
-    rows:
-    - - PLT
-      - ''
-      - ''
-      - PLT
-      - ''
-      - ''
-      - WBC Flag
-      - ''
-      - ''
-    - - P-LCR
-      - ''
-      - ''
-      - P-LCC
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-    - - PDW-CV
-      - ''
-      - ''
-      - PDW-SD
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-    - - PCT
-      - ''
-      - ''
-      - MPV
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-    zebra: true
-    dense: true
-  - type: chart_row
-    id: analysis_summary_charts
-    items:
-    - title: RBC
-      kind: histogram
-      x_axis: ''
-      y_axis: false
-    - title: PLT
-      kind: histogram
-      x_axis: ''
-      y_axis: false
-  - type: action_row
-    id: analysis_actions
-    align: center
-    items:
-    - text: Next sample
-      variant: primary
-      disabled: false
-      target:
-        action: next_sample
-    - text: Mode
-      variant: primary
-      disabled: false
-      target:
-        action: change_mode
-    - text: Retest
-      variant: primary
-      disabled: false
-      target:
-        action: retest
-    - text: Verify
-      variant: primary
-      disabled: false
-      target:
-        action: verify
-    - text: Start test
-      variant: primary
-      disabled: false
-      target:
-        action: start_test
 states:
   menu_open:
     source:
       image: images/Menu/Menu_0.png
     shell:
       status_bar:
-        right: 2026-03-25 08:04:53
+        right: '2026-03-25 08:04:53'
+    context:
+      host_page: unknown
+    presentation:
+      expanded_item: ''
+      selected_child: ''
     body:
       sections:
       - id: main_menu
         selected: Analysis
+        expanded: ''
   analysis:
     source:
       image: images/Menu/Menu_1.png
     shell:
       status_bar:
-        right: 2026-03-25 08:10:13
+        right: '2026-03-25 08:10:13'
+    context:
+      host_page: analysis_main
+    presentation:
+      expanded_item: ''
+      selected_child: ''
     body:
       sections:
       - id: main_menu
         selected: Analysis
+        expanded: ''
   list_review:
     source:
       image: images/Menu/Menu_2.png
     shell:
       status_bar:
-        right: 2026-03-25 08:10:54
+        right: '2026-03-25 08:10:54'
+    context:
+      host_page: list_review_main
+    presentation:
+      expanded_item: ''
+      selected_child: ''
     body:
       sections:
       - id: main_menu
         selected: List Review
-  qc:
+        expanded: ''
+  lj_qc:
     source:
       image: images/Menu/Menu_3.png
     shell:
       status_bar:
-        right: 2026-03-25 08:11:23
+        right: '2026-03-25 08:11:23'
+    context:
+      host_page: lj_qc_main
+    presentation:
+      expanded_item: QC
+      selected_child: L-J QC
     body:
       sections:
       - id: main_menu
         selected: QC
+        expanded: QC
+  xb_qc:
+    context:
+      host_page: xb_qc_main
+    presentation:
+      expanded_item: QC
+      selected_child: X-B QC
+    body:
+      sections:
+      - id: main_menu
+        selected: QC
+        expanded: QC
+  xr_qc:
+    context:
+      host_page: xr_qc_main
+    presentation:
+      expanded_item: QC
+      selected_child: X-R QC
+    body:
+      sections:
+      - id: main_menu
+        selected: QC
+        expanded: QC
   calibration:
     source:
       image: images/Menu/Menu_4.png
     shell:
       status_bar:
-        right: 2026-03-25 08:11:41
+        right: '2026-03-25 08:11:41'
+    context:
+      host_page: calibration_main
+    presentation:
+      expanded_item: ''
+      selected_child: ''
     body:
       sections:
       - id: main_menu
         selected: Calibration
+        expanded: ''
   service:
     source:
       image: images/Menu/Menu_5.png
     shell:
       status_bar:
-        right: 2026-03-25 08:12:05
+        right: '2026-03-25 08:12:05'
+    context:
+      host_page: maintenance_daily
+    presentation:
+      expanded_item: ''
+      selected_child: ''
     body:
       sections:
       - id: main_menu
         selected: Service
+        expanded: ''
   system_settings:
     source:
       image: images/Menu/Menu_6.png
     shell:
       status_bar:
-        right: 2026-03-25 08:12:34
+        right: '2026-03-25 08:12:34'
+    context:
+      host_page: menu_system_settings
+    presentation:
+      expanded_item: System settings
+      selected_child: Reference range
     body:
       sections:
       - id: main_menu
         selected: System settings
+        expanded: System settings
   shutdown:
     source:
       image: images/Menu/Menu_7.png
     shell:
       status_bar:
-        right: 2026-03-25 08:12:54
+        right: '2026-03-25 08:12:54'
+    context:
+      host_page: shutdown
+    presentation:
+      expanded_item: ''
+      selected_child: ''
     body:
       sections:
       - id: main_menu
         selected: Shutdown
+        expanded: ''

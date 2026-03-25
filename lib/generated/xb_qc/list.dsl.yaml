@@ -1,49 +1,14 @@
 source:
-  image: images/XB_QC/XB_QC_2.png
+  image: images/XB_QC/XB_QC_3.png
 shell:
   side_nav:
     selected: X-B QC List
   status_bar:
-    right: '2026-03-25 08:14:26'
+    right: '2026-03-25 12:42:21'
 body:
   sections:
   - id: xb_qc_side_state
     selected: X-B QC List
-  - type: form_grid
-    id: xb_qc_list_header
-    columns: 3
-    rows:
-    - - file_no
-      - lot_no
-      - mode
-    - - level
-      - exp_date
-      - blank
-    fields:
-      file_no:
-        label: FileNo.
-        value: '1'
-        control: select
-      lot_no:
-        label: LotNo.
-        value: ''
-        control: readonly
-      mode:
-        label: Mode
-        value: ''
-        control: readonly
-      level:
-        label: level
-        value: ''
-        control: readonly
-      exp_date:
-        label: Exp.date
-        value: ''
-        control: readonly
-      blank:
-        label: ''
-        value: ''
-        control: readonly
   - type: matrix_table
     id: xb_qc_list_table
     groups:
@@ -69,75 +34,38 @@ body:
       - ''
       - ''
       - ''
-    - - WBC
+    - - MCHC
+      - '344.00'
+      - '30.00'
       - ''
       - ''
       - ''
       - ''
-      - ''
-      - ''
-    - - Lym%
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-    - - Mid%
+    - - MCH
+      - '29.00'
+      - '2.00'
       - ''
       - ''
       - ''
       - ''
-      - ''
-      - ''
-    - - Gran%
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-    - - Lym#
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-    - - Mid#
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-    - - Gran#
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-    - - RBC
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-    - - HGB
-      - ''
-      - ''
+    - - MCV
+      - '84.00'
+      - '6.00'
       - ''
       - ''
       - ''
       - ''
     zebra: true
-    dense: true
+    dense: false
 actions:
   bottom:
     align: center
     items:
+    - text: Detailed data
+      variant: muted
+      disabled: true
+      target:
+        action: detail
     - text: Delete
       variant: muted
       disabled: true

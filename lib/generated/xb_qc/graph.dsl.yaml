@@ -1,54 +1,45 @@
 source:
-  image: images/XB_QC/XB_QC_3.png
+  image: images/XB_QC/XB_QC_2.png
 shell:
   side_nav:
     selected: X-B QC Graph
   status_bar:
-    right: 2026-03-25 08:14:26
+    right: '2026-03-25 12:42:04'
 body:
   sections:
   - id: xb_qc_side_state
     selected: X-B QC Graph
   - type: form_grid
     id: xb_qc_graph_header
-    columns: 3
+    columns: 4
     rows:
-    - - file_no
-      - lot_no
-      - exp_date
-    - - mode
-      - time
-      - location_total
+    - - location
+      - set_by
+      - date_created
+      - blank
     fields:
-      file_no:
-        label: FileNo.
-        value: '1'
-        control: select
-      lot_no:
-        label: LotNo.
+      location:
+        label: Location/
+        value: 0/0
+        control: readonly
+      set_by:
+        label: Set by
+        value: Admin
+        control: readonly
+      date_created:
+        label: Date Created
         value: ''
         control: readonly
-      exp_date:
-        label: Exp.date
-        value: ''
-        control: readonly
-      mode:
-        label: Mode
-        value: ''
-        control: readonly
-      time:
-        label: Time
-        value: ''
-        control: readonly
-      location_total:
-        label: Location/Total
+      blank:
+        label: ''
         value: ''
         control: readonly
   - type: stats_panel
     id: xb_qc_graph_panels
     items:
-    - WBC
-    - RBC
+    - MCHC
+    - MCH
+    - MCV
     - Mean
     - SD
     - CV%
@@ -61,16 +52,6 @@ actions:
       disabled: false
       target:
         action: previous_item
-    - text: ItemSort
-      variant: muted
-      disabled: true
-      target:
-        action: item_sort
-    - text: Delete
-      variant: muted
-      disabled: true
-      target:
-        action: delete
     - text: →
       variant: primary
       disabled: false

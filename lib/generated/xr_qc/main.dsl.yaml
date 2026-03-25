@@ -13,11 +13,11 @@ page:
   output: lib/src/features/xr_qc/xr_qc_main.dart
 shell:
   top_nav:
-    selected: L-J QC
+    selected: Menu
   side_nav:
-    selected: X-R QC Settings
+    selected: X-R QC Setting
     items:
-    - text: X-R QC Settings
+    - text: X-R QC Setting
       target:
         page: xr_qc_main
         state: settings
@@ -29,22 +29,22 @@ shell:
       target:
         page: xr_qc_main
         state: graph
-    - text: X-R QC list
+    - text: X-R QC List
       target:
         page: xr_qc_main
         state: list
   status_bar:
     left: Engineer
     center: LIS
-    right: 2026-03-25 08:15:00
+    right: '2026-03-25 12:42:37'
     indicator: green
 body:
   sections:
   - type: action_row
     id: xr_qc_side_state
-    selected: X-R QC Settings
+    selected: X-R QC Setting
     items:
-    - text: X-R QC Settings
+    - text: X-R QC Setting
       variant: secondary
       disabled: false
       target:
@@ -62,7 +62,7 @@ body:
       target:
         page: xr_qc_main
         state: graph
-    - text: X-R QC list
+    - text: X-R QC List
       variant: secondary
       disabled: false
       target:

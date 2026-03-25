@@ -2,23 +2,25 @@ source:
   image: images/XR_QC/XR_QC_4.png
 shell:
   side_nav:
-    selected: X-R QC list
+    selected: X-R QC List
   status_bar:
-    right: 2026-03-25 08:15:00
+    right: '2026-03-25 12:43:44'
 body:
   sections:
   - id: xr_qc_side_state
-    selected: X-R QC list
+    selected: X-R QC List
   - type: form_grid
     id: xr_qc_list_header
-    columns: 3
+    columns: 4
     rows:
     - - file_no
       - lot_no
       - mode
-    - - level
+      - blank1
+    - - qc_level
       - exp_date
-      - blank
+      - blank2
+      - blank3
     fields:
       file_no:
         label: FileNo.
@@ -32,15 +34,23 @@ body:
         label: Mode
         value: ''
         control: readonly
-      level:
-        label: level
+      blank1:
+        label: ''
+        value: ''
+        control: readonly
+      qc_level:
+        label: QC Level
         value: ''
         control: readonly
       exp_date:
         label: Exp.date
         value: ''
         control: readonly
-      blank:
+      blank2:
+        label: ''
+        value: ''
+        control: readonly
+      blank3:
         label: ''
         value: ''
         control: readonly
@@ -48,8 +58,8 @@ body:
     id: xr_qc_list_table
     groups:
     - - No.
-      - Target
-      - Limit
+      - ''
+      - ''
       - ''
       - ''
       - ''

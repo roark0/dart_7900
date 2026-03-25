@@ -4,21 +4,23 @@ shell:
   side_nav:
     selected: X-R QC Graph
   status_bar:
-    right: 2026-03-25 08:15:00
+    right: '2026-03-25 12:43:26'
 body:
   sections:
   - id: xr_qc_side_state
     selected: X-R QC Graph
   - type: form_grid
     id: xr_qc_graph_header
-    columns: 3
+    columns: 4
     rows:
     - - file_no
       - lot_no
       - exp_date
+      - blank1
     - - mode
       - time
       - location_total
+      - blank2
     fields:
       file_no:
         label: FileNo.
@@ -30,6 +32,10 @@ body:
         control: readonly
       exp_date:
         label: Exp.date
+        value: ''
+        control: readonly
+      blank1:
+        label: ''
         value: ''
         control: readonly
       mode:
@@ -44,11 +50,16 @@ body:
         label: Location/Total
         value: ''
         control: readonly
+      blank2:
+        label: ''
+        value: ''
+        control: readonly
   - type: stats_panel
     id: xr_qc_graph_panels
     items:
-    - WBC
-    - RBC
+    - ItemName
+    - Graph-X
+    - Graph-R
     - Mean
     - SD
     - CV%

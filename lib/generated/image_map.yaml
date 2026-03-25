@@ -127,7 +127,7 @@ images:
     state: list_review
   images/Menu/Menu_3.png:
     dsl: lib/generated/menu/main.dsl.yaml
-    state: qc
+    state: lj_qc
   images/Menu/Menu_4.png:
     dsl: lib/generated/menu/main.dsl.yaml
     state: calibration
@@ -188,10 +188,10 @@ images:
     state: settings
   images/XB_QC/XB_QC_2.png:
     dsl: lib/generated/xb_qc/main.dsl.yaml
-    state: list
+    state: graph
   images/XB_QC/XB_QC_3.png:
     dsl: lib/generated/xb_qc/main.dsl.yaml
-    state: graph
+    state: list
   images/XR_QC/XR_QC_1.png:
     dsl: lib/generated/xr_qc/main.dsl.yaml
     state: settings

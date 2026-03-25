@@ -2,150 +2,58 @@ source:
   image: images/XR_QC/XR_QC_1.png
 shell:
   side_nav:
-    selected: X-R QC Settings
+    selected: X-R QC Setting
   status_bar:
-    right: 2026-03-25 08:15:00
+    right: '2026-03-25 12:42:37'
 body:
   sections:
   - id: xr_qc_side_state
-    selected: X-R QC Settings
+    selected: X-R QC Setting
   - type: form_grid
     id: xr_qc_settings_header
-    columns: 3
+    columns: 4
     rows:
     - - file_no
+      - qc_name
       - lot_no
       - exp_date
-    - - file_name
-      - qc_level
+    - - qc_level
       - mode
-    - - set_by
+      - set_by
       - date_created
-      - qc_no
     fields:
       file_no:
         label: FileNo.
         value: '1'
         control: select
+      qc_name:
+        label: QC Name
+        value: ''
+        control: readonly
       lot_no:
         label: LotNo.
         value: ''
         control: readonly
       exp_date:
-        label: Exp.Date
-        value: 2026-03-25
+        label: Exp.date
+        value: '2026-03-25'
         control: select
-      file_name:
-        label: FileName
-        value: ''
-        control: readonly
       qc_level:
         label: QC Level
-        value: M
+        value: H
         control: select
       mode:
         label: Mode
         value: Whole blood
         control: select
       set_by:
-        label: Set By
+        label: Set by
         value: Engineer
         control: readonly
       date_created:
         label: Date Created
-        value: 2026-03-25
+        value: '2026-03-25'
         control: readonly
-      qc_no:
-        label: QCNo.
-        value: ''
-        control: readonly
-  - type: triplet_table
-    id: xr_qc_settings_table
-    groups:
-    - - Item
-      - Target
-      - Limit
-    - - Item
-      - Target
-      - Limit
-    - - Item
-      - Target
-      - Limit
-    rows:
-    - - WBC
-      - ''
-      - ''
-      - RBC
-      - ''
-      - ''
-      - PLT
-      - ''
-      - ''
-    - - Lym%
-      - ''
-      - ''
-      - HGB
-      - ''
-      - ''
-      - MPV
-      - ''
-      - ''
-    - - Mid%
-      - ''
-      - ''
-      - HCT
-      - ''
-      - ''
-      - PDW-CV
-      - ''
-      - ''
-    - - Gran%
-      - ''
-      - ''
-      - MCV
-      - ''
-      - ''
-      - PDW-SD
-      - ''
-      - ''
-    - - Lym#
-      - ''
-      - ''
-      - MCH
-      - ''
-      - ''
-      - PCT
-      - ''
-      - ''
-    - - Mid#
-      - ''
-      - ''
-      - MCHC
-      - ''
-      - ''
-      - P-LCR
-      - ''
-      - ''
-    - - Gran#
-      - ''
-      - ''
-      - RDW-CV
-      - ''
-      - ''
-      - P-LCC
-      - ''
-      - ''
-    - - ''
-      - ''
-      - ''
-      - RDW-SD
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-    zebra: true
-    dense: true
 actions:
   bottom:
     align: center
@@ -155,8 +63,3 @@ actions:
       disabled: false
       target:
         action: save
-    - text: Delete
-      variant: primary
-      disabled: false
-      target:
-        action: delete

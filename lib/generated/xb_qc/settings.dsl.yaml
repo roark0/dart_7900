@@ -2,150 +2,81 @@ source:
   image: images/XB_QC/XB_QC_1.png
 shell:
   side_nav:
-    selected: X-B QC Settings
+    selected: X-B QC Setting
   status_bar:
-    right: 2026-03-25 08:14:26
+    right: '2026-03-25 12:41:23'
 body:
   sections:
   - id: xb_qc_side_state
-    selected: X-B QC Settings
+    selected: X-B QC Setting
   - type: form_grid
     id: xb_qc_settings_header
-    columns: 3
+    columns: 4
     rows:
-    - - file_no
-      - lot_no
-      - exp_date
-    - - file_name
-      - qc_level
-      - mode
+    - - counts_group
+      - range_hint
+      - analyse_label
+      - analyse_switch
     - - set_by
+      - set_by_value
       - date_created
-      - qc_no
+      - date_created_value
     fields:
-      file_no:
-        label: FileNo.
-        value: '1'
-        control: select
-      lot_no:
-        label: LotNo.
+      counts_group:
+        label: Counts/Group
+        value: '20'
+        control: input
+      range_hint:
+        label: (20-200)
         value: ''
         control: readonly
-      exp_date:
-        label: Exp.Date
-        value: 2026-03-25
-        control: select
-      file_name:
-        label: FileName
+      analyse_label:
+        label: X-B QC Analyse
         value: ''
         control: readonly
-      qc_level:
-        label: QC Level
-        value: M
-        control: select
-      mode:
-        label: Mode
-        value: Whole blood
-        control: select
+      analyse_switch:
+        label: ''
+        value: Open / Close
+        control: readonly
       set_by:
-        label: Set By
-        value: Engineer
+        label: Set by
+        value: Admin
+        control: readonly
+      set_by_value:
+        label: ''
+        value: ''
         control: readonly
       date_created:
         label: Date Created
-        value: 2026-03-25
+        value: '2021-07-02'
         control: readonly
-      qc_no:
-        label: QCNo.
+      date_created_value:
+        label: ''
         value: ''
         control: readonly
-  - type: triplet_table
+  - type: matrix_table
     id: xb_qc_settings_table
+    title: Item Set
     groups:
     - - Item
       - Target
       - Limit
-    - - Item
-      - Target
-      - Limit
-    - - Item
-      - Target
-      - Limit
+      - Unit
     rows:
-    - - WBC
-      - ''
-      - ''
-      - RBC
-      - ''
-      - ''
-      - PLT
-      - ''
-      - ''
-    - - Lym%
-      - ''
-      - ''
-      - HGB
-      - ''
-      - ''
-      - MPV
-      - ''
-      - ''
-    - - Mid%
-      - ''
-      - ''
-      - HCT
-      - ''
-      - ''
-      - PDW-CV
-      - ''
-      - ''
-    - - Gran%
-      - ''
-      - ''
-      - MCV
-      - ''
-      - ''
-      - PDW-SD
-      - ''
-      - ''
-    - - Lym#
-      - ''
-      - ''
-      - MCH
-      - ''
-      - ''
-      - PCT
-      - ''
-      - ''
-    - - Mid#
-      - ''
-      - ''
-      - MCHC
-      - ''
-      - ''
-      - P-LCR
-      - ''
-      - ''
-    - - Gran#
-      - ''
-      - ''
-      - RDW-CV
-      - ''
-      - ''
-      - P-LCC
-      - ''
-      - ''
-    - - ''
-      - ''
-      - ''
-      - RDW-SD
-      - ''
-      - ''
-      - ''
-      - ''
-      - ''
-    zebra: true
-    dense: true
+    - - MCHC
+      - '344'
+      - '30'
+      - g/L
+    - - MCH
+      - '29'
+      - '2'
+      - pg
+    - - MCV
+      - '84'
+      - '6'
+      - fL
+    zebra: false
+    dense: false
 actions:
   bottom:
     align: center
@@ -155,8 +86,8 @@ actions:
       disabled: false
       target:
         action: save
-    - text: Delete
+    - text: Set Default
       variant: primary
       disabled: false
       target:
-        action: delete
+        action: set_default

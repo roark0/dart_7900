@@ -14,6 +14,7 @@ DSL 的目标不是直接复刻像素，而是稳定表达：
 - 主要区块结构
 - 可复用的视觉 token
 - 后续生成 Flutter 代码所需的状态切换信息
+- 弹层、级联菜单和宿主页上下文
 
 ## 输出目标
 
@@ -25,6 +26,7 @@ DSL 的目标不是直接复刻像素，而是稳定表达：
 - 支持模板继承
 - 支持多文件拆分
 - 支持图片与 DSL 的可追踪映射
+- 支持 overlay 和 cascade menu 语义
 
 ## 总体建模原则
 
@@ -82,6 +84,8 @@ lib/generated/menu/system_settings/
 - 二级切换按钮组
 - 弹窗开关状态
 - 同一 side 页面中的多个子视图
+- overlay 在不同宿主页上的选中状态
+- 级联菜单的展开和子级选中状态
 
 不要再用 `states` 表达左侧 `side_nav` 一级切换。
 
@@ -89,6 +93,24 @@ lib/generated/menu/system_settings/
 
 - 一级左侧导航切换 -> 拆文件
 - 同页内部二级状态切换 -> `states`
+
+### 5. Overlay 不是普通页面
+
+如果截图表达的是“从当前页面弹出的菜单、抽屉、覆盖层、弹层”，不要把它建模成普通完整页面。
+
+这类 DSL 必须显式表达：
+
+- 它是 `overlay`
+- 底层宿主页仍然存在
+- overlay 的锚点、覆盖比例和可见范围
+- 当前宿主页是谁
+- 当前 overlay 内的选中项和展开项
+
+例如菜单弹层应建模为：
+
+- `presentation.type: overlay`
+- `context.host_page: ...`
+- `body.sections[*].type: cascade_menu` 或其他 overlay 专用结构
 
 ## 目录规划规则
 
@@ -150,10 +172,13 @@ theme:
   tokens: {}
   typography: {}
   metrics: {}
+presentation:
+  type: page
 shell:
   top_nav: {}
   side_nav: {}
   status_bar: {}
+context: {}
 body:
   sections: []
 states: {}
@@ -161,6 +186,53 @@ actions: {}
 ```
 
 不是所有字段都必须出现，但应遵守其职责边界。
+
+## `presentation` 规则
+
+### 普通页面
+
+普通页面可写：
+
+```yaml
+presentation:
+  type: page
+```
+
+### 弹层/菜单/覆盖层
+
+overlay 类界面必须写：
+
+```yaml
+presentation:
+  type: overlay
+  modal: false
+  keep_host_visible: true
+  anchor: left-top
+  coverage: partial
+  overlay_width_ratio: 0.42
+  host_page_visible_ratio: 0.58
+  z_index: 10
+```
+
+可根据截图调整数值，但必须表达：
+
+- 是否为 overlay
+- 是否模态
+- 宿主页是否仍可见
+- overlay 锚点
+- overlay 覆盖范围
+- overlay 与宿主页的宽度占比
+
+### `context`
+
+overlay 建议补：
+
+```yaml
+context:
+  host_page: analysis_main
+```
+
+如果同一个 overlay 在多个宿主页上出现，应在 `states` 中切换 `context.host_page`。
 
 ## `main.dsl.yaml` 的要求
 
@@ -206,6 +278,7 @@ shell:
 
 - 该组页面都共享的区块
 - 入口层必需的导航区块
+- overlay 的菜单区块
 
 不要在入口文件中堆入所有具体 side 页面内容。
 
@@ -272,6 +345,7 @@ lib/generated/templates/app_shell_base.dsl.yaml
 - `textOnDark`
 - `accent`
 - `border`
+- `overlayShadow`
 
 ### `theme.typography`
 
@@ -284,6 +358,7 @@ lib/generated/templates/app_shell_base.dsl.yaml
 - `tableHeader`
 - `tableCell`
 - `status`
+- `overlayLabel`
 
 ### `theme.metrics`
 
@@ -298,6 +373,53 @@ lib/generated/templates/app_shell_base.dsl.yaml
 - 该组 `main.dsl.yaml`
 
 不要在每个 side 页面重复声明同一套 token。
+
+## 级联菜单规则
+
+如果菜单项存在子级，不要用普通 `action_row` 硬编码二级关系。
+
+应优先使用：
+
+```yaml
+body:
+  sections:
+    - type: cascade_menu
+      id: main_menu
+      selected: QC
+      expanded: QC
+      items:
+        - text: QC
+          children:
+            - text: L-J QC
+            - text: X-B QC
+            - text: X-R QC
+```
+
+要求：
+
+- 一级项使用 `selected`
+- 当前展开项使用 `expanded`
+- 子项通过 `children` 表达
+- 当前子项选中状态建议在 `states.*.presentation.selected_child` 中补充
+
+### 级联菜单状态
+
+例如：
+
+```yaml
+states:
+  xb_qc:
+    context:
+      host_page: xb_qc_main
+    presentation:
+      expanded_item: QC
+      selected_child: X-B QC
+    body:
+      sections:
+        - id: main_menu
+          selected: QC
+          expanded: QC
+```
 
 ## `source` 与图片映射规则
 
@@ -353,6 +475,14 @@ lib/generated/image_map.yaml
 - `file`
 - 若需要，再补 `state`
 
+### 级联菜单子项
+
+`cascade_menu.items[*].children[*].target` 应优先包含：
+
+- `page`
+- `file`
+- `state`
+
 ### 页内 tab 或按钮组
 
 页内二级切换应使用：
@@ -399,6 +529,7 @@ lib/generated/image_map.yaml
 - 优先通过模板继承压缩重复信息
 - 优先通过目录入口 `main.dsl.yaml` 管理共享信息
 - 优先通过独立 side 文件表达一级导航差异
+- overlay 场景下不要把宿主页完整内容复制进菜单 DSL
 - 只在真正需要时使用 `states`
 
 ## 推荐示例
@@ -418,4 +549,10 @@ lib/generated/menu/system_settings/
 - `network.dsl.yaml`：Network 页面
 - `user.dsl.yaml`：User 页面
 
-这比把多个 `side_nav` 页面全部塞进一个 `system_settings.dsl.yaml` 更符合当前项目规范。
+菜单 overlay 则应使用：
+
+- `presentation.type: overlay`
+- `context.host_page`
+- `body.sections[*].type: cascade_menu`
+- `states.*.presentation.expanded_item`
+- `states.*.presentation.selected_child`
