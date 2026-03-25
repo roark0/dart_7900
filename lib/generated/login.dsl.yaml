@@ -1,0 +1,33 @@
+extends: lib/generated/templates/auth_base.dsl.yaml
+
+source:
+  images:
+    - images/login.png
+  grouping: login
+
+page:
+  id: login
+  output: lib/generated/login.dart
+
+body:
+  sections:
+    - type: info_bar
+      id: login_brand
+      items:
+        - Rayto
+        - User login
+    - type: form_grid
+      id: login_form
+      columns: 1
+      rows:
+        - [user_id]
+        - [password]
+      fields:
+        user_id: {label: ID, value: admin, control: select}
+        password: {label: Password, value: "", control: readonly}
+
+actions:
+  bottom:
+    align: center
+    items:
+      - {text: Login, variant: primary, disabled: false}

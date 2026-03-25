@@ -1,0 +1,36 @@
+page:
+  template: login_page
+  size: 800x600
+
+theme:
+  variant: analyzer_auth
+  tokens:
+    bg: "#17395B"
+    panel: "#234D87"
+    header: "#5B86D9"
+    text: "#FFFFFF"
+    textOnDark: "#FFFFFF"
+    accent: "#5E8AE0"
+    border: "#2F65B8"
+  typography:
+    brand:
+      size: 28
+      weight: 700
+    title:
+      size: 36
+      weight: 700
+    fieldLabel:
+      size: 18
+      weight: 400
+    button:
+      size: 16
+      weight: 500
+  metrics:
+    sizes:
+      panelWidth: 510
+      panelHeight: 430
+      fieldHeight: 44
+      buttonWidth: 412
+      buttonHeight: 48
+      cornerRadius: 8
+      borderWidth: 1

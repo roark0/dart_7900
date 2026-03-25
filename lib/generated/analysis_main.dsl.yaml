@@ -1,0 +1,74 @@
+extends: lib/generated/templates/app_shell_base.dsl.yaml
+
+source:
+  images:
+    - images/Analysis.png
+  grouping: analysis
+
+page:
+  id: analysis_main
+  template: analysis_main
+  output: lib/generated/analysis_main.dart
+
+shell:
+  top_nav:
+    selected: Analysis
+  status_bar:
+    right: 2026-03-18 15:56:10
+
+body:
+  sections:
+    - type: form_grid
+      id: analysis_header
+      columns: 4
+      rows:
+        - [sample_no, name, gender, blank1]
+        - [inspection_time, mode, age, blank2]
+      fields:
+        sample_no: {label: Sample No., value: "", control: readonly}
+        name: {label: Name, value: "", control: readonly}
+        gender: {label: Gender, value: "", control: readonly}
+        blank1: {label: "", value: "", control: readonly}
+        inspection_time: {label: Inspection time, value: "", control: readonly}
+        mode: {label: Mode, value: Whole blood, control: readonly}
+        age: {label: Age, value: "", control: readonly}
+        blank2: {label: "", value: "", control: readonly}
+    - type: triplet_table
+      id: analysis_results
+      groups:
+        - [Item, Result, Unit]
+        - [Item, Result, Unit]
+        - [Item, Result, Unit]
+      rows:
+        - [WBC, "", "", RBC, "", "", PLT, "", ""]
+        - [Lym%, "", "", HGB, "", "", MPV, "", ""]
+        - [Mid%, "", "", HCT, "", "", PDW-CV, "", ""]
+        - [Gran%, "", "", MCV, "", "", PDW-SD, "", ""]
+        - [Lym#, "", "", MCH, "", "", PCT, "", ""]
+        - [Mid#, "", "", MCHC, "", "", P-LCR, "", ""]
+        - [Gran#, "", "", RDW-CV, "", "", P-LCC, "", ""]
+        - ["", "", "", RDW-SD, "", "", "", "", ""]
+      zebra: true
+      dense: true
+    - type: chart_row
+      id: analysis_charts
+      items:
+        - {title: WBC, kind: histogram, x_axis: "0 100 200 300 400 fL", y_axis: true}
+        - {title: RBC, kind: histogram, x_axis: "0 50 100 150 200 250 fL", y_axis: true}
+        - {title: PLT, kind: histogram, x_axis: "0 10 20 30 fL", y_axis: true}
+    - type: stats_panel
+      id: analysis_flags
+      items:
+        - WBC Flag
+        - RBC Flag
+        - PLT Flag
+
+actions:
+  bottom:
+    align: center
+    items:
+      - {text: Next sample, variant: primary, disabled: false}
+      - {text: Mode, variant: primary, disabled: false}
+      - {text: Retest, variant: primary, disabled: false}
+      - {text: Verify, variant: primary, disabled: false}
+      - {text: Start test, variant: primary, disabled: false}

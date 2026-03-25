@@ -1,0 +1,16 @@
+extends: lib/generated/maintenance/daily.dsl.yaml
+
+source:
+  images:
+    - images/Add Diluent.png
+  grouping: add_diluent
+
+page:
+  id: add_diluent
+  output: lib/generated/add_diluent.dart
+
+shell:
+  top_nav:
+    selected: Add Diluent
+  status_bar:
+    right: 2026-03-18 15:59:33

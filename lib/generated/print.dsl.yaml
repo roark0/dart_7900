@@ -1,0 +1,16 @@
+extends: lib/generated/maintenance/daily.dsl.yaml
+
+source:
+  images:
+    - images/Print.png
+  grouping: print
+
+page:
+  id: print
+  output: lib/generated/print.dart
+
+shell:
+  top_nav:
+    selected: Print
+  status_bar:
+    right: 2026-03-18 16:00:43

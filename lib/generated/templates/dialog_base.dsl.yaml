@@ -1,0 +1,28 @@
+extends: lib/generated/templates/app_shell_base.dsl.yaml
+
+page:
+  template: dialog_family
+  size: 800x600
+
+theme:
+  tokens:
+    bg: "#C3D4E3"
+    header: "#6284A8"
+    panel: "#C7D8E6"
+    accent: "#D7E8F3"
+  typography:
+    dialogTitle:
+      size: 14
+      weight: 500
+    dialogBody:
+      size: 12
+      weight: 400
+  metrics:
+    sizes:
+      dialogWidth: 474
+      dialogHeight: 260
+      dialogPadding: 20
+      dialogButtonWidth: 108
+      dialogButtonHeight: 54
+      cornerRadius: 11
+      borderWidth: 1
