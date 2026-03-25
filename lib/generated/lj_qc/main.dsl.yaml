@@ -1,10 +1,10 @@
 extends: lib/generated/templates/app_shell_base.dsl.yaml
 source:
   images:
-  - images/LQ_QC/LJ_QC.png
-  - images/LQ_QC/LJ_QC_2.png
-  - images/LQ_QC/LJ_QC_3.png
-  - images/LQ_QC/LJ_QC_4.png
+  - images/LJ_QC/LJ_QC.png
+  - images/LJ_QC/LJ_QC_2.png
+  - images/LJ_QC/LJ_QC_3.png
+  - images/LJ_QC/LJ_QC_4.png
   grouping: lj_qc
 page:
   id: lj_qc_main
@@ -71,7 +71,7 @@ body:
 states:
   settings:
     source:
-      image: images/LQ_QC/LJ_QC.png
+      image: images/LJ_QC/LJ_QC.png
     shell:
       side_nav:
         selected: L-J QC Settings
@@ -225,12 +225,16 @@ states:
         - text: Save
           variant: primary
           disabled: false
+          target:
+            action: save
         - text: Delete
           variant: primary
           disabled: false
+          target:
+            action: delete
   analyse:
     source:
-      image: images/LQ_QC/LJ_QC_2.png
+      image: images/LJ_QC/LJ_QC_2.png
     shell:
       side_nav:
         selected: L-J QC Analyse
@@ -399,9 +403,11 @@ states:
         - text: Start test
           variant: primary
           disabled: false
+          target:
+            action: start_test
   graph:
     source:
-      image: images/LQ_QC/LJ_QC_3.png
+      image: images/LJ_QC/LJ_QC_3.png
     shell:
       side_nav:
         selected: L-J QC Graph
@@ -461,18 +467,26 @@ states:
         - text: ←
           variant: primary
           disabled: false
+          target:
+            action: previous_item
         - text: ItemSort
           variant: muted
           disabled: true
+          target:
+            action: item_sort
         - text: Delete
           variant: muted
           disabled: true
+          target:
+            action: delete
         - text: →
           variant: primary
           disabled: false
+          target:
+            action: next_item
   list:
     source:
-      image: images/LQ_QC/LJ_QC_4.png
+      image: images/LJ_QC/LJ_QC_4.png
     shell:
       side_nav:
         selected: L-J QC list
@@ -614,9 +628,15 @@ states:
         - text: Delete
           variant: muted
           disabled: true
+          target:
+            action: delete
         - text: Communicate
           variant: muted
           disabled: true
+          target:
+            action: communicate
         - text: Export
           variant: muted
           disabled: true
+          target:
+            action: export

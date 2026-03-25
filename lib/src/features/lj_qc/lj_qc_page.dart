@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../design_system/palette.dart';
 import '../../core/common_widgets.dart';
+import '../../design_system/palette.dart';
 
 class LjQcPage extends StatelessWidget {
   const LjQcPage({super.key, required this.selectedSideIndex});
@@ -10,103 +10,96 @@ class LjQcPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> pages = <Widget>[
-      const _SettingsView(),
-      const _AnalyseView(),
-      const _GraphView(),
-      const _ListView(),
-    ];
-
-    final int index = selectedSideIndex.clamp(0, pages.length - 1);
+    final _LjQcState state = _LjQcState
+        .values[selectedSideIndex.clamp(0, _LjQcState.values.length - 1)];
     return Padding(
       padding: const EdgeInsets.fromLTRB(6, 6, 6, 2),
-      child: pages[index],
+      child: _LjQcPanel(state: state),
     );
   }
 }
 
-class _SettingsView extends StatelessWidget {
-  const _SettingsView();
+enum _LjQcState { settings, analyse, graph, list }
+
+class _LjQcPanel extends StatelessWidget {
+  const _LjQcPanel({required this.state});
+
+  final _LjQcState state;
+
+  @override
+  Widget build(BuildContext context) {
+    switch (state) {
+      case _LjQcState.settings:
+        return const _SettingsStateView();
+      case _LjQcState.analyse:
+        return const _AnalyseStateView();
+      case _LjQcState.graph:
+        return const _GraphStateView();
+      case _LjQcState.list:
+        return const _ListStateView();
+    }
+  }
+}
+
+class _SettingsStateView extends StatelessWidget {
+  const _SettingsStateView();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: const <Widget>[
-        _HeaderPanel(
-          rows: <List<_FormItem>>[
-            <_FormItem>[
-              _FormItem(
-                'FileNo.',
-                value: '1',
-                width: 100,
-                labelWidth: 70,
-                dropdown: true,
-              ),
-              _FormItem('LotNo.', width: 100, labelWidth: 70),
-              _FormItem(
+        _HeaderGrid(
+          rows: <List<_FieldSpec>>[
+            <_FieldSpec>[
+              _FieldSpec('FileNo.', value: '1', control: _FieldControl.select),
+              _FieldSpec('LotNo.'),
+              _FieldSpec(
                 'Exp.Date',
                 value: '2026-03-18',
-                width: 110,
-                labelWidth: 78,
+                control: _FieldControl.select,
               ),
             ],
-            <_FormItem>[
-              _FormItem('FileName', width: 100, labelWidth: 70),
-              _FormItem(
-                'QC Level',
-                value: 'M',
-                width: 100,
-                labelWidth: 78,
-                dropdown: true,
-              ),
-              _FormItem(
+            <_FieldSpec>[
+              _FieldSpec('FileName'),
+              _FieldSpec('QC Level', value: 'M', control: _FieldControl.select),
+              _FieldSpec(
                 'Mode',
                 value: 'Whole blood',
-                width: 110,
-                labelWidth: 70,
-                dropdown: true,
+                control: _FieldControl.select,
               ),
             ],
-            <_FormItem>[
-              _FormItem(
+            <_FieldSpec>[
+              _FieldSpec(
                 'Set By',
                 value: 'Engineer',
-                width: 100,
-                labelWidth: 70,
-                muted: true,
+                control: _FieldControl.readonly,
               ),
-              _FormItem(
+              _FieldSpec(
                 'Date Created',
                 value: '2026-03-18',
-                width: 110,
+                control: _FieldControl.readonly,
                 labelWidth: 92,
-                muted: true,
               ),
-              _FormItem('QCNo.', width: 110, labelWidth: 70),
+              _FieldSpec('QCNo.', control: _FieldControl.readonly),
             ],
           ],
-          itemGap: 6,
-          rowGap: 6,
-        ),
-        SizedBox(height: 6),
-        Expanded(
-          child: _QcTripletGrid(
-            labels: <String>['Item', 'Target', 'Limit'],
-            rows: _settingsRows,
-            darkColumns: <int>[0, 3, 6],
-            headerHeight: 56,
-            rowHeight: 23,
-            fillRemaining: true,
-          ),
         ),
         SizedBox(height: 8),
-        _ActionRow(
-          actions: <_ActionDef>[
-            _ActionDef(label: 'Save'),
-            _ActionDef(label: 'Delete'),
+        Expanded(
+          child: _TripletTable(
+            headers: <String>['Item', 'Target', 'Limit'],
+            rows: _settingsRows,
+            accentColumns: <int>{0, 3, 6},
+            fillTrailingSpace: true,
+          ),
+        ),
+        SizedBox(height: 10),
+        _ActionBar(
+          alignment: MainAxisAlignment.spaceEvenly,
+          items: <_ActionSpec>[
+            _ActionSpec('Save', width: 108),
+            _ActionSpec('Delete', width: 108),
           ],
-          buttonWidth: 108,
-          buttonHeight: 42,
         ),
         SizedBox(height: 6),
       ],
@@ -114,42 +107,37 @@ class _SettingsView extends StatelessWidget {
   }
 }
 
-class _AnalyseView extends StatelessWidget {
-  const _AnalyseView();
+class _AnalyseStateView extends StatelessWidget {
+  const _AnalyseStateView();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: const <Widget>[
-        _HeaderPanel(
-          rows: <List<_FormItem>>[
-            <_FormItem>[
-              _FormItem(
-                'FileNo.',
-                value: '1',
-                width: 96,
-                labelWidth: 62,
-                dropdown: true,
-              ),
-              _FormItem('LotNo.', width: 96, labelWidth: 62),
-              _FormItem('QC Level', width: 96, labelWidth: 74),
+        _HeaderGrid(
+          rows: <List<_FieldSpec>>[
+            <_FieldSpec>[
+              _FieldSpec('FileNo.', value: '1', control: _FieldControl.select),
+              _FieldSpec('LotNo.', control: _FieldControl.readonly),
+              _FieldSpec('QC Level', control: _FieldControl.readonly),
             ],
-            <_FormItem>[
-              _FormItem('Exp.Date', width: 96, labelWidth: 72),
-              _FormItem('FileName', width: 96, labelWidth: 68),
-              _FormItem('Mode', width: 96, labelWidth: 54),
+            <_FieldSpec>[
+              _FieldSpec('Exp.Date', control: _FieldControl.readonly),
+              _FieldSpec('FileName', control: _FieldControl.readonly),
+              _FieldSpec('Mode', control: _FieldControl.readonly),
+            ],
+            <_FieldSpec>[
+              _FieldSpec('QCNo.', control: _FieldControl.readonly),
+              _FieldSpec(''),
+              _FieldSpec(''),
             ],
           ],
-          itemGap: 10,
-          rowGap: 8,
         ),
         SizedBox(height: 6),
-        _QcTripletGrid(
-          labels: <String>['Item', 'Result', 'Unit'],
+        _TripletTable(
+          headers: <String>['Item', 'Result', 'Unit'],
           rows: _analyseRows,
-          darkColumns: <int>[],
-          headerHeight: 52,
-          rowHeight: 23,
+          accentColumns: <int>{},
         ),
         SizedBox(height: 4),
         Expanded(
@@ -158,21 +146,21 @@ class _AnalyseView extends StatelessWidget {
               Expanded(
                 child: _HistogramCard(
                   title: 'WBC',
-                  scale: '0       100      200      300      400 fL',
+                  scaleLabels: <String>['0', '100', '200', '300', '400'],
                 ),
               ),
               SizedBox(width: 6),
               Expanded(
                 child: _HistogramCard(
                   title: 'RBC',
-                  scale: '0       50      100      150      200      250 fL',
+                  scaleLabels: <String>['0', '50', '100', '150', '200', '250'],
                 ),
               ),
               SizedBox(width: 6),
               Expanded(
                 child: _HistogramCard(
                   title: 'PLT',
-                  scale: '0          10          20          30 fL',
+                  scaleLabels: <String>['0', '10', '20', '30'],
                 ),
               ),
             ],
@@ -189,136 +177,58 @@ class _AnalyseView extends StatelessWidget {
   }
 }
 
-class _GraphView extends StatelessWidget {
-  const _GraphView();
+class _GraphStateView extends StatelessWidget {
+  const _GraphStateView();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: const <Widget>[
-        _HeaderPanel(
-          rows: <List<_FormItem>>[
-            <_FormItem>[
-              _FormItem(
-                'FileNo.',
-                value: '1',
-                width: 100,
-                labelWidth: 70,
-                dropdown: true,
+        _HeaderGrid(
+          rows: <List<_FieldSpec>>[
+            <_FieldSpec>[
+              _FieldSpec('FileNo.', value: '1', control: _FieldControl.select),
+              _FieldSpec('LotNo.', control: _FieldControl.readonly, width: 162),
+              _FieldSpec(
+                'Exp.date',
+                control: _FieldControl.readonly,
+                width: 96,
               ),
-              _FormItem('LotNo.', width: 164, labelWidth: 70),
-              _FormItem('Exp.date', width: 88, labelWidth: 72),
             ],
-            <_FormItem>[
-              _FormItem('Mode', width: 100, labelWidth: 70),
-              _FormItem('Time', width: 164, labelWidth: 70),
-              _FormItem('Location/Tot\nal', width: 88, labelWidth: 92),
+            <_FieldSpec>[
+              _FieldSpec('Mode', control: _FieldControl.readonly),
+              _FieldSpec('Time', control: _FieldControl.readonly, width: 162),
+              _FieldSpec(
+                'Location/Total',
+                control: _FieldControl.readonly,
+                width: 96,
+              ),
             ],
           ],
-          itemGap: 8,
-          rowGap: 8,
         ),
         SizedBox(height: 8),
         Expanded(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Expanded(child: _GraphStack()),
+              Expanded(child: _GraphPanelStack()),
               SizedBox(width: 8),
-              _StatsColumn(),
+              _GraphStatsColumn(),
               SizedBox(width: 6),
-              _NarrowScroller(blockCount: 2),
+              _SlimScrollRail(),
             ],
           ),
         ),
         SizedBox(height: 8),
-        _ActionRow(
+        _ActionBar(
+          alignment: MainAxisAlignment.center,
           compact: true,
-          actions: <_ActionDef>[
-            _ActionDef(icon: Icons.arrow_back, muted: true),
-            _ActionDef(label: 'ItemSort', muted: true),
-            _ActionDef(label: 'Delete', muted: true),
-            _ActionDef(icon: Icons.arrow_forward, muted: true),
+          items: <_ActionSpec>[
+            _ActionSpec('←', width: 48),
+            _ActionSpec('ItemSort', width: 86, disabled: true),
+            _ActionSpec('Delete', width: 78, disabled: true),
+            _ActionSpec('→', width: 48),
           ],
-          buttonWidth: 112,
-          buttonHeight: 40,
-        ),
-        SizedBox(height: 8),
-      ],
-    );
-  }
-}
-
-class _ListView extends StatelessWidget {
-  const _ListView();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: const <Widget>[
-        _HeaderPanel(
-          rows: <List<_FormItem>>[
-            <_FormItem>[
-              _FormItem(
-                'FileNo.',
-                value: '1',
-                width: 90,
-                labelWidth: 70,
-                dropdown: true,
-              ),
-              _FormItem('LotNo.', width: 118, labelWidth: 64),
-              _FormItem('Mode', width: 118, labelWidth: 54),
-            ],
-            <_FormItem>[
-              _FormItem('level', width: 90, labelWidth: 70),
-              _FormItem('Exp.date', width: 118, labelWidth: 72),
-            ],
-          ],
-          itemGap: 12,
-          rowGap: 8,
-        ),
-        SizedBox(height: 4),
-        Expanded(
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: _QcTripletGrid(
-                  labels: <String>['No.', 'Target', 'Limit'],
-                  headerValues: <String>[
-                    'No.',
-                    'Target',
-                    'Limit',
-                    '',
-                    '',
-                    '',
-                    '',
-                    '',
-                    '',
-                  ],
-                  rows: _listRows,
-                  darkColumns: <int>[0, 1, 2],
-                  headerHeight: 44,
-                  rowHeight: 23,
-                  fillRemaining: true,
-                ),
-              ),
-              SizedBox(width: 4),
-              _NarrowScroller(blockCount: 3),
-            ],
-          ),
-        ),
-        SizedBox(height: 2),
-        _PageNavRow(),
-        SizedBox(height: 8),
-        _ActionRow(
-          compact: true,
-          actions: <_ActionDef>[
-            _ActionDef(label: 'Delete', muted: true),
-            _ActionDef(label: 'Communicate', muted: true),
-            _ActionDef(label: 'Export', muted: true),
-          ],
-          buttonWidth: 116,
-          buttonHeight: 40,
         ),
         SizedBox(height: 6),
       ],
@@ -326,52 +236,102 @@ class _ListView extends StatelessWidget {
   }
 }
 
-class _FormItem {
-  const _FormItem(
+class _ListStateView extends StatelessWidget {
+  const _ListStateView();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: const <Widget>[
+        _HeaderGrid(
+          rows: <List<_FieldSpec>>[
+            <_FieldSpec>[
+              _FieldSpec('FileNo.', value: '1', control: _FieldControl.select),
+              _FieldSpec('LotNo.', control: _FieldControl.readonly),
+              _FieldSpec('Mode', control: _FieldControl.readonly),
+            ],
+            <_FieldSpec>[
+              _FieldSpec('level', control: _FieldControl.readonly),
+              _FieldSpec('Exp.date', control: _FieldControl.readonly),
+              _FieldSpec(''),
+            ],
+          ],
+        ),
+        SizedBox(height: 8),
+        Expanded(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Expanded(
+                child: _MatrixTable(
+                  headers: <String>['No.', 'Target', 'Limit', '', '', '', ''],
+                  rows: _listRows,
+                ),
+              ),
+              SizedBox(width: 6),
+              _SlimScrollRail(),
+            ],
+          ),
+        ),
+        SizedBox(height: 8),
+        _ActionBar(
+          alignment: MainAxisAlignment.spaceEvenly,
+          items: <_ActionSpec>[
+            _ActionSpec('Delete', width: 92, disabled: true),
+            _ActionSpec('Communicate', width: 118, disabled: true),
+            _ActionSpec('Export', width: 92, disabled: true),
+          ],
+        ),
+        SizedBox(height: 4),
+        _PagerRow(),
+      ],
+    );
+  }
+}
+
+enum _FieldControl { input, readonly, select }
+
+class _FieldSpec {
+  const _FieldSpec(
     this.label, {
     this.value = '',
-    this.width = 110,
-    this.labelWidth = 84,
-    this.dropdown = false,
-    this.muted = false,
+    this.control = _FieldControl.input,
+    this.width = 120,
+    this.labelWidth = 78,
   });
 
   final String label;
   final String value;
+  final _FieldControl control;
   final double width;
   final double labelWidth;
-  final bool dropdown;
-  final bool muted;
 }
 
-class _HeaderPanel extends StatelessWidget {
-  const _HeaderPanel({required this.rows, this.itemGap = 10, this.rowGap = 8});
+class _HeaderGrid extends StatelessWidget {
+  const _HeaderGrid({required this.rows});
 
-  final List<List<_FormItem>> rows;
-  final double itemGap;
-  final double rowGap;
+  final List<List<_FieldSpec>> rows;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(8, 6, 8, 8),
       color: UiPalette.panelBackground,
-      padding: const EdgeInsets.fromLTRB(8, 6, 8, 6),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: rows
-            .asMap()
-            .entries
             .map(
-              (MapEntry<int, List<_FormItem>> entry) => Padding(
-                padding: EdgeInsets.only(
-                  bottom: entry.key == rows.length - 1 ? 0 : rowGap,
-                ),
-                child: Wrap(
-                  spacing: itemGap,
-                  runSpacing: 6,
-                  children: entry.value
-                      .map(((_FormItem item) => _HeaderField(item: item)))
+              (List<_FieldSpec> row) => Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  children: row
+                      .map(
+                        (_FieldSpec spec) => Expanded(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: _HeaderField(spec: spec),
+                          ),
+                        ),
+                      )
                       .toList(),
                 ),
               ),
@@ -383,54 +343,338 @@ class _HeaderPanel extends StatelessWidget {
 }
 
 class _HeaderField extends StatelessWidget {
-  const _HeaderField({required this.item});
+  const _HeaderField({required this.spec});
 
-  final _FormItem item;
+  final _FieldSpec spec;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: item.width + item.labelWidth + 2,
+    if (spec.label.isEmpty && spec.value.isEmpty) {
+      return const SizedBox(height: UiMetrics.formFieldHeight);
+    }
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        SizedBox(
+          width: spec.labelWidth,
+          child: Text(spec.label, style: UiTypography.fieldLabel),
+        ),
+        _FieldBox(spec: spec),
+      ],
+    );
+  }
+}
+
+class _FieldBox extends StatelessWidget {
+  const _FieldBox({required this.spec});
+
+  final _FieldSpec spec;
+
+  @override
+  Widget build(BuildContext context) {
+    final bool readonly = spec.control == _FieldControl.readonly;
+    final bool select = spec.control == _FieldControl.select;
+    return Container(
+      width: spec.width,
+      height: UiMetrics.formFieldHeight,
+      padding: const EdgeInsets.symmetric(horizontal: 6),
+      decoration: BoxDecoration(
+        color: readonly ? UiPalette.surfaceMuted : UiPalette.surface,
+        border: Border.all(color: UiPalette.inputBorder),
+      ),
       child: Row(
         children: <Widget>[
-          SizedBox(
-            width: item.labelWidth,
-            child: Text(item.label, style: UiTypography.fieldLabel),
-          ),
-          Container(
-            width: item.width,
-            height: UiMetrics.formFieldHeight,
-            decoration: BoxDecoration(
-              color: UiPalette.input,
-              border: Border.all(color: UiPalette.inputBorder),
+          Expanded(
+            child: Text(
+              spec.value,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: UiTypography.inputValue.copyWith(
+                color: readonly
+                    ? UiPalette.disabledForeground
+                    : UiPalette.foreground,
+              ),
             ),
+          ),
+          if (select)
+            const Icon(
+              Icons.arrow_drop_down,
+              size: 18,
+              color: UiPalette.foreground,
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _TripletTable extends StatelessWidget {
+  const _TripletTable({
+    required this.headers,
+    required this.rows,
+    required this.accentColumns,
+    this.fillTrailingSpace = false,
+  });
+
+  final List<String> headers;
+  final List<List<String>> rows;
+  final Set<int> accentColumns;
+  final bool fillTrailingSpace;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: UiPalette.panelBackground,
+        border: Border.all(color: UiPalette.panelBorder),
+      ),
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: List<Widget>.generate(
+              9,
+              (int index) => Expanded(
+                child: _TableHeaderCell(headers[index % headers.length]),
+              ),
+            ),
+          ),
+          ...rows.asMap().entries.map(
+            (MapEntry<int, List<String>> entry) => Expanded(
+              child: Row(
+                children: entry.value.asMap().entries.map((
+                  MapEntry<int, String> cell,
+                ) {
+                  final Color background =
+                      cell.key == 0 && cell.value.isEmpty && fillTrailingSpace
+                      ? Colors.transparent
+                      : accentColumns.contains(cell.key)
+                      ? UiPalette.tableHeaderLight
+                      : (entry.key.isEven
+                            ? UiPalette.surface
+                            : UiPalette.tableRowLight);
+                  final Color foreground = accentColumns.contains(cell.key)
+                      ? Colors.white
+                      : UiPalette.foreground;
+                  return Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: background,
+                        border: Border(
+                          right: BorderSide(
+                            color: UiPalette.panelBorder.withValues(alpha: 0.6),
+                          ),
+                          bottom: BorderSide(
+                            color: UiPalette.panelBorder.withValues(alpha: 0.7),
+                          ),
+                        ),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        cell.value,
+                        style: UiTypography.dataValue.copyWith(
+                          color: foreground,
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _MatrixTable extends StatelessWidget {
+  const _MatrixTable({required this.headers, required this.rows});
+
+  final List<String> headers;
+  final List<List<String>> rows;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: UiPalette.panelBackground,
+        border: Border.all(color: UiPalette.panelBorder),
+      ),
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: headers
+                .map(
+                  (String text) => Expanded(
+                    child: Container(
+                      height: 38,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: text.isEmpty
+                            ? UiPalette.panelBackground
+                            : UiPalette.tableHeaderLight,
+                        border: Border(
+                          right: BorderSide(
+                            color: UiPalette.panelBorder.withValues(alpha: 0.7),
+                          ),
+                        ),
+                      ),
+                      child: text.isEmpty
+                          ? const SizedBox.shrink()
+                          : Text(text, style: UiTypography.tableHeader),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+          ...rows.asMap().entries.map(
+            (MapEntry<int, List<String>> entry) => Expanded(
+              child: Row(
+                children: entry.value.asMap().entries.map((
+                  MapEntry<int, String> cell,
+                ) {
+                  final bool firstColumn = cell.key == 0;
+                  return Expanded(
+                    child: Container(
+                      alignment: firstColumn
+                          ? Alignment.centerLeft
+                          : Alignment.center,
+                      padding: firstColumn
+                          ? const EdgeInsets.only(left: 12)
+                          : EdgeInsets.zero,
+                      decoration: BoxDecoration(
+                        color: entry.key.isEven
+                            ? UiPalette.surface
+                            : UiPalette.tableRowLight,
+                        border: Border(
+                          right: BorderSide(
+                            color: UiPalette.panelBorder.withValues(alpha: 0.6),
+                          ),
+                          bottom: BorderSide(
+                            color: UiPalette.panelBorder.withValues(alpha: 0.7),
+                          ),
+                        ),
+                      ),
+                      child: Text(cell.value, style: UiTypography.dataValue),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _TableHeaderCell extends StatelessWidget {
+  const _TableHeaderCell(this.label);
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 40,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: UiPalette.tableHeaderLight,
+        border: Border(
+          right: BorderSide(
+            color: UiPalette.panelBorder.withValues(alpha: 0.7),
+          ),
+        ),
+      ),
+      child: Text(label, style: UiTypography.tableHeader),
+    );
+  }
+}
+
+class _HistogramCard extends StatelessWidget {
+  const _HistogramCard({required this.title, required this.scaleLabels});
+
+  final String title;
+  final List<String> scaleLabels;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: UiPalette.chartBackground,
+        border: Border.all(color: UiPalette.chartBorder),
+      ),
+      padding: const EdgeInsets.fromLTRB(10, 8, 10, 10),
+      child: Column(
+        children: <Widget>[
+          Align(
+            alignment: Alignment.topRight,
+            child: Text(title, style: UiTypography.tableHeader),
+          ),
+          const SizedBox(height: 2),
+          Expanded(
             child: Row(
               children: <Widget>[
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6),
-                    child: Text(
-                      item.value,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: UiTypography.inputValue.fontSize,
-                        color: item.muted
-                            ? Colors.grey.shade700
-                            : UiPalette.foreground,
-                      ),
+                SizedBox(
+                  width: 14,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: List<Widget>.generate(
+                      4,
+                      (int index) =>
+                          Container(width: 4, height: 1, color: Colors.white),
                     ),
                   ),
                 ),
-                if (item.dropdown)
-                  const Padding(
-                    padding: EdgeInsets.only(right: 2),
-                    child: Icon(
-                      Icons.keyboard_arrow_down,
-                      size: 18,
-                      color: UiPalette.inputBorder,
-                    ),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Stack(
+                          children: <Widget>[
+                            Positioned.fill(
+                              child: CustomPaint(
+                                painter: _HistogramGridPainter(),
+                              ),
+                            ),
+                            Positioned(
+                              left: 0,
+                              right: 0,
+                              bottom: 0,
+                              child: Container(height: 1, color: Colors.white),
+                            ),
+                            Positioned(
+                              top: 0,
+                              bottom: 0,
+                              left: 0,
+                              child: Container(width: 1, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: scaleLabels
+                            .map(
+                              (String value) =>
+                                  Text(value, style: UiTypography.chartScale),
+                            )
+                            .toList(),
+                      ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          'fL',
+                          style: UiTypography.chartScale.copyWith(
+                            color: const Color(0xFFFFA3A3),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
+                ),
               ],
             ),
           ),
@@ -440,277 +684,77 @@ class _HeaderField extends StatelessWidget {
   }
 }
 
-class _QcTripletGrid extends StatelessWidget {
-  const _QcTripletGrid({
-    required this.labels,
-    required this.rows,
-    this.headerValues,
-    this.darkColumns = const <int>[],
-    this.headerHeight = 56,
-    this.rowHeight = 24,
-    this.fillRemaining = false,
-  });
-
-  final List<String> labels;
-  final List<String>? headerValues;
-  final List<List<String>> rows;
-  final List<int> darkColumns;
-  final double headerHeight;
-  final double rowHeight;
-  final bool fillRemaining;
+class _HistogramGridPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint paint = Paint()
+      ..color = Colors.white.withValues(alpha: 0.22)
+      ..strokeWidth = 1;
+    final double rowGap = size.height / 4;
+    for (int i = 1; i < 4; i++) {
+      final double dy = rowGap * i;
+      canvas.drawLine(Offset(0, dy), Offset(size.width, dy), paint);
+    }
+  }
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(border: Border.all(color: UiPalette.border)),
-      child: Column(
-        children: <Widget>[
-          _GridHeader(
-            labels: labels,
-            values: headerValues,
-            height: headerHeight,
-          ),
-          ...rows.asMap().entries.map((MapEntry<int, List<String>> row) {
-            final bool even = row.key.isEven;
-            return SizedBox(
-              height: rowHeight,
-              child: Row(
-                children: row.value.asMap().entries.map((
-                  MapEntry<int, String> cell,
-                ) {
-                  final bool dark = darkColumns.contains(cell.key);
-                  return Expanded(
-                    child: Container(
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: dark
-                            ? UiPalette.tableHeaderLight
-                            : (even
-                                  ? UiPalette.tableRowA
-                                  : UiPalette.tableRowB),
-                        border: Border(
-                          right: BorderSide(
-                            color: Colors.white.withValues(alpha: 0.42),
-                            width: 0.8,
-                          ),
-                        ),
-                      ),
-                      child: Text(
-                        cell.value,
-                        style: TextStyle(
-                          color: dark ? Colors.white : Colors.black,
-                          fontSize: UiTypography.dataValue.fontSize,
-                        ),
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-            );
-          }),
-          if (fillRemaining)
-            Expanded(
-              child: Row(
-                children: List<Widget>.generate(9, (int index) {
-                  final bool dark = darkColumns.contains(index);
-                  return Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: dark
-                            ? UiPalette.tableHeaderLight
-                            : UiPalette.tableRowA,
-                        border: Border(
-                          right: BorderSide(
-                            color: Colors.white.withValues(alpha: 0.4),
-                            width: 0.8,
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                }),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-class _GridHeader extends StatelessWidget {
-  const _GridHeader({required this.labels, required this.height, this.values});
-
-  final List<String> labels;
-  final List<String>? values;
-  final double height;
-
-  @override
-  Widget build(BuildContext context) {
-    final List<String> headerCells =
-        values ??
-        List<String>.generate(9, (int index) => labels[index % labels.length]);
-    return SizedBox(
-      height: height,
-      child: Row(
-        children: headerCells
-            .map((String label) => Expanded(child: _HeaderCell(text: label)))
-            .toList(),
-      ),
-    );
-  }
-}
-
-class _HeaderCell extends StatelessWidget {
-  const _HeaderCell({required this.text});
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      decoration: const BoxDecoration(
-        color: UiPalette.tableHeaderLight,
-        border: Border(right: BorderSide(color: UiPalette.border, width: 0.8)),
-      ),
-      child: Text(text, style: UiTypography.tableHeader),
-    );
-  }
-}
-
-class _HistogramCard extends StatelessWidget {
-  const _HistogramCard({required this.title, required this.scale});
-
-  final String title;
-  final String scale;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: UiPalette.chartBorder),
-      ),
-      child: Stack(
-        children: <Widget>[
-          Container(color: UiPalette.chartBackground),
-          Positioned.fill(
-            child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                const double axisLeft = 18;
-                const double axisTop = 18;
-                const double axisBottom = 20;
-                final double usable =
-                    constraints.maxHeight - axisTop - axisBottom;
-                const List<double> tickFractions = <double>[
-                  0.0,
-                  0.33,
-                  0.66,
-                  1.0,
-                ];
-
-                return Stack(
-                  children: <Widget>[
-                    Positioned(
-                      left: axisLeft,
-                      top: axisTop,
-                      bottom: axisBottom,
-                      child: Container(
-                        width: 1,
-                        color: UiPalette.chartLine.withValues(alpha: 0.7),
-                      ),
-                    ),
-                    ...tickFractions.map((double fraction) {
-                      final double top = axisTop + usable * fraction;
-                      return Positioned(
-                        left: axisLeft,
-                        top: top,
-                        child: Container(
-                          width: 6,
-                          height: 1,
-                          color: UiPalette.chartLine.withValues(alpha: 0.7),
-                        ),
-                      );
-                    }),
-                  ],
-                );
-              },
-            ),
-          ),
-          Positioned(
-            left: 8,
-            right: 8,
-            bottom: 20,
-            child: Container(
-              height: 1,
-              color: UiPalette.chartLine.withValues(alpha: 0.7),
-            ),
-          ),
-          Positioned(
-            top: 6,
-            left: 0,
-            right: 0,
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
-              style: UiTypography.tableHeader,
-            ),
-          ),
-          Positioned(
-            left: 3,
-            right: 2,
-            bottom: 2,
-            child: Text(scale, style: UiTypography.chartScale),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _GraphStack extends StatelessWidget {
-  const _GraphStack();
+class _GraphPanelStack extends StatelessWidget {
+  const _GraphPanelStack();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: const <Widget>[
-        Expanded(child: _GraphFrame(label: 'WBC')),
+        Expanded(child: _GraphFrame(title: 'WBC')),
         SizedBox(height: 8),
-        Expanded(child: _GraphFrame(label: 'RBC')),
+        Expanded(child: _GraphFrame(title: 'RBC')),
       ],
     );
   }
 }
 
 class _GraphFrame extends StatelessWidget {
-  const _GraphFrame({required this.label});
+  const _GraphFrame({required this.title});
 
-  final String label;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: UiPalette.tableRowLight,
-      child: Row(
+      decoration: BoxDecoration(
+        color: UiPalette.chartBackground,
+        border: Border.all(color: UiPalette.chartBorder),
+      ),
+      padding: const EdgeInsets.all(8),
+      child: Column(
         children: <Widget>[
-          SizedBox(
-            width: 88,
-            child: Text(
-              label,
-              textAlign: TextAlign.left,
-              style: UiTypography.dataValue,
-            ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text(title, style: UiTypography.tableHeader),
           ),
+          const SizedBox(height: 6),
           Expanded(
-            child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 4),
-              decoration: const BoxDecoration(
-                border: Border(
-                  top: BorderSide(color: Color(0xFF1E3550), width: 0.9),
-                  bottom: BorderSide(color: Color(0xFF1E3550), width: 0.9),
-                  left: BorderSide(color: Color(0xFF1A47F0), width: 1),
+            child: Stack(
+              children: <Widget>[
+                Positioned.fill(
+                  child: CustomPaint(painter: _HistogramGridPainter()),
                 ),
-              ),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Container(height: 1, color: Colors.white),
+                ),
+                Positioned(
+                  top: 0,
+                  bottom: 0,
+                  left: 0,
+                  child: Container(width: 1, color: Colors.white),
+                ),
+              ],
             ),
           ),
         ],
@@ -719,19 +763,28 @@ class _GraphFrame extends StatelessWidget {
   }
 }
 
-class _StatsColumn extends StatelessWidget {
-  const _StatsColumn();
+class _GraphStatsColumn extends StatelessWidget {
+  const _GraphStatsColumn();
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
-      width: 88,
+    return SizedBox(
+      width: 118,
       child: Column(
-        children: <Widget>[
-          SizedBox(height: 4),
-          Expanded(child: _StatsBlock()),
+        children: const <Widget>[
+          Expanded(
+            child: _StatsBlock(
+              title: 'WBC',
+              rows: <String>['Mean', 'SD', 'CV%', ''],
+            ),
+          ),
           SizedBox(height: 8),
-          Expanded(child: _StatsBlock()),
+          Expanded(
+            child: _StatsBlock(
+              title: 'RBC',
+              rows: <String>['Mean', 'SD', 'CV%', ''],
+            ),
+          ),
         ],
       ),
     );
@@ -739,99 +792,111 @@ class _StatsColumn extends StatelessWidget {
 }
 
 class _StatsBlock extends StatelessWidget {
-  const _StatsBlock();
+  const _StatsBlock({required this.title, required this.rows});
+
+  final String title;
+  final List<String> rows;
 
   @override
   Widget build(BuildContext context) {
-    const List<String> labels = <String>['Mean:', 'SD:', 'CV%:', ''];
-
-    return Column(
-      children: labels
-          .map(
-            (String label) => Expanded(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(label, style: UiTypography.fieldLabel),
-              ),
-            ),
-          )
-          .toList(),
-    );
-  }
-}
-
-class _NarrowScroller extends StatelessWidget {
-  const _NarrowScroller({required this.blockCount});
-
-  final int blockCount;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 32,
+    return Container(
+      decoration: BoxDecoration(
+        color: UiPalette.panelBackground,
+        border: Border.all(color: UiPalette.panelBorder),
+      ),
       child: Column(
-        children: List<Widget>.generate(blockCount, (int index) {
-          return Expanded(
-            child: Container(
-              margin: EdgeInsets.only(bottom: index == blockCount - 1 ? 0 : 1),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: <Color>[Color(0xFFECECEC), Color(0xFFC9C9C9)],
-                ),
-                border: Border.all(color: const Color(0xFFBCC4CC)),
-              ),
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Icon(Icons.arrow_drop_up, color: Color(0xFFB8BEC4), size: 28),
-                  Icon(
-                    Icons.arrow_drop_down,
-                    color: Color(0xFFB8BEC4),
-                    size: 28,
+        children: <Widget>[
+          Container(
+            height: 36,
+            alignment: Alignment.center,
+            color: UiPalette.tableHeaderLight,
+            child: Text(title, style: UiTypography.tableHeader),
+          ),
+          ...rows.map(
+            (String text) => Expanded(
+              child: Container(
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: UiPalette.surface,
+                  border: Border(
+                    top: BorderSide(
+                      color: UiPalette.panelBorder.withValues(alpha: 0.7),
+                    ),
                   ),
-                ],
+                ),
+                child: Text(text, style: UiTypography.dataValue),
               ),
             ),
-          );
-        }),
+          ),
+        ],
       ),
     );
   }
 }
 
-class _ActionDef {
-  const _ActionDef({this.label, this.icon, this.muted = false});
-
-  final String? label;
-  final IconData? icon;
-  final bool muted;
-}
-
-class _ActionRow extends StatelessWidget {
-  const _ActionRow({
-    required this.actions,
-    this.compact = false,
-    this.buttonWidth,
-    this.buttonHeight,
-  });
-
-  final List<_ActionDef> actions;
-  final bool compact;
-  final double? buttonWidth;
-  final double? buttonHeight;
+class _SlimScrollRail extends StatelessWidget {
+  const _SlimScrollRail();
 
   @override
   Widget build(BuildContext context) {
+    return Container(
+      width: 10,
+      decoration: BoxDecoration(
+        color: UiPalette.surfaceMuted,
+        border: Border.all(color: UiPalette.panelBorder),
+      ),
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Container(
+          margin: const EdgeInsets.only(top: 22),
+          width: 6,
+          height: 58,
+          decoration: BoxDecoration(
+            color: UiPalette.softButtonBorder,
+            borderRadius: BorderRadius.circular(3),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ActionSpec {
+  const _ActionSpec(this.label, {this.width, this.disabled = false});
+
+  final String label;
+  final double? width;
+  final bool disabled;
+}
+
+class _ActionBar extends StatelessWidget {
+  const _ActionBar({
+    required this.items,
+    required this.alignment,
+    this.compact = false,
+  });
+
+  final List<_ActionSpec> items;
+  final MainAxisAlignment alignment;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) {
+    final double height = compact ? 36 : 42;
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: actions
+      mainAxisAlignment: alignment,
+      children: items
           .map(
-            (_ActionDef action) => _ActionButton(
-              action: action,
-              width: buttonWidth ?? (compact ? 112 : 108),
-              height: buttonHeight ?? (compact ? 42 : 52),
+            (_ActionSpec item) => Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Opacity(
+                opacity: item.disabled ? 0.72 : 1,
+                child: SoftButton(
+                  label: item.label,
+                  width: item.width,
+                  height: height,
+                ),
+              ),
             ),
           )
           .toList(),
@@ -839,88 +904,20 @@ class _ActionRow extends StatelessWidget {
   }
 }
 
-class _ActionButton extends StatelessWidget {
-  const _ActionButton({
-    required this.action,
-    required this.width,
-    required this.height,
-  });
-
-  final _ActionDef action;
-  final double width;
-  final double height;
-
-  @override
-  Widget build(BuildContext context) {
-    final bool muted = action.muted;
-    return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: muted
-              ? const <Color>[Color(0xFFD7E2EC), Color(0xFFA7B8C8)]
-              : const <Color>[Color(0xFFC8DCEB), Color(0xFFAAC3D5)],
-        ),
-        borderRadius: BorderRadius.circular(UiMetrics.buttonRadius),
-        border: Border.all(color: UiPalette.sideNavBorder),
-      ),
-      alignment: Alignment.center,
-      child: action.icon != null
-          ? Icon(
-              action.icon,
-              color: muted ? const Color(0xFF9AA9B5) : Colors.black54,
-            )
-          : Text(
-              action.label ?? '',
-              style: UiTypography.bottomActionLabel.copyWith(
-                height: 1.0,
-                color: muted ? const Color(0xFF8798A8) : UiPalette.foreground,
-              ),
-            ),
-    );
-  }
-}
-
-class _PageNavRow extends StatelessWidget {
-  const _PageNavRow();
+class _PagerRow extends StatelessWidget {
+  const _PagerRow();
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: const <Widget>[
-        Expanded(child: _NavCell(icon: Icons.first_page)),
-        SizedBox(width: 2),
-        Expanded(child: _NavCell(icon: Icons.chevron_left)),
-        SizedBox(width: 2),
-        Expanded(child: _NavCell(icon: Icons.chevron_right)),
-        SizedBox(width: 2),
-        Expanded(child: _NavCell(icon: Icons.last_page)),
+        Text('1/15', style: UiTypography.dataValue),
+        SizedBox(width: 14),
+        SoftButton(label: '←', width: 40, height: 30),
+        SizedBox(width: 8),
+        SoftButton(label: '→', width: 40, height: 30),
       ],
-    );
-  }
-}
-
-class _NavCell extends StatelessWidget {
-  const _NavCell({required this.icon});
-
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: UiMetrics.tableHeaderHeight,
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: <Color>[Color(0xFFECECEC), Color(0xFFBCBCBC)],
-        ),
-        border: Border.all(color: UiPalette.inputBorder),
-      ),
-      child: Icon(icon, color: const Color(0xFFBEC4CA), size: 28),
     );
   }
 }
@@ -948,15 +945,15 @@ const List<List<String>> _analyseRows = <List<String>>[
 ];
 
 const List<List<String>> _listRows = <List<String>>[
-  <String>['Date', '', '', '', '', '', '', '', ''],
-  <String>['Time', '', '', '', '', '', '', '', ''],
-  <String>['WBC', '', '', '', '', '', '', '', ''],
-  <String>['Lym%', '', '', '', '', '', '', '', ''],
-  <String>['Mid%', '', '', '', '', '', '', '', ''],
-  <String>['Gran%', '', '', '', '', '', '', '', ''],
-  <String>['Lym#', '', '', '', '', '', '', '', ''],
-  <String>['Mid#', '', '', '', '', '', '', '', ''],
-  <String>['Gran#', '', '', '', '', '', '', '', ''],
-  <String>['RBC', '', '', '', '', '', '', '', ''],
-  <String>['HGB', '', '', '', '', '', '', '', ''],
+  <String>['Date', '', '', '', '', '', ''],
+  <String>['Time', '', '', '', '', '', ''],
+  <String>['WBC', '', '', '', '', '', ''],
+  <String>['Lym%', '', '', '', '', '', ''],
+  <String>['Mid%', '', '', '', '', '', ''],
+  <String>['Gran%', '', '', '', '', '', ''],
+  <String>['Lym#', '', '', '', '', '', ''],
+  <String>['Mid#', '', '', '', '', '', ''],
+  <String>['Gran#', '', '', '', '', '', ''],
+  <String>['RBC', '', '', '', '', '', ''],
+  <String>['HGB', '', '', '', '', '', ''],
 ];
