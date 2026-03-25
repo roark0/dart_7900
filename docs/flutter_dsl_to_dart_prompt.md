@@ -4,10 +4,14 @@
 
 ## 任务
 
-将输入的 Flutter Layout DSL（YAML）转换为当前项目可直接使用的 Dart 代码。
+将输入的 Flutter Layout DSL（YAML）转换为当前项目可直接使用的 Dart
+代码。
 
 如果输入 DSL 使用了 `extends`，必须先完成模板继承合并，再根据合并后的
 最终 DSL 生成 Dart。
+
+当前项目的 DSL 已从“按截图拆文件”收敛为“按逻辑页面建模”，因此生成器必须
+优先支持页面级 DSL、`states` 多状态结构，以及基础模板继承。
 
 ## 目标
 
@@ -16,6 +20,7 @@
 - 优先复用现有组件，不要随意发明新组件
 - 支持从公共模板 DSL 生成多个差异页面
 - 正确消费 DSL 中的颜色、字号、比例和关键尺寸 token
+- 支持从一个页面级 DSL 生成“单页面 + 多状态切换”的代码结构
 
 ## 项目约束
 
@@ -31,6 +36,21 @@
 5. 默认输出到 DSL 中 `page.output` 指定的文件对应的 Dart 页面内容。
 6. 代码必须能被 `dart format` 和 `flutter analyze` 接受。
 7. 优先生成可复用的私有组件，不要为每个页面重复写整个壳层。
+8. 优先生成“共享骨架 + 状态切换”的实现，不要把同一页面的多个 state 拆成
+   多个完全独立的页面类。
+
+## 输入前提
+
+在当前项目中，DSL 通常具备以下特征：
+
+- 页面级 DSL 会记录 `source`
+- 多状态页面会通过 `states.<name>` 表达不同截图对应的子状态
+- 公共样式优先来自基础模板，而不是每个 DSL 重复声明
+- 图片与 DSL 的全局映射记录在 `lib/generated/image_map.yaml`
+
+`lib/generated/image_map.yaml` 主要用于来源追踪和查重，不直接驱动 Dart
+布局生成；但当 DSL 中的 `source`、`states.*.source` 或页面命名不够明确时，
+生成器可以将其作为辅助上下文理解页面来源。
 
 ## 预处理规则
 
@@ -41,7 +61,10 @@
    - 读取 `extends` 指向的基础 DSL 文件。
    - 若基础 DSL 继续包含 `extends`，继续递归展开。
 3. 按 DSL 规则完成深度合并，得到最终 DSL。
-4. 仅根据合并后的最终 DSL 生成 Dart。
+4. 如果存在 `states`：
+   - 识别页面共享骨架。
+   - 识别每个 state 的差异 section、选中态和附加控件。
+5. 仅根据合并后的最终 DSL 生成 Dart。
 
 ### `extends` 合并规则
 
@@ -57,6 +80,36 @@
 7. 如果某个页面只通过 `selected` 指定当前选中项，生成器必须从该字段推导
    选中态，不要依赖每个按钮单独声明 `variant`。
 
+### 基础模板优先级
+
+生成器应优先识别并复用当前项目的基础模板语义，例如：
+
+- `lib/generated/templates/app_shell_base.dsl.yaml`
+- `lib/generated/templates/dialog_base.dsl.yaml`
+- `lib/generated/templates/auth_base.dsl.yaml`
+- `lib/generated/templates/maintenance_shell_base.dsl.yaml`
+
+要求：
+
+1. 若页面继承这些模板，不要在生成 Dart 时重新手写整套壳层。
+2. 优先把模板公共部分落到共享 Widget、共享样式常量或共享页面基类。
+3. 子 DSL 的职责应体现在差异内容和状态切换，而不是复制模板内容。
+
+### `states` 解析规则
+
+当 DSL 使用 `states` 时，生成器必须将其视为“同一页面的多个子状态”，而不是
+多个完全独立的页面。
+
+要求：
+
+1. 共享 `shell`、`theme`、公共 `body.sections` 应只实现一次。
+2. `states.<name>` 中的差异应转成：
+   - 当前选中的 tab 或 action row
+   - 对应的差异 section
+   - 对应的表格、图表、按钮或说明区块
+3. 如果页面天然对应一个顶部标签组或二级菜单，应优先生成单页面内部切换逻辑。
+4. 不要因为存在多个 state，就生成多个样板重复的页面类。
+
 ## 转换规则
 
 ### 一、顶层规则
@@ -71,6 +124,7 @@
 - `theme.metrics` 映射到页面级尺寸、比例和间距常量
 - 如果已有统一 token，优先使用 `UiPalette`、`UiTypography`、`UiMetrics`
 - 仅当现有 token 无法表达时，才使用局部常量
+- `source` 与 `states.*.source` 用于帮助理解页面来源，不直接渲染为 UI
 
 ### 二、`theme` 规则
 
@@ -114,6 +168,8 @@
 - `stats_panel` 生成右侧统计区
 - `action_row` 生成 `_ActionRow`、`_TabRow` 或按钮行
 - `info_bar` 生成为信息栏
+- 当 section 在多个 state 间共用时，应提取为共享私有组件
+- 当 section 仅在少数 state 中出现时，应以条件渲染或按 state 组装的方式处理
 
 ### 五、组件映射规则
 
@@ -133,6 +189,12 @@
 2. 生成器应自动根据 `selected` 标记对应按钮的选中状态。
 3. 未选中项默认使用非激活样式。
 4. 不要要求 DSL 为同一组按钮重复写选中/未选中的样式细节。
+
+当 `states` 存在且页面中存在同名 tab 组时：
+
+1. 当前 state 应驱动 tab 的选中态。
+2. 当前 state 应驱动差异 section 的显示。
+3. 不要为每个 state 复制整棵 Widget 树。
 
 ### 七、布局规则
 
@@ -159,12 +221,24 @@
 - 页面间差异主要来自：
   - `status_bar.right`
   - `body.sections` 的补充内容
-  - `maintenance_tabs.selected`
+  - `action_row.selected`
+  - `states` 内的差异内容
   - 页面附加的表格或按钮组
 
 生成器应围绕“共用骨架 + 差异区块”组织代码。
 
-### 九、代码输出规则
+### 九、代码组织规则
+
+- 页面级 DSL 优先生成一个页面类，而不是多个近似重复类
+- 若页面包含 `states`，优先生成：
+  - 一个页面类
+  - 一个当前 state 字段或等价状态源
+  - 若干按 state 变化的私有区块
+- 若多个页面共享模板，优先生成共享基类、共享组件或共享样式对象
+- 当 DSL 明显来自对话框模板时，优先生成对话框组件，而不是完整页面脚手架
+- 当 DSL 明显来自登录模板时，优先生成简洁的认证页面骨架
+
+### 十、代码输出规则
 
 - 只输出最终 Dart 代码
 - 不要输出 YAML
@@ -173,7 +247,7 @@
 - 如果 DSL 信息不足，按当前项目已有同类页面补全合理默认值
 - 生成的代码风格应与现有 `lib/src/screens/*.dart` 保持一致
 
-### 十、复用优先
+### 十一、复用优先
 
 - 如果 DSL 对应的页面模式和现有页面接近，优先复用现有私有组件命名模式，例如：
   - `_HeaderPanel`
@@ -186,6 +260,7 @@
 - 不要把所有内容都堆进一个 `build` 方法
 - 将明显独立的区块拆成私有 `StatelessWidget`
 - 当多个页面来自同一基础模板时，优先生成共享组件而不是多个独立实现
+- 当一个页面内存在多个 state 时，优先复用同一批组件，通过参数或状态切换呈现差异
 
 ## 输入格式
 

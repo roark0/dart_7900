@@ -3,41 +3,41 @@ images:
     dsl: lib/generated/add_diluent.dsl.yaml
   images/Analysis.png:
     dsl: lib/generated/analysis_main.dsl.yaml
-  images/LQ_QC/LJ_QC.png:
+  images/LJ_QC/LJ_QC.png:
     dsl: lib/generated/lj_qc/main.dsl.yaml
     state: settings
-  images/LQ_QC/LJ_QC_2.png:
+  images/LJ_QC/LJ_QC_2.png:
     dsl: lib/generated/lj_qc/main.dsl.yaml
     state: analyse
-  images/LQ_QC/LJ_QC_3.png:
+  images/LJ_QC/LJ_QC_3.png:
     dsl: lib/generated/lj_qc/main.dsl.yaml
     state: graph
-  images/LQ_QC/LJ_QC_4.png:
+  images/LJ_QC/LJ_QC_4.png:
     dsl: lib/generated/lj_qc/main.dsl.yaml
     state: list
-  images/List Review.png:
+  images/List_Review.png:
     dsl: lib/generated/list_review/main.dsl.yaml
-  images/List Review/List Review.png:
+  images/List_Review/List_Review.png:
     dsl: lib/generated/list_review/main.dsl.yaml
-  images/List Review/dialog/Conn..png:
+  images/List_Review/dialog/Conn..png:
     dsl: lib/generated/list_review/dialogs.dsl.yaml
     state: prompt_not_connected
-  images/List Review/dialog/Delete.png:
+  images/List_Review/dialog/Delete.png:
     dsl: lib/generated/list_review/dialogs.dsl.yaml
     state: delete_dialog
-  images/List Review/dialog/Detail.png:
+  images/List_Review/dialog/Detail.png:
     dsl: lib/generated/list_review/dialogs.dsl.yaml
     state: prompt_no_data_detail
-  images/List Review/dialog/Next sample.png:
+  images/List_Review/dialog/Next sample.png:
     dsl: lib/generated/list_review/dialogs.dsl.yaml
     state: next_sample_dialog
-  images/List Review/dialog/Verify.png:
+  images/List_Review/dialog/Verify.png:
     dsl: lib/generated/list_review/dialogs.dsl.yaml
     state: prompt_no_data_verify
-  images/List Review/dialog/cv.png:
+  images/List_Review/dialog/cv.png:
     dsl: lib/generated/list_review/dialogs.dsl.yaml
     state: prompt_no_data_cv
-  images/List Review/dialog/export.png:
+  images/List_Review/dialog/export.png:
     dsl: lib/generated/list_review/dialogs.dsl.yaml
     state: export_dialog
   images/Maintenance.png:
