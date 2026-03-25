@@ -1,0 +1,66 @@
+extends: lib/generated/templates/app_shell_base.dsl.yaml
+source:
+  images:
+  - images/XB_QC/XB_QC_1.png
+  - images/XB_QC/XB_QC_2.png
+  - images/XB_QC/XB_QC_3.png
+  grouping: xb_qc
+page:
+  id: xb_qc_main
+  template: qc_panel
+  size: 800x600
+  output: lib/src/features/xb_qc/xb_qc_main.dart
+shell:
+  top_nav:
+    selected: L-J QC
+  side_nav:
+    selected: X-B QC Settings
+    items:
+    - text: X-B QC Settings
+      target:
+        page: xb_qc_main
+        state: settings
+    - text: X-B QC Graph
+      target:
+        page: xb_qc_main
+        state: graph
+    - text: X-B QC List
+      target:
+        page: xb_qc_main
+        state: list
+  status_bar:
+    left: Engineer
+    center: LIS
+    right: 2026-03-25 08:14:26
+    indicator: green
+body:
+  sections:
+  - type: action_row
+    id: xb_qc_side_state
+    selected: X-B QC Settings
+    items:
+    - text: X-B QC Settings
+      variant: secondary
+      disabled: false
+      target:
+        page: xb_qc_main
+        state: settings
+    - text: X-B QC Graph
+      variant: secondary
+      disabled: false
+      target:
+        page: xb_qc_main
+        state: graph
+    - text: X-B QC List
+      variant: secondary
+      disabled: false
+      target:
+        page: xb_qc_main
+        state: list
+states:
+  settings:
+    extends: lib/generated/xb_qc/settings.dsl.yaml
+  graph:
+    extends: lib/generated/xb_qc/graph.dsl.yaml
+  list:
+    extends: lib/generated/xb_qc/list.dsl.yaml

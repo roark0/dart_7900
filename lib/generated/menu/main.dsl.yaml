@@ -42,13 +42,15 @@ body:
       variant: secondary
       disabled: false
       target:
-        page: menu_qc
-        state: lj_qc_setting
+        page: lj_qc_main
+        file: lib/generated/lj_qc/main.dsl.yaml
+        state: settings
     - text: Calibration
       variant: secondary
       disabled: false
       target:
-        page: menu_calibration
+        page: calibration_main
+        file: lib/generated/calibration/main.dsl.yaml
         state: factors
     - text: Service
       variant: secondary
@@ -61,6 +63,7 @@ body:
       disabled: false
       target:
         page: menu_system_settings
+        file: lib/generated/setings/main.dsl.yaml
         state: reference_range
     - text: Shutdown
       variant: secondary

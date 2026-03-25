@@ -1,0 +1,134 @@
+extends: lib/generated/setings/main.dsl.yaml
+source:
+  images:
+  - images/Setings/setings_12.png
+  - images/Setings/setings_13.png
+page:
+  id: menu_system_settings_lab_info
+shell:
+  side_nav:
+    selected: Lab info
+states:
+  lab_info:
+    source:
+      image: images/Setings/setings_12.png
+    shell:
+      status_bar:
+        right: 2026-03-25 08:46:43
+    body:
+      sections:
+      - type: form_grid
+        id: hospital_info_form
+        columns: 2
+        rows:
+        - - hospital_name
+          - instrument
+        - - lab_name
+          - instrument_id
+        - - responsible_person
+          - installation_date
+        - - contact
+          - zip_code
+        - - after_sales
+          - after_sales_contact
+        fields:
+          hospital_name:
+            label: Hospital Name
+            value: ''
+            control: readonly
+          instrument:
+            label: Instrument
+            value: instrument
+            control: readonly
+          lab_name:
+            label: Lab Name
+            value: ''
+            control: readonly
+          instrument_id:
+            label: Instrument ID
+            value: ''
+            control: readonly
+          responsible_person:
+            label: Responsible person
+            value: ''
+            control: readonly
+          installation_date:
+            label: Installation
+            value: 2026-03-25
+            control: readonly
+          contact:
+            label: Contact
+            value: ''
+            control: readonly
+          zip_code:
+            label: Zip code
+            value: ''
+            control: readonly
+          after_sales:
+            label: After sales
+            value: ''
+            control: readonly
+          after_sales_contact:
+            label: After sales contact
+            value: ''
+            control: readonly
+    actions:
+      bottom:
+        align: center
+        items:
+        - text: Save
+          variant: primary
+          disabled: false
+  soft_keyboard:
+    source:
+      image: images/Setings/setings_13.png
+    shell:
+      status_bar:
+        right: 2026-03-25 08:46:43
+    body:
+      sections:
+      - type: form_grid
+        id: soft_keyboard_form
+        columns: 2
+        rows:
+        - - soft_keyboard_open
+          - buzzer_open
+        - - reagent_empty_close
+          - blank1
+        - - cover_open_card
+          - blank2
+        fields:
+          soft_keyboard_open:
+            label: Soft Keyboard
+            value: Open
+            control: select
+          buzzer_open:
+            label: Buzzer
+            value: Open
+            control: select
+          reagent_empty_close:
+            label: ReagentQClose
+            value: Close
+            control: select
+          blank1:
+            label: ''
+            value: ''
+            control: readonly
+          cover_open_card:
+            label: Cover Open Card
+            value: ''
+            control: readonly
+          blank2:
+            label: ''
+            value: ''
+            control: readonly
+    actions:
+      bottom:
+        align: center
+        items:
+        - text: TouchScreen
+          variant: primary
+          disabled: false
+        - text: Save
+          variant: primary
+          disabled: false

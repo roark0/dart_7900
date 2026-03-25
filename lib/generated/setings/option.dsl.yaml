@@ -1,0 +1,70 @@
+extends: lib/generated/setings/main.dsl.yaml
+source:
+  images:
+  - images/Setings/setings_4.png
+page:
+  id: menu_system_settings_option
+shell:
+  side_nav:
+    selected: Option
+  status_bar:
+    right: 2026-03-25 08:46:43
+body:
+  sections:
+  - type: form_grid
+    id: option_form
+    columns: 3
+    rows:
+    - - language
+      - date_format
+      - time_format
+    - - sample_saved
+      - manual_entry
+      - auto_increment
+    - - sample_no_mode
+      - barcode
+      - blank1
+    fields:
+      language:
+        label: Language
+        value: English
+        control: select
+      date_format:
+        label: Date Format
+        value: 2026-03-25
+        control: readonly
+      time_format:
+        label: Time Format
+        value: 08:49:39
+        control: readonly
+      sample_saved:
+        label: Sample Saved
+        value: 100000
+        control: readonly
+      manual_entry:
+        label: Manual Entry
+        value: ''
+        control: readonly
+      auto_increment:
+        label: Auto Increment
+        value: ''
+        control: readonly
+      sample_no_mode:
+        label: Sample processing
+        value: manual
+        control: select
+      barcode:
+        label: Use barcode
+        value: ''
+        control: readonly
+      blank1:
+        label: ''
+        value: ''
+        control: readonly
+actions:
+  bottom:
+    align: center
+    items:
+    - text: Save
+      variant: primary
+      disabled: false

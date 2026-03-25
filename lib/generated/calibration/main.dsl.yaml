@@ -1,14 +1,14 @@
 extends: lib/generated/templates/menu_shell_base.dsl.yaml
 source:
   images:
-  - images/Menu/4_Calibration/Calibration_1.png
-  - images/Menu/4_Calibration/Calibration_2.png
-  grouping: menu_calibration
+  - images/Calibration/Calibration_1.png
+  - images/Calibration/Calibration_2.png
+  grouping: calibration
 page:
   id: menu_calibration
   template: calibration_panel
   size: 800x600
-  output: lib/src/features/menu/menu_calibration.dart
+  output: lib/src/features/calibration/calibration_page.dart
 shell:
   top_nav:
     selected: Analysis
@@ -35,7 +35,7 @@ body:
 states:
   factors:
     source:
-      image: images/Menu/4_Calibration/Calibration_1.png
+      image: images/Calibration/Calibration_1.png
     shell:
       status_bar:
         right: 2026-03-25 08:45:11
@@ -111,7 +111,7 @@ states:
           disabled: false
   target_table:
     source:
-      image: images/Menu/4_Calibration/Calibration_2.png
+      image: images/Calibration/Calibration_2.png
     shell:
       status_bar:
         right: 2026-03-25 08:45:28

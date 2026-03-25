@@ -1,0 +1,78 @@
+source:
+  image: images/XR_QC/XR_QC_3.png
+shell:
+  side_nav:
+    selected: X-R QC Graph
+  status_bar:
+    right: 2026-03-25 08:15:00
+body:
+  sections:
+  - id: xr_qc_side_state
+    selected: X-R QC Graph
+  - type: form_grid
+    id: xr_qc_graph_header
+    columns: 3
+    rows:
+    - - file_no
+      - lot_no
+      - exp_date
+    - - mode
+      - time
+      - location_total
+    fields:
+      file_no:
+        label: FileNo.
+        value: '1'
+        control: select
+      lot_no:
+        label: LotNo.
+        value: ''
+        control: readonly
+      exp_date:
+        label: Exp.date
+        value: ''
+        control: readonly
+      mode:
+        label: Mode
+        value: ''
+        control: readonly
+      time:
+        label: Time
+        value: ''
+        control: readonly
+      location_total:
+        label: Location/Total
+        value: ''
+        control: readonly
+  - type: stats_panel
+    id: xr_qc_graph_panels
+    items:
+    - WBC
+    - RBC
+    - Mean
+    - SD
+    - CV%
+actions:
+  bottom:
+    align: center
+    items:
+    - text: ←
+      variant: primary
+      disabled: false
+      target:
+        action: previous_item
+    - text: ItemSort
+      variant: muted
+      disabled: true
+      target:
+        action: item_sort
+    - text: Delete
+      variant: muted
+      disabled: true
+      target:
+        action: delete
+    - text: →
+      variant: primary
+      disabled: false
+      target:
+        action: next_item

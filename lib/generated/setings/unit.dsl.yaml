@@ -1,0 +1,44 @@
+extends: lib/generated/setings/main.dsl.yaml
+source:
+  images:
+  - images/Setings/setings_2.png
+page:
+  id: menu_system_settings_unit
+shell:
+  side_nav:
+    selected: Unit
+  status_bar:
+    right: 2026-03-25 08:46:43
+body:
+  sections:
+  - type: matrix_table
+    id: unit_settings_table
+    groups:
+    - - Unit Select
+      - International standard
+      - Conventional
+    rows:
+    - - WBC
+      - 10^9/L
+      - 10^3/uL
+    - - RBC
+      - 10^12/L
+      - 10^6/uL
+    - - HGB
+      - g/L
+      - g/dL
+    - - PLT
+      - 10^9/L
+      - 10^3/uL
+    zebra: true
+    dense: true
+actions:
+  bottom:
+    align: center
+    items:
+    - text: Default
+      variant: primary
+      disabled: false
+    - text: Save
+      variant: primary
+      disabled: false

@@ -1,0 +1,45 @@
+extends: lib/generated/setings/main.dsl.yaml
+source:
+  images:
+  - images/Setings/setings_8.png
+page:
+  id: menu_system_settings_reagent_management
+shell:
+  side_nav:
+    selected: Reagent management
+  status_bar:
+    right: 2026-03-25 08:46:43
+body:
+  sections:
+  - type: form_grid
+    id: reagent_management_form
+    columns: 2
+    rows:
+    - - automatic_sleep_wait
+      - automatic_hibernate
+    - - daily_maintenance_time
+      - clean_reagent_warning
+    fields:
+      automatic_sleep_wait:
+        label: Automatic Sleep Wait Time
+        value: 30
+        control: readonly
+      automatic_hibernate:
+        label: Automatic Hibernation
+        value: 10-60min
+        control: readonly
+      daily_maintenance_time:
+        label: Daily Maintenance Time
+        value: 08:00:00
+        control: readonly
+      clean_reagent_warning:
+        label: Cleaner warning interval
+        value: 7-15days
+        control: readonly
+actions:
+  bottom:
+    align: center
+    items:
+    - text: Save
+      variant: primary
+      disabled: false

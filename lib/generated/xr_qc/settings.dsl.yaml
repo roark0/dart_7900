@@ -1,46 +1,26 @@
-page:
-  id: lj_qc_analyse
-  template: qc_analyse
-  size: 800x600
-  output: lib/src/features/lj_qc/lj_qc_analyse.dart
-theme:
-  variant: analyzer_default
-  tokens:
-    bg: '#C6D5E3'
-    topBar: '#2F6F9E'
-    sideBar: '#6E95BA'
-    panel: '#C2D3E2'
-    header: '#6F97BE'
-    text: '#000000'
-    textOnDark: '#FFFFFF'
-    accent: '#DCE8F2'
-    border: '#9CB2C5'
+source:
+  image: images/XR_QC/XR_QC_1.png
 shell:
-  top_nav:
-    selected: L-J QC
   side_nav:
-    selected: L-J QC Analyse
-    items:
-    - L-J QC Settings
-    - L-J QC Analyse
-    - L-J QC Graph
-    - L-J QC list
+    selected: X-R QC Settings
   status_bar:
-    left: Engineer
-    center: LIS
-    right: 2026-03-24 17:35:48
-    indicator: green
+    right: 2026-03-25 08:15:00
 body:
   sections:
+  - id: xr_qc_side_state
+    selected: X-R QC Settings
   - type: form_grid
-    id: qc_meta
+    id: xr_qc_settings_header
     columns: 3
     rows:
     - - file_no
       - lot_no
-      - qc_level
+      - exp_date
     - - file_name
+      - qc_level
       - mode
+    - - set_by
+      - date_created
       - qc_no
     fields:
       file_no:
@@ -50,35 +30,47 @@ body:
       lot_no:
         label: LotNo.
         value: ''
-        control: input
-      qc_level:
-        label: QC Level
-        value: ''
-        control: input
+        control: readonly
+      exp_date:
+        label: Exp.Date
+        value: 2026-03-25
+        control: select
       file_name:
         label: FileName
         value: ''
-        control: input
+        control: readonly
+      qc_level:
+        label: QC Level
+        value: M
+        control: select
       mode:
         label: Mode
-        value: ''
-        control: input
+        value: Whole blood
+        control: select
+      set_by:
+        label: Set By
+        value: Engineer
+        control: readonly
+      date_created:
+        label: Date Created
+        value: 2026-03-25
+        control: readonly
       qc_no:
         label: QCNo.
         value: ''
-        control: input
+        control: readonly
   - type: triplet_table
-    id: qc_results
+    id: xr_qc_settings_table
     groups:
     - - Item
-      - Result
-      - Unit
+      - Target
+      - Limit
     - - Item
-      - Result
-      - Unit
+      - Target
+      - Limit
     - - Item
-      - Result
-      - Unit
+      - Target
+      - Limit
     rows:
     - - WBC
       - ''
@@ -154,25 +146,17 @@ body:
       - ''
     zebra: true
     dense: true
-  - type: chart_row
-    id: histograms
-    items:
-    - title: WBC
-      kind: histogram
-      x_axis: 0 100 200 300 400 fL
-      y_axis: true
-    - title: RBC
-      kind: histogram
-      x_axis: 0 50 100 150 200 250 fL
-      y_axis: true
-    - title: PLT
-      kind: histogram
-      x_axis: 0 10 20 30 fL
-      y_axis: true
 actions:
   bottom:
-    align: left
+    align: center
     items:
-    - text: Start test
+    - text: Save
       variant: primary
       disabled: false
+      target:
+        action: save
+    - text: Delete
+      variant: primary
+      disabled: false
+      target:
+        action: delete

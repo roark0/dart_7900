@@ -1,0 +1,80 @@
+extends: lib/generated/templates/menu_shell_base.dsl.yaml
+source:
+  images:
+  - images/Setings/setings_1.png
+  - images/Setings/setings_2.png
+  - images/Setings/setings_3.png
+  - images/Setings/setings_4.png
+  - images/Setings/setings_5_1.png
+  - images/Setings/setings_5_2.png
+  - images/Setings/setings_6.png
+  - images/Setings/setings_7.png
+  - images/Setings/setings_8.png
+  - images/Setings/setings_9.png
+  - images/Setings/setings_10.png
+  - images/Setings/setings_11.png
+  - images/Setings/setings_12.png
+  - images/Setings/setings_13.png
+  grouping: setings
+page:
+  id: menu_system_settings
+  template: system_settings_panel
+  size: 800x600
+  output: lib/src/features/system_settings/system_settings_page.dart
+shell:
+  top_nav:
+    selected: Analysis
+  side_nav:
+    selected: Reference range
+    items:
+    - text: Reference range
+      target:
+        page: menu_system_settings_reference_range
+        file: lib/generated/setings/reference_range.dsl.yaml
+    - text: Unit
+      target:
+        page: menu_system_settings_unit
+        file: lib/generated/setings/unit.dsl.yaml
+    - text: Print
+      target:
+        page: menu_system_settings_print
+        file: lib/generated/setings/print.dsl.yaml
+    - text: Option
+      target:
+        page: menu_system_settings_option
+        file: lib/generated/setings/option.dsl.yaml
+    - text: Abnormal
+      target:
+        page: menu_system_settings_abnormal
+        file: lib/generated/setings/abnormal.dsl.yaml
+        state: abnormal_flags
+    - text: ShortCuts
+      target:
+        page: menu_system_settings_shortcuts
+        file: lib/generated/setings/shortcuts.dsl.yaml
+    - text: Interface
+      target:
+        page: menu_system_settings_interface
+        file: lib/generated/setings/interface.dsl.yaml
+    - text: Communication parameters
+      target:
+        page: menu_system_settings_communication_parameters
+        file: lib/generated/setings/communication_parameters.dsl.yaml
+        state: communication_parameters
+    - text: Reagent management
+      target:
+        page: menu_system_settings_reagent_management
+        file: lib/generated/setings/reagent_management.dsl.yaml
+    - text: Lab info
+      target:
+        page: menu_system_settings_lab_info
+        file: lib/generated/setings/lab_info.dsl.yaml
+        state: lab_info
+    - text: Other
+      target:
+        page: menu_system_settings_other
+        file: lib/generated/setings/other.dsl.yaml
+  status_bar:
+    right: 2026-03-25 08:46:43
+body:
+  sections: []

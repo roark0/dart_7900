@@ -1,0 +1,79 @@
+extends: lib/generated/templates/app_shell_base.dsl.yaml
+source:
+  images:
+  - images/XR_QC/XR_QC_1.png
+  - images/XR_QC/XR_QC_2.png
+  - images/XR_QC/XR_QC_3.png
+  - images/XR_QC/XR_QC_4.png
+  grouping: xr_qc
+page:
+  id: xr_qc_main
+  template: qc_panel
+  size: 800x600
+  output: lib/src/features/xr_qc/xr_qc_main.dart
+shell:
+  top_nav:
+    selected: L-J QC
+  side_nav:
+    selected: X-R QC Settings
+    items:
+    - text: X-R QC Settings
+      target:
+        page: xr_qc_main
+        state: settings
+    - text: X-R QC Analyse
+      target:
+        page: xr_qc_main
+        state: analyse
+    - text: X-R QC Graph
+      target:
+        page: xr_qc_main
+        state: graph
+    - text: X-R QC list
+      target:
+        page: xr_qc_main
+        state: list
+  status_bar:
+    left: Engineer
+    center: LIS
+    right: 2026-03-25 08:15:00
+    indicator: green
+body:
+  sections:
+  - type: action_row
+    id: xr_qc_side_state
+    selected: X-R QC Settings
+    items:
+    - text: X-R QC Settings
+      variant: secondary
+      disabled: false
+      target:
+        page: xr_qc_main
+        state: settings
+    - text: X-R QC Analyse
+      variant: secondary
+      disabled: false
+      target:
+        page: xr_qc_main
+        state: analyse
+    - text: X-R QC Graph
+      variant: secondary
+      disabled: false
+      target:
+        page: xr_qc_main
+        state: graph
+    - text: X-R QC list
+      variant: secondary
+      disabled: false
+      target:
+        page: xr_qc_main
+        state: list
+states:
+  settings:
+    extends: lib/generated/xr_qc/settings.dsl.yaml
+  analyse:
+    extends: lib/generated/xr_qc/analyse.dsl.yaml
+  graph:
+    extends: lib/generated/xr_qc/graph.dsl.yaml
+  list:
+    extends: lib/generated/xr_qc/list.dsl.yaml

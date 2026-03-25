@@ -1,0 +1,133 @@
+extends: lib/generated/setings/main.dsl.yaml
+source:
+  images:
+  - images/Setings/setings_10.png
+  - images/Setings/setings_11.png
+page:
+  id: menu_system_settings_communication_parameters
+shell:
+  side_nav:
+    selected: Communication parameters
+states:
+  communication_parameters:
+    source:
+      image: images/Setings/setings_10.png
+    shell:
+      status_bar:
+        right: 2026-03-25 08:46:43
+    body:
+      sections:
+      - type: matrix_table
+        id: communication_parameters_table
+        groups:
+        - - Index
+          - InstitutionId
+          - Full Name
+          - AGR No.
+          - Serial Number
+          - ReagentRange
+        rows:
+        - - 1
+          - 1
+          - admin
+          - admin@126.com
+          - admin
+          - ''
+        - - 2
+          - 2
+          - admin
+          - admin@126.com
+          - admin
+          - ''
+        zebra: true
+        dense: true
+    actions:
+      bottom:
+        align: center
+        items:
+        - text: Add
+          variant: primary
+          disabled: false
+        - text: Edit
+          variant: primary
+          disabled: false
+        - text: Delete
+          variant: primary
+          disabled: false
+        - text: Previous
+          variant: primary
+          disabled: false
+  communication_rules:
+    source:
+      image: images/Setings/setings_11.png
+    shell:
+      status_bar:
+        right: 2026-03-25 08:46:43
+    body:
+      sections:
+      - type: form_grid
+        id: communication_rules_form
+        columns: 3
+        rows:
+        - - rule_one
+          - age_range
+          - blank1
+        - - rule_two
+          - operator_one
+          - operator_two
+        - - wbc
+          - compare_to
+          - rule_area
+        fields:
+          rule_one:
+            label: Rule
+            value: ''
+            control: readonly
+          age_range:
+            label: Age Range
+            value: ''
+            control: readonly
+          blank1:
+            label: ''
+            value: ''
+            control: readonly
+          rule_two:
+            label: Rule
+            value: ''
+            control: readonly
+          operator_one:
+            label: ''
+            value: '>'
+            control: readonly
+          operator_two:
+            label: ''
+            value: '>'
+            control: readonly
+          wbc:
+            label: WBC
+            value: ''
+            control: readonly
+          compare_to:
+            label: AND
+            value: ''
+            control: readonly
+          rule_area:
+            label: ''
+            value: ''
+            control: readonly
+    actions:
+      bottom:
+        align: center
+        items:
+        - text: Save
+          variant: primary
+          disabled: false
+        - text: Add
+          variant: primary
+          disabled: false
+        - text: Delete
+          variant: primary
+          disabled: false
+        - text: Previous
+          variant: primary
+          disabled: false

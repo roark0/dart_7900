@@ -140,63 +140,67 @@ images:
   images/Menu/Menu_7.png:
     dsl: lib/generated/menu/main.dsl.yaml
     state: shutdown
-  images/Menu/3_QC/QC_1.png:
-    dsl: lib/generated/menu/qc.dsl.yaml
-    state: lj_qc_setting
-  images/Menu/3_QC/QC_2.png:
-    dsl: lib/generated/menu/qc.dsl.yaml
-    state: xb_qc_graph
-  images/Menu/3_QC/QC_3.png:
-    dsl: lib/generated/menu/qc.dsl.yaml
-    state: xr_qc_analyse
-  images/Menu/4_Calibration/Calibration_1.png:
-    dsl: lib/generated/menu/calibration.dsl.yaml
+  images/Calibration/Calibration_1.png:
+    dsl: lib/generated/calibration/main.dsl.yaml
     state: factors
-  images/Menu/4_Calibration/Calibration_2.png:
-    dsl: lib/generated/menu/calibration.dsl.yaml
+  images/Calibration/Calibration_2.png:
+    dsl: lib/generated/calibration/main.dsl.yaml
     state: target_table
-  images/Menu/4_Calibration/Calibration_3_dialog.png:
-    dsl: lib/generated/menu/calibration_dialogs.dsl.yaml
+  images/Calibration/Calibration_3_dialog.png:
+    dsl: lib/generated/calibration/dialogs.dsl.yaml
     state: wbc_factor
-  images/Menu/6_System_setings/setings_1.png:
-    dsl: lib/generated/menu/system_settings.dsl.yaml
-    state: reference_range
-  images/Menu/6_System_setings/setings_2.png:
-    dsl: lib/generated/menu/system_settings.dsl.yaml
-    state: unit
-  images/Menu/6_System_setings/setings_3.png:
-    dsl: lib/generated/menu/system_settings.dsl.yaml
-    state: print
-  images/Menu/6_System_setings/setings_4.png:
-    dsl: lib/generated/menu/system_settings.dsl.yaml
-    state: option
-  images/Menu/6_System_setings/setings_5_1.png:
-    dsl: lib/generated/menu/system_settings.dsl.yaml
+  images/Setings/setings_1.png:
+    dsl: lib/generated/setings/reference_range.dsl.yaml
+  images/Setings/setings_2.png:
+    dsl: lib/generated/setings/unit.dsl.yaml
+  images/Setings/setings_3.png:
+    dsl: lib/generated/setings/print.dsl.yaml
+  images/Setings/setings_4.png:
+    dsl: lib/generated/setings/option.dsl.yaml
+  images/Setings/setings_5_1.png:
+    dsl: lib/generated/setings/abnormal.dsl.yaml
     state: abnormal_flags
-  images/Menu/6_System_setings/setings_5_2.png:
-    dsl: lib/generated/menu/system_settings.dsl.yaml
+  images/Setings/setings_5_2.png:
+    dsl: lib/generated/setings/abnormal.dsl.yaml
     state: abnormal_words
-  images/Menu/6_System_setings/setings_6.png:
-    dsl: lib/generated/menu/system_settings.dsl.yaml
-    state: shortcuts
-  images/Menu/6_System_setings/setings_7.png:
-    dsl: lib/generated/menu/system_settings.dsl.yaml
-    state: other
-  images/Menu/6_System_setings/setings_8.png:
-    dsl: lib/generated/menu/system_settings.dsl.yaml
-    state: reagent_management
-  images/Menu/6_System_setings/setings_9.png:
-    dsl: lib/generated/menu/system_settings.dsl.yaml
-    state: interface
-  images/Menu/6_System_setings/setings_10.png:
-    dsl: lib/generated/menu/system_settings.dsl.yaml
+  images/Setings/setings_6.png:
+    dsl: lib/generated/setings/shortcuts.dsl.yaml
+  images/Setings/setings_7.png:
+    dsl: lib/generated/setings/other.dsl.yaml
+  images/Setings/setings_8.png:
+    dsl: lib/generated/setings/reagent_management.dsl.yaml
+  images/Setings/setings_9.png:
+    dsl: lib/generated/setings/interface.dsl.yaml
+  images/Setings/setings_10.png:
+    dsl: lib/generated/setings/communication_parameters.dsl.yaml
     state: communication_parameters
-  images/Menu/6_System_setings/setings_11.png:
-    dsl: lib/generated/menu/system_settings.dsl.yaml
+  images/Setings/setings_11.png:
+    dsl: lib/generated/setings/communication_parameters.dsl.yaml
     state: communication_rules
-  images/Menu/6_System_setings/setings_12.png:
-    dsl: lib/generated/menu/system_settings.dsl.yaml
+  images/Setings/setings_12.png:
+    dsl: lib/generated/setings/lab_info.dsl.yaml
     state: lab_info
-  images/Menu/6_System_setings/setings_13.png:
-    dsl: lib/generated/menu/system_settings.dsl.yaml
+  images/Setings/setings_13.png:
+    dsl: lib/generated/setings/lab_info.dsl.yaml
     state: soft_keyboard
+  images/XB_QC/XB_QC_1.png:
+    dsl: lib/generated/xb_qc/main.dsl.yaml
+    state: settings
+  images/XB_QC/XB_QC_2.png:
+    dsl: lib/generated/xb_qc/main.dsl.yaml
+    state: list
+  images/XB_QC/XB_QC_3.png:
+    dsl: lib/generated/xb_qc/main.dsl.yaml
+    state: graph
+  images/XR_QC/XR_QC_1.png:
+    dsl: lib/generated/xr_qc/main.dsl.yaml
+    state: settings
+  images/XR_QC/XR_QC_2.png:
+    dsl: lib/generated/xr_qc/main.dsl.yaml
+    state: analyse
+  images/XR_QC/XR_QC_3.png:
+    dsl: lib/generated/xr_qc/main.dsl.yaml
+    state: graph
+  images/XR_QC/XR_QC_4.png:
+    dsl: lib/generated/xr_qc/main.dsl.yaml
+    state: list

@@ -1,0 +1,79 @@
+extends: lib/generated/setings/main.dsl.yaml
+source:
+  images:
+  - images/Setings/setings_5_1.png
+  - images/Setings/setings_5_2.png
+page:
+  id: menu_system_settings_abnormal
+shell:
+  side_nav:
+    selected: Abnormal
+states:
+  abnormal_flags:
+    source:
+      image: images/Setings/setings_5_1.png
+    shell:
+      status_bar:
+        right: 2026-03-25 08:46:43
+    body:
+      sections:
+      - type: matrix_table
+        id: abnormal_flags_table
+        title: Flag Alarm Message
+        groups:
+        - - Flag Name
+          - Message
+        rows:
+        - - Leukopenia
+          - WBC<3.5*10^9/L
+        - - Leukocytosis
+          - WBC>10*10^9/L
+        - - Anemia
+          - HGB<90g/L
+        - - Thrombocytopenia
+          - PLT<100*10^9/L
+        zebra: true
+        dense: true
+    actions:
+      bottom:
+        align: center
+        items:
+        - text: Default
+          variant: primary
+          disabled: false
+        - text: Recovery 1
+          variant: primary
+          disabled: false
+        - text: Save
+          variant: primary
+          disabled: false
+  abnormal_words:
+    source:
+      image: images/Setings/setings_5_2.png
+    shell:
+      status_bar:
+        right: 2026-03-25 08:46:43
+    body:
+      sections:
+      - type: matrix_table
+        id: abnormal_words_table
+        title: Abnormal word code
+        groups:
+        - - Abnormal word code
+          - Rate
+        rows:
+        - - HGB distribution width code
+          - 10
+        - - RBC aggregation
+          - 30
+        - - Platelet clumps
+          - 50
+        zebra: true
+        dense: true
+    actions:
+      bottom:
+        align: center
+        items:
+        - text: Save
+          variant: primary
+          disabled: false

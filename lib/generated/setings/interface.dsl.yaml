@@ -1,0 +1,70 @@
+extends: lib/generated/setings/main.dsl.yaml
+source:
+  images:
+  - images/Setings/setings_9.png
+page:
+  id: menu_system_settings_interface
+shell:
+  side_nav:
+    selected: Interface
+  status_bar:
+    right: 2026-03-25 08:46:43
+body:
+  sections:
+  - type: form_grid
+    id: interface_settings_form
+    columns: 3
+    rows:
+    - - net_type
+      - transfer_type
+      - serial_mode
+    - - device
+      - name
+      - timeout
+    - - port
+      - custom_sample_no
+      - transmission_mode
+    fields:
+      net_type:
+        label: NetType
+        value: Net
+        control: select
+      transfer_type:
+        label: TransferType
+        value: Serial
+        control: select
+      serial_mode:
+        label: ''
+        value: ''
+        control: readonly
+      device:
+        label: Device
+        value: WiFi
+        control: select
+      name:
+        label: Name
+        value: ''
+        control: readonly
+      timeout:
+        label: ACT Timeout
+        value: ''
+        control: readonly
+      port:
+        label: Port
+        value: ''
+        control: readonly
+      custom_sample_no:
+        label: Custom Sample No Auto
+        value: ''
+        control: readonly
+      transmission_mode:
+        label: Histogram transmission mode
+        value: not committed
+        control: readonly
+actions:
+  bottom:
+    align: center
+    items:
+    - text: Save
+      variant: primary
+      disabled: false

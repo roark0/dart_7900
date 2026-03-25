@@ -1,0 +1,157 @@
+source:
+  image: images/XR_QC/XR_QC_2.png
+shell:
+  side_nav:
+    selected: X-R QC Analyse
+  status_bar:
+    right: 2026-03-25 08:15:00
+body:
+  sections:
+  - id: xr_qc_side_state
+    selected: X-R QC Analyse
+  - type: form_grid
+    id: xr_qc_analyse_header
+    columns: 3
+    rows:
+    - - file_no
+      - lot_no
+      - qc_level
+    - - exp_date
+      - file_name
+      - mode
+    - - qc_no
+      - blank1
+      - blank2
+    fields:
+      file_no:
+        label: FileNo.
+        value: '1'
+        control: select
+      lot_no:
+        label: LotNo.
+        value: ''
+        control: readonly
+      qc_level:
+        label: QC Level
+        value: ''
+        control: readonly
+      exp_date:
+        label: Exp.Date
+        value: ''
+        control: readonly
+      file_name:
+        label: FileName
+        value: ''
+        control: readonly
+      mode:
+        label: Mode
+        value: ''
+        control: readonly
+      qc_no:
+        label: QCNo.
+        value: ''
+        control: readonly
+      blank1:
+        label: ''
+        value: ''
+        control: readonly
+      blank2:
+        label: ''
+        value: ''
+        control: readonly
+  - type: triplet_table
+    id: xr_qc_analyse_table
+    groups:
+    - - Item
+      - Result
+      - Unit
+    - - Item
+      - Result
+      - Unit
+    - - Item
+      - Result
+      - Unit
+    rows:
+    - - WBC
+      - ''
+      - ''
+      - RBC
+      - ''
+      - ''
+      - PLT
+      - ''
+      - ''
+    - - Lym%
+      - ''
+      - ''
+      - HGB
+      - ''
+      - ''
+      - MPV
+      - ''
+      - ''
+    - - Mid%
+      - ''
+      - ''
+      - HCT
+      - ''
+      - ''
+      - PDW-CV
+      - ''
+      - ''
+    - - Gran%
+      - ''
+      - ''
+      - MCV
+      - ''
+      - ''
+      - PDW-SD
+      - ''
+      - ''
+    - - Lym#
+      - ''
+      - ''
+      - MCH
+      - ''
+      - ''
+      - PCT
+      - ''
+      - ''
+    - - Mid#
+      - ''
+      - ''
+      - MCHC
+      - ''
+      - ''
+      - P-LCR
+      - ''
+      - ''
+    - - Gran#
+      - ''
+      - ''
+      - RDW-CV
+      - ''
+      - ''
+      - P-LCC
+      - ''
+      - ''
+    - - ''
+      - ''
+      - ''
+      - RDW-SD
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    zebra: true
+    dense: true
+actions:
+  bottom:
+    align: start
+    items:
+    - text: Start test
+      variant: primary
+      disabled: false
+      target:
+        action: start_test

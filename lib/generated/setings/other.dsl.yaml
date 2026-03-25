@@ -1,0 +1,41 @@
+extends: lib/generated/setings/main.dsl.yaml
+source:
+  images:
+  - images/Setings/setings_7.png
+page:
+  id: menu_system_settings_other
+shell:
+  side_nav:
+    selected: Other
+  status_bar:
+    right: 2026-03-25 08:46:43
+body:
+  sections:
+  - type: matrix_table
+    id: other_authority_table
+    groups:
+    - - Name
+      - Authority
+      - Enable Analysis Authority
+    rows:
+    - - admin
+      - ''
+      - true
+    zebra: true
+    dense: true
+actions:
+  bottom:
+    align: center
+    items:
+    - text: Add
+      variant: primary
+      disabled: false
+    - text: Edit
+      variant: primary
+      disabled: false
+    - text: Delete
+      variant: primary
+      disabled: false
+    - text: Change Password
+      variant: primary
+      disabled: false

@@ -1,0 +1,73 @@
+extends: lib/generated/setings/main.dsl.yaml
+source:
+  images:
+  - images/Setings/setings_3.png
+page:
+  id: menu_system_settings_print
+shell:
+  side_nav:
+    selected: Print
+  status_bar:
+    right: 2026-03-25 08:46:43
+body:
+  sections:
+  - type: form_grid
+    id: print_settings_form
+    columns: 3
+    rows:
+    - - printer_mode
+      - print_mode
+      - printer_type
+    - - report_format
+      - report_name
+      - print_rows
+    - - alarm_line
+      - blank1
+      - blank2
+    fields:
+      printer_mode:
+        label: Printer Mode
+        value: Built-in
+        control: select
+      print_mode:
+        label: Print mode
+        value: External
+        control: select
+      printer_type:
+        label: Printer type
+        value: ''
+        control: readonly
+      report_format:
+        label: Report Formats
+        value: segment report
+        control: select
+      report_name:
+        label: Report Name
+        value: report only exported to txt file
+        control: readonly
+      print_rows:
+        label: Print rows
+        value: ''
+        control: readonly
+      alarm_line:
+        label: Alarm line
+        value: High
+        control: select
+      blank1:
+        label: ''
+        value: ''
+        control: readonly
+      blank2:
+        label: ''
+        value: ''
+        control: readonly
+actions:
+  bottom:
+    align: center
+    items:
+    - text: Customization
+      variant: primary
+      disabled: false
+    - text: Save
+      variant: primary
+      disabled: false

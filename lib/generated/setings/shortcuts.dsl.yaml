@@ -1,0 +1,61 @@
+extends: lib/generated/setings/main.dsl.yaml
+source:
+  images:
+  - images/Setings/setings_6.png
+page:
+  id: menu_system_settings_shortcuts
+shell:
+  side_nav:
+    selected: ShortCuts
+  status_bar:
+    right: 2026-03-25 08:46:43
+body:
+  sections:
+  - type: matrix_table
+    id: shortcuts_table
+    title: Item Select
+    groups:
+    - - Department
+      - Shortcut Code
+      - Remark
+      - Default
+    rows:
+    - - Department
+      - Shortcut Code
+      - Remark
+      - true
+    zebra: true
+    dense: true
+  - type: form_grid
+    id: shortcuts_form
+    columns: 3
+    rows:
+    - - department
+      - shortcut_code
+      - remark
+    fields:
+      department:
+        label: Edit Department
+        value: ''
+        control: readonly
+      shortcut_code:
+        label: Shortcut Code
+        value: ''
+        control: readonly
+      remark:
+        label: Remark
+        value: ''
+        control: readonly
+actions:
+  bottom:
+    align: center
+    items:
+    - text: Add
+      variant: primary
+      disabled: false
+    - text: Modify
+      variant: primary
+      disabled: false
+    - text: Delete
+      variant: primary
+      disabled: false

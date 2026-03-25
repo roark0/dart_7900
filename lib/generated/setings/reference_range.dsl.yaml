@@ -1,0 +1,53 @@
+extends: lib/generated/setings/main.dsl.yaml
+source:
+  images:
+  - images/Setings/setings_1.png
+page:
+  id: menu_system_settings_reference_range
+shell:
+  side_nav:
+    selected: Reference range
+  status_bar:
+    right: 2026-03-25 08:46:43
+body:
+  sections:
+  - type: matrix_table
+    id: reference_range_table
+    title: Reference Group item
+    groups:
+    - - Item
+      - Lower limit
+      - Upper limit
+      - Unit
+    rows:
+    - - WBC
+      - 4
+      - 10
+      - 10^9/L
+    - - RBC
+      - 3.5
+      - 5.5
+      - 10^12/L
+    - - HGB
+      - 110
+      - 160
+      - g/L
+    - - PLT
+      - 100
+      - 300
+      - 10^9/L
+    zebra: true
+    dense: true
+actions:
+  bottom:
+    align: center
+    items:
+    - text: Save
+      variant: primary
+      disabled: false
+    - text: Group Set
+      variant: primary
+      disabled: false
+    - text: Previous
+      variant: primary
+      disabled: false

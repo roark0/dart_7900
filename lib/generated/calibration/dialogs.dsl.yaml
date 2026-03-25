@@ -1,0 +1,45 @@
+extends: lib/generated/templates/dialog_base.dsl.yaml
+source:
+  images:
+  - images/Calibration/Calibration_3_dialog.png
+  grouping: menu_calibration_dialogs
+page:
+  id: menu_calibration_dialogs
+  template: dialog_panel
+  size: 800x600
+  output: lib/src/features/calibration/calibration_dialogs.dart
+states:
+  wbc_factor:
+    source:
+      image: images/Calibration/Calibration_3_dialog.png
+    body:
+      sections:
+      - type: form_grid
+        id: wbc_factor_dialog
+        columns: 2
+        rows:
+        - - low_limit
+          - high_limit
+        fields:
+          low_limit:
+            label: Low limit
+            value: ''
+            control: readonly
+          high_limit:
+            label: High limit
+            value: ''
+            control: readonly
+    actions:
+      bottom:
+        align: center
+        items:
+        - text: Confirm
+          variant: primary
+          disabled: false
+          target:
+            action: confirm
+        - text: Cancel
+          variant: primary
+          disabled: false
+          target:
+            action: close_dialog
