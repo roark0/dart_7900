@@ -89,6 +89,7 @@ Flutter 页面 DSL，格式使用 YAML。
 
 - 独立页面可不写 `extends`
 - 基于公共模板的页面应优先写 `extends`
+- `Menu` 体系页面优先继承 `lib/generated/templates/menu_shell_base.dsl.yaml`
 - 使用 `extends` 时，只保留差异字段，不重复模板已有内容
 - 同一页面的多个标签态或子状态，应优先放进 `states`
 - 页面级 DSL 应尽量包含 `source`

@@ -1,4 +1,4 @@
-extends: lib/generated/templates/app_shell_base.dsl.yaml
+extends: lib/generated/templates/menu_shell_base.dsl.yaml
 source:
   images:
   - images/Menu/4_Calibration/Calibration_1.png
