@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../design_system/palette.dart';
-import '../../core/common_widgets.dart';
+import '../../core/theme/theme.dart';
+import '../../core/widget/widget.dart';
 
 class AnalysisPage extends StatelessWidget {
   const AnalysisPage({super.key});

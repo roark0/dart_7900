@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../design_system/design_system.dart';
+import '../../core/theme/theme.dart';
 
 const Color _bg = Color(0xFFC8D6E4);
 const Color _panel = Color(0xFFC8D6E4);
@@ -34,6 +34,7 @@ class MaintenanceActionRowSpec extends MaintenanceSectionSpec {
     this.align = MainAxisAlignment.center,
     this.selectedText,
     this.wrap = false,
+    this.wrapColumns,
   });
 
   final String? title;
@@ -41,6 +42,7 @@ class MaintenanceActionRowSpec extends MaintenanceSectionSpec {
   final MainAxisAlignment align;
   final String? selectedText;
   final bool wrap;
+  final int? wrapColumns;
 }
 
 class MaintenanceFieldSpec {
@@ -88,6 +90,20 @@ class MaintenanceInfoBarSpec extends MaintenanceSectionSpec {
   final List<String> items;
 }
 
+class MaintenanceCleanupPanelSpec extends MaintenanceSectionSpec {
+  const MaintenanceCleanupPanelSpec({
+    this.title = "Data cleanup",
+    required this.options,
+    this.actionText = "Delete",
+    this.selectedOption,
+  });
+
+  final String title;
+  final List<String> options;
+  final String actionText;
+  final String? selectedOption;
+}
+
 class MaintenanceChartSpec {
   const MaintenanceChartSpec({required this.title, required this.xAxis});
 
@@ -112,10 +128,7 @@ class MaintenanceSurface extends StatelessWidget {
       color: _bg,
       padding: const EdgeInsets.fromLTRB(6, 6, 8, 6),
       child: Container(
-        decoration: BoxDecoration(
-          color: _panel,
-          border: Border.all(color: _border),
-        ),
+        decoration: BoxDecoration(color: _panel),
         padding: const EdgeInsets.all(8),
         child: child,
       ),
@@ -135,6 +148,9 @@ class MaintenanceSectionView extends StatelessWidget {
       MaintenanceFormGridSpec grid => _FormGridSection(spec: grid),
       MaintenanceMatrixTableSpec table => _MatrixTableSection(spec: table),
       MaintenanceInfoBarSpec info => _InfoBarSection(spec: info),
+      MaintenanceCleanupPanelSpec cleanup => _CleanupPanelSection(
+        spec: cleanup,
+      ),
       MaintenanceChartRowSpec chart => _ChartRowSection(spec: chart),
       _ => const SizedBox.shrink(),
     };
@@ -152,7 +168,15 @@ class MaintenanceSectionList extends StatelessWidget {
       itemCount: sections.length,
       separatorBuilder: (_, index) => const SizedBox(height: 10),
       itemBuilder: (BuildContext context, int index) {
-        return MaintenanceSectionView(spec: sections[index]);
+        final Widget section = MaintenanceSectionView(spec: sections[index]);
+        if (sections.length <= 1) return section;
+        return Container(
+          padding: const EdgeInsets.fromLTRB(10, 8, 10, 12),
+          decoration: BoxDecoration(
+            border: Border.all(color: _border.withValues(alpha: 0.45)),
+          ),
+          child: section,
+        );
       },
     );
   }
@@ -257,7 +281,7 @@ class _TabBar extends StatelessWidget {
                           (tab == selected
                                   ? UiTypography.buttonLabelOnPrimary
                                   : UiTypography.buttonLabel)
-                              .copyWith(height: 1.0),
+                              .copyWith(height: 1.0, fontSize: 16),
                     ),
                   ),
                 ),
@@ -277,32 +301,72 @@ class _ActionRowSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Widget buttons = spec.wrap
-        ? Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 24,
-            runSpacing: 24,
-            children: spec.items
-                .map(
-                  (MaintenanceActionItemSpec item) => _ActionButton(item: item),
-                )
-                .toList(),
+        ? LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              const double spacing = 24;
+              final int columns = spec.wrapColumns ?? spec.items.length;
+              final List<Widget> wrapped = spec.items.map((
+                MaintenanceActionItemSpec item,
+              ) {
+                final Widget button = _ActionButton(item: item);
+                if (spec.wrapColumns != null || item.text.contains('\n')) {
+                  return const SizedBox(width: 126, child: SizedBox.shrink());
+                }
+                return button;
+              }).toList();
+
+              for (int i = 0; i < wrapped.length; i++) {
+                final MaintenanceActionItemSpec item = spec.items[i];
+                final Widget button = _ActionButton(item: item);
+                if (spec.wrapColumns != null || item.text.contains('\n')) {
+                  wrapped[i] = SizedBox(width: 126, child: button);
+                }
+              }
+
+              final double gridWidth = columns > 0
+                  ? (columns * 126) + ((columns - 1) * spacing)
+                  : constraints.maxWidth;
+
+              return Align(
+                alignment: Alignment.topCenter,
+                child: SizedBox(
+                  width: gridWidth > constraints.maxWidth
+                      ? constraints.maxWidth
+                      : gridWidth,
+                  child: Wrap(
+                    alignment: WrapAlignment.center,
+                    runAlignment: WrapAlignment.center,
+                    spacing: spacing,
+                    runSpacing: 24,
+                    children: wrapped,
+                  ),
+                ),
+              );
+            },
           )
-        : SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: spec.align,
-              children: spec.items
-                  .map(
-                    (MaintenanceActionItemSpec item) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: _ActionButton(
-                        item: item,
-                        selected: item.text == spec.selectedText,
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ),
+        : LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minWidth: constraints.maxWidth),
+                  child: Row(
+                    mainAxisAlignment: spec.align,
+                    children: spec.items
+                        .map(
+                          (MaintenanceActionItemSpec item) => Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            child: _ActionButton(
+                              item: item,
+                              selected: item.text == spec.selectedText,
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ),
+              );
+            },
           );
 
     return Column(
@@ -324,6 +388,7 @@ class _ActionButton extends StatelessWidget {
   final MaintenanceActionItemSpec item;
   final bool selected;
 
+  @override
   @override
   Widget build(BuildContext context) {
     final bool secondary = item.variant == MaintenanceActionVariant.secondary;
@@ -359,7 +424,7 @@ class _ActionButton extends StatelessWidget {
           style: UiTypography.bottomActionLabel.copyWith(
             color: fg,
             height: 1.05,
-            fontSize: secondary ? 13 : 14,
+            fontSize: secondary ? 15 : 16,
           ),
         ),
       ),
@@ -462,12 +527,22 @@ class _MatrixTableSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<int> flexes = spec.headers
+    final List<int> weights = spec.headers
         .map((String e) => e.length > 12 ? 2 : 1)
         .toList();
-    if (flexes.isNotEmpty) {
-      flexes[0] = flexes[0] < 2 ? 2 : flexes[0];
+    if (weights.isNotEmpty) {
+      weights[0] = 1;
+      if (weights.length > 1) {
+        final int lastIndex = weights.length - 1;
+        weights[lastIndex] = weights[lastIndex] < 2
+            ? 2
+            : weights[lastIndex] + 1;
+      }
     }
+
+    final int totalWeight = weights.isEmpty
+        ? 1
+        : weights.fold(0, (int sum, int e) => sum + e);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -476,29 +551,45 @@ class _MatrixTableSection extends StatelessWidget {
           Text(spec.title!, style: UiTypography.sectionTitle),
           const SizedBox(height: 6),
         ],
-        Container(
-          decoration: BoxDecoration(border: Border.all(color: _border)),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minWidth: MediaQuery.sizeOf(context).width - 150,
-              ),
-              child: Column(
-                children: <Widget>[
-                  _TableRow(values: spec.headers, flexes: flexes, header: true),
-                  ...spec.rows.asMap().entries.map(
-                    (MapEntry<int, List<String>> entry) => _TableRow(
-                      values: entry.value,
-                      flexes: flexes,
-                      header: false,
-                      rowIndex: entry.key,
-                    ),
+        LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            final double viewportWidth = constraints.maxWidth.isFinite
+                ? constraints.maxWidth
+                : MediaQuery.sizeOf(context).width;
+            final double tableWidth = viewportWidth;
+            final List<double> columnWidths = weights.isEmpty
+                ? <double>[]
+                : weights
+                      .map((int weight) => (tableWidth * weight) / totalWeight)
+                      .toList();
+
+            return Container(
+              decoration: BoxDecoration(border: Border.all(color: _border)),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minWidth: tableWidth),
+                  child: Column(
+                    children: <Widget>[
+                      _TableRow(
+                        values: spec.headers,
+                        columnWidths: columnWidths,
+                        header: true,
+                      ),
+                      ...spec.rows.asMap().entries.map(
+                        (MapEntry<int, List<String>> entry) => _TableRow(
+                          values: entry.value,
+                          columnWidths: columnWidths,
+                          header: false,
+                          rowIndex: entry.key,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
       ],
     );
@@ -508,13 +599,13 @@ class _MatrixTableSection extends StatelessWidget {
 class _TableRow extends StatelessWidget {
   const _TableRow({
     required this.values,
-    required this.flexes,
+    required this.columnWidths,
     required this.header,
     this.rowIndex = 0,
   });
 
   final List<String> values;
-  final List<int> flexes;
+  final List<double> columnWidths;
   final bool header;
   final int rowIndex;
 
@@ -523,7 +614,9 @@ class _TableRow extends StatelessWidget {
     return Row(
       children: List<Widget>.generate(values.length, (int index) {
         final bool accentFirst = !header && index == 0;
-        final double width = (index < flexes.length ? flexes[index] : 1) * 104;
+        final double width = index < columnWidths.length
+            ? columnWidths[index]
+            : 96;
         return SizedBox(
           width: width,
           child: Container(
@@ -559,6 +652,97 @@ class _TableRow extends StatelessWidget {
           ),
         );
       }),
+    );
+  }
+}
+
+class _CleanupPanelSection extends StatelessWidget {
+  const _CleanupPanelSection({required this.spec});
+
+  final MaintenanceCleanupPanelSpec spec;
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Widget> rows = <Widget>[];
+    for (int i = 0; i < spec.options.length; i += 2) {
+      final String left = spec.options[i];
+      final String? right = i + 1 < spec.options.length
+          ? spec.options[i + 1]
+          : null;
+      rows.add(
+        Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: _CleanupOptionLabel(
+                  text: left,
+                  selected: left == spec.selectedOption,
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: right == null
+                    ? const SizedBox.shrink()
+                    : _CleanupOptionLabel(
+                        text: right,
+                        selected: right == spec.selectedOption,
+                      ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(spec.title, style: UiTypography.sectionTitle),
+        const SizedBox(height: 10),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(child: Column(children: rows)),
+            const SizedBox(width: 16),
+            SizedBox(
+              width: 126,
+              child: _ActionButton(
+                item: MaintenanceActionItemSpec(text: spec.actionText),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _CleanupOptionLabel extends StatelessWidget {
+  const _CleanupOptionLabel({required this.text, this.selected = false});
+
+  final String text;
+  final bool selected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Icon(
+          selected ? Icons.radio_button_checked : Icons.radio_button_unchecked,
+          size: 18,
+          color: _text,
+        ),
+        const SizedBox(width: 6),
+        Expanded(
+          child: Text(
+            text,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: UiTypography.fieldLabel,
+          ),
+        ),
+      ],
     );
   }
 }

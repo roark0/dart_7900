@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../core/common_widgets.dart';
-import '../../design_system/palette.dart';
+import '../../core/widget/widget.dart';
+import '../../core/theme/theme.dart';
 
 class LjQcPage extends StatelessWidget {
   const LjQcPage({super.key, required this.selectedSideIndex});

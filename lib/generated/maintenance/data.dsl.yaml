@@ -35,38 +35,16 @@ body:
     - text: Import
       variant: primary
       disabled: false
-  - type: form_grid
+  - type: cleanup_panel
     id: data_cleanup
-    columns: 3
-    rows:
-    - - list_review_option
-      - quality_control_option
-      - delete_action
-    - - log_option
-      - all_data_option
-      - blank
-    fields:
-      list_review_option:
-        label: Data cleanup
-        value: List review
-        control: readonly
-      quality_control_option:
-        label: ''
-        value: Quality control data
-        control: readonly
-      delete_action:
-        label: ''
-        value: Delete
-        control: readonly
-      log_option:
-        label: ''
-        value: Log
-        control: readonly
-      all_data_option:
-        label: ''
-        value: All data
-        control: readonly
-      blank:
-        label: ''
-        value: ''
-        control: readonly
+    title: Data cleanup
+    selectedOption: List review
+    options:
+    - List review
+    - Quality control data
+    - Log
+    - All data
+    action:
+      text: Delete
+      variant: primary
+      disabled: false

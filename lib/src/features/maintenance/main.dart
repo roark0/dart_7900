@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../design_system/design_system.dart';
+import '../../core/theme/theme.dart';
 import 'basic.dart';
 import 'daily.dart';
 import 'data.dart';

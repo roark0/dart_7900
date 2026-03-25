@@ -38,7 +38,7 @@ body:
       target:
         page: maintenance_daily
         state: maintenance
-    - text: Whole machine maintenance
+    - text: "Whole machine\nmaintenance"
       variant: secondary
       disabled: false
       target:
@@ -104,18 +104,20 @@ states:
         selected: Clean
       - type: action_row
         id: clean_actions
+        wrap: true
+        wrapColumns: 2
         align: center
         items:
-        - text: Liquid path cleaning
+        - text: "Liquid path\ncleaning"
           variant: primary
           disabled: false
-        - text: Sampling probe cleaning
+        - text: "Sampling\nprobe cleaning"
           variant: primary
           disabled: false
-        - text: WBC chamber cleaning
+        - text: "WBC chamber\ncleaning"
           variant: primary
           disabled: false
-        - text: RBC chamber cleaning
+        - text: "RBC chamber\ncleaning"
           variant: primary
           disabled: false
   maintenance:
@@ -129,18 +131,20 @@ states:
         selected: Maintenance
       - type: action_row
         id: maintenance_actions
+        wrap: true
+        wrapColumns: 2
         align: center
         items:
-        - text: Aperture blockage removal
+        - text: "Aperture\nblockage\nremoval"
           variant: primary
           disabled: false
-        - text: Aperture burning
+        - text: "Aperture\nburning"
           variant: primary
           disabled: false
-        - text: Whole machine conc. Cleanser soak
+        - text: "Whole\nmachine conc.\nCleanser soak"
           variant: primary
           disabled: false
-        - text: Aperture Backflush
+        - text: "Aperture\nBackflush"
           variant: primary
           disabled: false
   whole_machine_maintenance:
@@ -154,18 +158,20 @@ states:
         selected: Whole machine maintenance
       - type: action_row
         id: whole_machine_actions
+        wrap: true
+        wrapColumns: 3
         align: center
         items:
-        - text: Liquid path Drainage
+        - text: "Liquid path\nDrainage"
           variant: primary
           disabled: false
-        - text: WBC chamber drainage
+        - text: "WBC chamber\ndrainage"
           variant: primary
           disabled: false
-        - text: RBC chamber drainage
+        - text: "RBC chamber\ndrainage"
           variant: primary
           disabled: false
-        - text: Instrument pack
+        - text: "Instrument\npack"
           variant: primary
           disabled: false
         - text: Initialize

@@ -23,32 +23,15 @@ class MaintenanceDataPage extends StatelessWidget {
             MaintenanceActionItemSpec(text: 'Import'),
           ],
         ),
-        MaintenanceFormGridSpec(
-          columns: 3,
-          rows: <List<MaintenanceFieldSpec>>[
-            <MaintenanceFieldSpec>[
-              MaintenanceFieldSpec(
-                label: 'Data cleanup',
-                value: 'List review',
-                readOnly: true,
-              ),
-              MaintenanceFieldSpec(
-                label: '',
-                value: 'Quality control data',
-                readOnly: true,
-              ),
-              MaintenanceFieldSpec(label: '', value: 'Delete', readOnly: true),
-            ],
-            <MaintenanceFieldSpec>[
-              MaintenanceFieldSpec(label: '', value: 'Log', readOnly: true),
-              MaintenanceFieldSpec(
-                label: '',
-                value: 'All data',
-                readOnly: true,
-              ),
-              MaintenanceFieldSpec(label: '', value: '', readOnly: true),
-            ],
+        MaintenanceCleanupPanelSpec(
+          options: <String>[
+            "List review",
+            "Quality control data",
+            "Log",
+            "All data",
           ],
+          actionText: "Delete",
+          selectedOption: "List review",
         ),
       ],
     );

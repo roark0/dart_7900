@@ -12,9 +12,18 @@ shell:
   status_bar:
     clock_source: system
 body:
+  layout:
+    type: two_column
+    gap: 8
+    columns:
+      left:
+        width_ratio: 0.56
+      right:
+        width_ratio: 0.44
   sections:
   - type: form_grid
     id: version_information
+    column: left
     title: Version information
     columns: 1
     rows:
@@ -46,7 +55,9 @@ body:
         control: readonly
   - type: action_row
     id: system_upgrade_actions
+    column: right
     title: System upgrade
+    direction: vertical
     align: center
     items:
     - text: Timing sequence upgrades

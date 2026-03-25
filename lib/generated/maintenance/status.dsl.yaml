@@ -12,9 +12,22 @@ shell:
   status_bar:
     clock_source: system
 body:
+  layout:
+    type: panel_grid
+    gap: 8
+    slots:
+      top_left:
+        width_ratio: 0.5
+      top_right:
+        width_ratio: 0.5
+      bottom_left:
+        width_ratio: 0.5
+      bottom_right:
+        width_ratio: 0.5
   sections:
   - type: matrix_table
     id: pressure_table
+    slot: top_left
     title: Pressure
     groups:
     - - ''
@@ -28,6 +41,7 @@ body:
     dense: true
   - type: matrix_table
     id: sensor_table
+    slot: top_right
     title: Sensor
     groups:
     - - Device components
@@ -47,6 +61,7 @@ body:
     dense: true
   - type: matrix_table
     id: ad_table
+    slot: bottom_left
     title: AD
     groups:
     - - ''

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/common_widgets.dart';
+import '../../core/widget/widget.dart';
 
 class PrintPage extends StatelessWidget {
   const PrintPage({super.key});

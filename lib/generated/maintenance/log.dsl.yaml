@@ -12,6 +12,11 @@ shell:
   status_bar:
     clock_source: system
 body:
+  layout:
+    type: log_workspace
+    gap: 10
+    table_header_height: 36
+    right_control_width: 40
   sections:
   - type: action_row
     id: log_tabs
@@ -45,6 +50,12 @@ body:
     rows: []
     zebra: true
     dense: true
+    controls:
+      right_scroll:
+      - first
+      - up
+      - down
+      - last
   - type: action_row
     id: log_actions
     align: center

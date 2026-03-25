@@ -50,11 +50,12 @@ class MaintenanceDailyPage extends StatelessWidget {
           sections: <MaintenanceSectionSpec>[
             MaintenanceActionRowSpec(
               wrap: true,
+              wrapColumns: 2,
               items: <MaintenanceActionItemSpec>[
-                MaintenanceActionItemSpec(text: 'Liquid path cleaning'),
-                MaintenanceActionItemSpec(text: 'Sampling probe cleaning'),
-                MaintenanceActionItemSpec(text: 'WBC chamber cleaning'),
-                MaintenanceActionItemSpec(text: 'RBC chamber cleaning'),
+                MaintenanceActionItemSpec(text: 'Liquid path\ncleaning'),
+                MaintenanceActionItemSpec(text: 'Sampling\nprobe cleaning'),
+                MaintenanceActionItemSpec(text: 'WBC chamber\ncleaning'),
+                MaintenanceActionItemSpec(text: 'RBC chamber\ncleaning'),
               ],
             ),
           ],
@@ -64,13 +65,14 @@ class MaintenanceDailyPage extends StatelessWidget {
           sections: <MaintenanceSectionSpec>[
             MaintenanceActionRowSpec(
               wrap: true,
+              wrapColumns: 2,
               items: <MaintenanceActionItemSpec>[
-                MaintenanceActionItemSpec(text: 'Aperture blockage removal'),
-                MaintenanceActionItemSpec(text: 'Aperture burning'),
+                MaintenanceActionItemSpec(text: 'Aperture\nblockage\nremoval'),
+                MaintenanceActionItemSpec(text: 'Aperture\nburning'),
                 MaintenanceActionItemSpec(
-                  text: 'Whole machine conc. Cleanser soak',
+                  text: 'Whole\nmachine conc.\nCleanser soak',
                 ),
-                MaintenanceActionItemSpec(text: 'Aperture Backflush'),
+                MaintenanceActionItemSpec(text: 'Aperture\nBackflush'),
               ],
             ),
           ],
@@ -80,11 +82,12 @@ class MaintenanceDailyPage extends StatelessWidget {
           sections: <MaintenanceSectionSpec>[
             MaintenanceActionRowSpec(
               wrap: true,
+              wrapColumns: 3,
               items: <MaintenanceActionItemSpec>[
-                MaintenanceActionItemSpec(text: 'Liquid path Drainage'),
-                MaintenanceActionItemSpec(text: 'WBC chamber drainage'),
-                MaintenanceActionItemSpec(text: 'RBC chamber drainage'),
-                MaintenanceActionItemSpec(text: 'Instrument pack'),
+                MaintenanceActionItemSpec(text: 'Liquid path\nDrainage'),
+                MaintenanceActionItemSpec(text: 'WBC chamber\ndrainage'),
+                MaintenanceActionItemSpec(text: 'RBC chamber\ndrainage'),
+                MaintenanceActionItemSpec(text: 'Instrument\npack'),
                 MaintenanceActionItemSpec(text: 'Initialize'),
               ],
             ),
