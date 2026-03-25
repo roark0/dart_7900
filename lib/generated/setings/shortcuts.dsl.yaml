@@ -8,7 +8,7 @@ shell:
   side_nav:
     selected: ShortCuts
   status_bar:
-    right: 2026-03-25 08:46:43
+    clock_source: system
 body:
   sections:
   - type: matrix_table

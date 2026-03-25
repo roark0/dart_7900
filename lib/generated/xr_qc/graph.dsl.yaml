@@ -1,10 +1,11 @@
+extends: lib/generated/xr_qc/main.dsl.yaml
 source:
   image: images/XR_QC/XR_QC_3.png
 shell:
   side_nav:
     selected: X-R QC Graph
   status_bar:
-    right: '2026-03-25 12:43:26'
+    clock_source: system
 body:
   sections:
   - id: xr_qc_side_state

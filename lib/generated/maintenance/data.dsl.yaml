@@ -1,16 +1,16 @@
-extends: lib/generated/templates/maintenance_shell_base.dsl.yaml
+extends: lib/generated/maintenance/main.dsl.yaml
 source:
   images:
   - images/Maintenance/Maintenance_2_1.png
   grouping: data
 page:
   id: maintenance_data
-  output: lib/src/features/maintenance/maintenance_data.dart
+  output: lib/src/features/maintenance/data.dart
 shell:
   side_nav:
     selected: Data maintenance
   status_bar:
-    right: 2026-03-18 16:40:19
+    clock_source: system
 body:
   sections:
   - type: action_row

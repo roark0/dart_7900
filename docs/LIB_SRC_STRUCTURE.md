@@ -28,9 +28,9 @@ lib/src/
     lj_qc/
       lj_qc_page.dart
     maintenance/
-      maintenance_page.dart
-      maintenance_generated_base.dart
-      maintenance_daily_pages.dart
+      main.dart
+      generated_base.dart
+      daily_pages.dart
     print/
       print_page.dart
 ```

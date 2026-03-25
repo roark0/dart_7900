@@ -54,6 +54,7 @@ shell:
   status_bar:
     left: Engineer
     center: LIS
+    clock_source: system
     indicator: green
   top_nav:
     items:

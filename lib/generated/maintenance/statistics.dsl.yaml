@@ -1,16 +1,16 @@
-extends: lib/generated/templates/maintenance_shell_base.dsl.yaml
+extends: lib/generated/maintenance/main.dsl.yaml
 source:
   images:
   - images/Maintenance/Maintenance_4_1.png
   grouping: statistics
 page:
   id: maintenance_statistics
-  output: lib/src/features/maintenance/maintenance_statistics.dart
+  output: lib/src/features/maintenance/statistics.dart
 shell:
   side_nav:
     selected: Statistics
   status_bar:
-    right: 2026-03-18 16:40:53
+    clock_source: system
 body:
   sections:
   - type: form_grid

@@ -1,16 +1,16 @@
-extends: lib/generated/templates/maintenance_shell_base.dsl.yaml
+extends: lib/generated/maintenance/main.dsl.yaml
 source:
   images:
   - images/Maintenance/Maintenance_6_1.png
   grouping: status
 page:
   id: maintenance_status
-  output: lib/src/features/maintenance/maintenance_status.dart
+  output: lib/src/features/maintenance/status.dart
 shell:
   side_nav:
     selected: Status information
   status_bar:
-    right: 2026-03-18 16:41:42
+    clock_source: system
 body:
   sections:
   - type: matrix_table

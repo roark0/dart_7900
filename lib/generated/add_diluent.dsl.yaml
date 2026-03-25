@@ -10,4 +10,4 @@ shell:
   top_nav:
     selected: Add Diluent
   status_bar:
-    right: 2026-03-18 15:59:33
+    clock_source: system

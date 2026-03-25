@@ -11,7 +11,7 @@ shell:
   top_nav:
     selected: Analysis
   status_bar:
-    right: 2026-03-18 15:56:10
+    clock_source: system
 body:
   sections:
   - type: form_grid

@@ -93,7 +93,7 @@
 - `lib/generated/templates/app_shell_base.dsl.yaml`
 - `lib/generated/templates/dialog_base.dsl.yaml`
 - `lib/generated/templates/auth_base.dsl.yaml`
-- `lib/generated/templates/maintenance_shell_base.dsl.yaml`
+- `lib/generated/maintenance/main.dsl.yaml`
 - `lib/generated/templates/menu_shell_base.dsl.yaml`
 
 要求：
@@ -101,6 +101,7 @@
 1. 若页面继承这些模板，不要在生成 Dart 时重新手写整套壳层。
 2. 优先把模板公共部分落到共享 Widget、共享样式常量或共享页面基类。
 3. 子 DSL 的职责应体现在差异内容和状态切换，而不是复制模板内容。
+4. 如果某个模块目录已经有自己的 `main.dsl.yaml`，生成器应将它视为该组的第一优先级基类；同组子页不应再跳过它直接继承通用模板。
 
 ### `states` 解析规则
 
@@ -199,6 +200,21 @@ presentation:
 - 主要用于状态切换和命名语义
 - 不应让生成器去内联宿主页的完整 Widget 树
 
+#### `clock_source: system`
+
+当 DSL 在 `shell.status_bar` 中声明：
+
+```yaml
+clock_source: system
+```
+
+要求：
+
+1. 右侧时间默认由运行时系统时钟提供。
+2. 不要把截图中的静态时间字符串写入 DSL，也不要生成到 Dart 常量中。
+3. 如果项目已有全局时钟文本，例如 `clockText`，应优先复用。
+4. 仅当 DSL 明确给出的是非时间业务文案时，才生成固定 `right` 文本。
+
 ### 四、shell 规则
 
 - `shell.top_nav`、`shell.side_nav`、`shell.status_bar` 不要手写重复 UI
@@ -210,6 +226,8 @@ presentation:
   - `content`
 - 不要重新实现顶部导航和底部状态栏
 - `status_bar.left`、`center`、`right`、`indicator` 应映射到现有底栏结构
+- 如果 DSL 使用 `clock_source: system`，则 `status_bar.right` 不应生成为固定文本，
+  应改为运行时系统时间
 
 ### 五、body.sections 映射规则
 

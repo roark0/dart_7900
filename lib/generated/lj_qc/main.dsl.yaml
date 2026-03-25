@@ -20,60 +20,27 @@ shell:
     - text: L-J QC Settings
       target:
         page: lj_qc_main
+        file: lib/generated/lj_qc/settings.dsl.yaml
         state: settings
     - text: L-J QC Analyse
       target:
         page: lj_qc_main
+        file: lib/generated/lj_qc/analyse.dsl.yaml
         state: analyse
     - text: L-J QC Graph
       target:
         page: lj_qc_main
+        file: lib/generated/lj_qc/graph.dsl.yaml
         state: graph
     - text: L-J QC list
       target:
         page: lj_qc_main
+        file: lib/generated/lj_qc/list.dsl.yaml
         state: list
   status_bar:
     left: Engineer
     center: LIS
-    right: 2026-03-18 15:58:39
+    clock_source: system
     indicator: green
 body:
-  sections:
-  - type: action_row
-    id: lj_qc_side_state
-    selected: L-J QC Settings
-    items:
-    - text: L-J QC Settings
-      variant: secondary
-      disabled: false
-      target:
-        page: lj_qc_main
-        state: settings
-    - text: L-J QC Analyse
-      variant: secondary
-      disabled: false
-      target:
-        page: lj_qc_main
-        state: analyse
-    - text: L-J QC Graph
-      variant: secondary
-      disabled: false
-      target:
-        page: lj_qc_main
-        state: graph
-    - text: L-J QC list
-      variant: secondary
-      disabled: false
-      target:
-        page: lj_qc_main
-        state: list
-states:
-  settings:
-    extends: lib/generated/lj_qc/settings.dsl.yaml
-  analyse:
-    extends: lib/generated/lj_qc/analyse.dsl.yaml
-  graph:
-    extends: lib/generated/lj_qc/graph.dsl.yaml
-  list:
-    extends: lib/generated/lj_qc/list.dsl.yaml
+  sections: []

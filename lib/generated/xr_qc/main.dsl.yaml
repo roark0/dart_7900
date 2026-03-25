@@ -20,60 +20,27 @@ shell:
     - text: X-R QC Setting
       target:
         page: xr_qc_main
+        file: lib/generated/xr_qc/settings.dsl.yaml
         state: settings
     - text: X-R QC Analyse
       target:
         page: xr_qc_main
+        file: lib/generated/xr_qc/analyse.dsl.yaml
         state: analyse
     - text: X-R QC Graph
       target:
         page: xr_qc_main
+        file: lib/generated/xr_qc/graph.dsl.yaml
         state: graph
     - text: X-R QC List
       target:
         page: xr_qc_main
+        file: lib/generated/xr_qc/list.dsl.yaml
         state: list
   status_bar:
     left: Engineer
     center: LIS
-    right: '2026-03-25 12:42:37'
+    clock_source: system
     indicator: green
 body:
-  sections:
-  - type: action_row
-    id: xr_qc_side_state
-    selected: X-R QC Setting
-    items:
-    - text: X-R QC Setting
-      variant: secondary
-      disabled: false
-      target:
-        page: xr_qc_main
-        state: settings
-    - text: X-R QC Analyse
-      variant: secondary
-      disabled: false
-      target:
-        page: xr_qc_main
-        state: analyse
-    - text: X-R QC Graph
-      variant: secondary
-      disabled: false
-      target:
-        page: xr_qc_main
-        state: graph
-    - text: X-R QC List
-      variant: secondary
-      disabled: false
-      target:
-        page: xr_qc_main
-        state: list
-states:
-  settings:
-    extends: lib/generated/xr_qc/settings.dsl.yaml
-  analyse:
-    extends: lib/generated/xr_qc/analyse.dsl.yaml
-  graph:
-    extends: lib/generated/xr_qc/graph.dsl.yaml
-  list:
-    extends: lib/generated/xr_qc/list.dsl.yaml
+  sections: []

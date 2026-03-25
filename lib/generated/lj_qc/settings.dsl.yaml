@@ -1,10 +1,11 @@
+extends: lib/generated/lj_qc/main.dsl.yaml
 source:
   image: images/LJ_QC/LJ_QC.png
 shell:
   side_nav:
     selected: L-J QC Settings
   status_bar:
-    right: 2026-03-18 15:58:39
+    clock_source: system
 body:
   sections:
   - id: lj_qc_side_state

@@ -12,7 +12,7 @@ shell:
   top_nav:
     selected: List Review
   status_bar:
-    right: 2026-03-18 15:57:29
+    clock_source: system
 body:
   sections:
   - type: form_grid

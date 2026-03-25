@@ -81,7 +81,7 @@ shell:
   status_bar:
     left: Engineer
     center: LIS
-    right: '2026-03-25 08:04:53'
+    clock_source: system
     indicator: green
 body:
   sections:
@@ -164,7 +164,7 @@ states:
       image: images/Menu/Menu_0.png
     shell:
       status_bar:
-        right: '2026-03-25 08:04:53'
+        clock_source: system
     context:
       host_page: unknown
     presentation:
@@ -180,7 +180,7 @@ states:
       image: images/Menu/Menu_1.png
     shell:
       status_bar:
-        right: '2026-03-25 08:10:13'
+        clock_source: system
     context:
       host_page: analysis_main
     presentation:
@@ -196,7 +196,7 @@ states:
       image: images/Menu/Menu_2.png
     shell:
       status_bar:
-        right: '2026-03-25 08:10:54'
+        clock_source: system
     context:
       host_page: list_review_main
     presentation:
@@ -212,7 +212,7 @@ states:
       image: images/Menu/Menu_3.png
     shell:
       status_bar:
-        right: '2026-03-25 08:11:23'
+        clock_source: system
     context:
       host_page: lj_qc_main
     presentation:
@@ -250,7 +250,7 @@ states:
       image: images/Menu/Menu_4.png
     shell:
       status_bar:
-        right: '2026-03-25 08:11:41'
+        clock_source: system
     context:
       host_page: calibration_main
     presentation:
@@ -266,7 +266,7 @@ states:
       image: images/Menu/Menu_5.png
     shell:
       status_bar:
-        right: '2026-03-25 08:12:05'
+        clock_source: system
     context:
       host_page: maintenance_daily
     presentation:
@@ -282,7 +282,7 @@ states:
       image: images/Menu/Menu_6.png
     shell:
       status_bar:
-        right: '2026-03-25 08:12:34'
+        clock_source: system
     context:
       host_page: menu_system_settings
     presentation:
@@ -298,7 +298,7 @@ states:
       image: images/Menu/Menu_7.png
     shell:
       status_bar:
-        right: '2026-03-25 08:12:54'
+        clock_source: system
     context:
       host_page: shutdown
     presentation:

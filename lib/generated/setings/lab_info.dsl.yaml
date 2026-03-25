@@ -14,7 +14,7 @@ states:
       image: images/Setings/setings_12.png
     shell:
       status_bar:
-        right: 2026-03-25 08:46:43
+        clock_source: system
     body:
       sections:
       - type: form_grid
@@ -84,7 +84,7 @@ states:
       image: images/Setings/setings_13.png
     shell:
       status_bar:
-        right: 2026-03-25 08:46:43
+        clock_source: system
     body:
       sections:
       - type: form_grid

@@ -234,6 +234,26 @@ context:
 
 如果同一个 overlay 在多个宿主页上出现，应在 `states` 中切换 `context.host_page`。
 
+### `status_bar.right` 时间规则
+
+如果 `status_bar.right` 表示系统时间：
+
+- 不要在 DSL 中写死具体时间字符串
+- 默认由运行时系统时钟提供
+- 如需显式表达，写 `clock_source: system`
+- 仅当右侧内容不是系统时间，而是业务状态文本时，才写固定值
+
+推荐：
+
+```yaml
+shell:
+  status_bar:
+    left: Engineer
+    center: LIS
+    clock_source: system
+    indicator: green
+```
+
 ## `main.dsl.yaml` 的要求
 
 目录入口文件应满足以下要求。

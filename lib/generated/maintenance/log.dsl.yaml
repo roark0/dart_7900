@@ -1,16 +1,16 @@
-extends: lib/generated/templates/maintenance_shell_base.dsl.yaml
+extends: lib/generated/maintenance/main.dsl.yaml
 source:
   images:
   - images/Maintenance/Maintenance_5_1.png
   grouping: log
 page:
   id: maintenance_log
-  output: lib/src/features/maintenance/maintenance_log.dart
+  output: lib/src/features/maintenance/log.dart
 shell:
   side_nav:
     selected: Log information
   status_bar:
-    right: 2026-03-18 16:41:10
+    clock_source: system
 body:
   sections:
   - type: action_row

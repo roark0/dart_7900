@@ -1,16 +1,16 @@
-extends: lib/generated/templates/maintenance_shell_base.dsl.yaml
+extends: lib/generated/maintenance/main.dsl.yaml
 source:
   images:
   - images/Maintenance/Maintenance_3_1.png
   grouping: version
 page:
   id: maintenance_version
-  output: lib/src/features/maintenance/maintenance_version.dart
+  output: lib/src/features/maintenance/version.dart
 shell:
   side_nav:
     selected: Version information
   status_bar:
-    right: 2026-03-18 16:40:39
+    clock_source: system
 body:
   sections:
   - type: form_grid

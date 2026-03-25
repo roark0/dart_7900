@@ -14,7 +14,7 @@ states:
       image: images/Setings/setings_10.png
     shell:
       status_bar:
-        right: 2026-03-25 08:46:43
+        clock_source: system
     body:
       sections:
       - type: matrix_table
@@ -62,7 +62,7 @@ states:
       image: images/Setings/setings_11.png
     shell:
       status_bar:
-        right: 2026-03-25 08:46:43
+        clock_source: system
     body:
       sections:
       - type: form_grid

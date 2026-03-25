@@ -19,48 +19,22 @@ shell:
     - text: X-B QC Setting
       target:
         page: xb_qc_main
+        file: lib/generated/xb_qc/settings.dsl.yaml
         state: settings
     - text: X-B QC Graph
       target:
         page: xb_qc_main
+        file: lib/generated/xb_qc/graph.dsl.yaml
         state: graph
     - text: X-B QC List
       target:
         page: xb_qc_main
+        file: lib/generated/xb_qc/list.dsl.yaml
         state: list
   status_bar:
     left: Engineer
     center: LIS
-    right: 2026-03-25 08:14:26
+    clock_source: system
     indicator: green
 body:
-  sections:
-  - type: action_row
-    id: xb_qc_side_state
-    selected: X-B QC Setting
-    items:
-    - text: X-B QC Setting
-      variant: secondary
-      disabled: false
-      target:
-        page: xb_qc_main
-        state: settings
-    - text: X-B QC Graph
-      variant: secondary
-      disabled: false
-      target:
-        page: xb_qc_main
-        state: graph
-    - text: X-B QC List
-      variant: secondary
-      disabled: false
-      target:
-        page: xb_qc_main
-        state: list
-states:
-  settings:
-    extends: lib/generated/xb_qc/settings.dsl.yaml
-  graph:
-    extends: lib/generated/xb_qc/graph.dsl.yaml
-  list:
-    extends: lib/generated/xb_qc/list.dsl.yaml
+  sections: []

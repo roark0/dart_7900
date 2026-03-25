@@ -6,7 +6,7 @@ import '../core/navigation.dart';
 import '../features/analysis/analysis_page.dart';
 import '../features/lj_qc/lj_qc_page.dart';
 import '../features/list_review/list_review_page.dart';
-import '../features/maintenance/maintenance_page.dart';
+import '../features/maintenance/main.dart';
 import '../features/print/print_page.dart';
 import 'startup_config.dart';
 import '../design_system/palette.dart';

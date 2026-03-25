@@ -1,7 +1,7 @@
-extends: lib/generated/templates/maintenance_shell_base.dsl.yaml
+extends: lib/generated/maintenance/main.dsl.yaml
 page:
   id: maintenance_engineering
-  output: lib/src/features/maintenance/maintenance_engineering.dart
+  output: lib/src/features/maintenance/engineering.dart
 shell:
   side_nav:
     selected: Engineering commissioning
@@ -62,7 +62,7 @@ body:
 states:
   performance_parameters:
     status_bar:
-      right: 2026-03-24 17:42:17
+      clock_source: system
     body:
       sections:
       - id: commissioning_tabs
@@ -174,7 +174,7 @@ states:
             control: readonly
   probe_position:
     status_bar:
-      right: 2026-03-24 17:41:02
+      clock_source: system
     body:
       sections:
       - id: commissioning_tabs
@@ -338,7 +338,7 @@ states:
           disabled: false
   pressure_calibration:
     status_bar:
-      right: 2026-03-24 17:41:15
+      clock_source: system
     body:
       sections:
       - id: commissioning_tabs
@@ -490,7 +490,7 @@ states:
             control: readonly
   cbc_gain:
     status_bar:
-      right: 2026-03-24 17:41:28
+      clock_source: system
     body:
       sections:
       - id: commissioning_tabs
@@ -637,7 +637,7 @@ states:
             control: readonly
   cbc_raw_pulse_diagram:
     status_bar:
-      right: 2026-03-24 17:41:42
+      clock_source: system
     body:
       sections:
       - id: commissioning_tabs
@@ -664,7 +664,7 @@ states:
           disabled: false
   sensor_ad:
     status_bar:
-      right: 2026-03-24 17:42:04
+      clock_source: system
     body:
       sections:
       - id: commissioning_tabs
@@ -721,7 +721,7 @@ states:
             control: readonly
   aging:
     status_bar:
-      right: 2026-03-24 17:42:17
+      clock_source: system
     body:
       sections:
       - id: commissioning_tabs
@@ -778,7 +778,7 @@ states:
             control: readonly
   fluid_commissioning:
     status_bar:
-      right: 2026-03-24 17:42:29
+      clock_source: system
     body:
       sections:
       - id: commissioning_tabs
