@@ -1,0 +1,155 @@
+source:
+  image: images/LJ_QC/LJ_QC_4.png
+shell:
+  side_nav:
+    selected: L-J QC list
+  status_bar:
+    right: 2026-03-24 17:36:53
+body:
+  sections:
+  - id: lj_qc_side_state
+    selected: L-J QC list
+  - type: form_grid
+    id: qc_list_header
+    columns: 3
+    rows:
+    - - file_no
+      - lot_no
+      - mode
+    - - level
+      - exp_date
+      - blank
+    fields:
+      file_no:
+        label: FileNo.
+        value: '1'
+        control: select
+      lot_no:
+        label: LotNo.
+        value: ''
+        control: readonly
+      mode:
+        label: Mode
+        value: ''
+        control: readonly
+      level:
+        label: level
+        value: ''
+        control: readonly
+      exp_date:
+        label: Exp.date
+        value: ''
+        control: readonly
+      blank:
+        label: ''
+        value: ''
+        control: readonly
+  - type: matrix_table
+    id: qc_list_table
+    groups:
+    - - No.
+      - Target
+      - Limit
+      - ''
+      - ''
+      - ''
+      - ''
+    rows:
+    - - Date
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - Time
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - WBC
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - Lym%
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - Mid%
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - Gran%
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - Lym#
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - Mid#
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - Gran#
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - RBC
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - HGB
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    zebra: true
+    dense: true
+actions:
+  bottom:
+    align: center
+    items:
+    - text: Delete
+      variant: muted
+      disabled: true
+      target:
+        action: delete
+    - text: Communicate
+      variant: muted
+      disabled: true
+      target:
+        action: communicate
+    - text: Export
+      variant: muted
+      disabled: true
+      target:
+        action: export

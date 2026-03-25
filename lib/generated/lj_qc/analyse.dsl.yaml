@@ -1,0 +1,172 @@
+source:
+  image: images/LJ_QC/LJ_QC_2.png
+shell:
+  side_nav:
+    selected: L-J QC Analyse
+  status_bar:
+    right: 2026-03-24 17:35:48
+body:
+  sections:
+  - id: lj_qc_side_state
+    selected: L-J QC Analyse
+  - type: form_grid
+    id: qc_analyse_header
+    columns: 3
+    rows:
+    - - file_no
+      - lot_no
+      - qc_level
+    - - exp_date
+      - file_name
+      - mode
+    - - qc_no
+      - blank1
+      - blank2
+    fields:
+      file_no:
+        label: FileNo.
+        value: '1'
+        control: select
+      lot_no:
+        label: LotNo.
+        value: ''
+        control: readonly
+      qc_level:
+        label: QC Level
+        value: ''
+        control: readonly
+      exp_date:
+        label: Exp.Date
+        value: ''
+        control: readonly
+      file_name:
+        label: FileName
+        value: ''
+        control: readonly
+      mode:
+        label: Mode
+        value: ''
+        control: readonly
+      qc_no:
+        label: QCNo.
+        value: ''
+        control: readonly
+      blank1:
+        label: ''
+        value: ''
+        control: readonly
+      blank2:
+        label: ''
+        value: ''
+        control: readonly
+  - type: triplet_table
+    id: qc_analyse_table
+    groups:
+    - - Item
+      - Result
+      - Unit
+    - - Item
+      - Result
+      - Unit
+    - - Item
+      - Result
+      - Unit
+    rows:
+    - - WBC
+      - ''
+      - ''
+      - RBC
+      - ''
+      - ''
+      - PLT
+      - ''
+      - ''
+    - - Lym%
+      - ''
+      - ''
+      - HGB
+      - ''
+      - ''
+      - MPV
+      - ''
+      - ''
+    - - Mid%
+      - ''
+      - ''
+      - HCT
+      - ''
+      - ''
+      - PDW-CV
+      - ''
+      - ''
+    - - Gran%
+      - ''
+      - ''
+      - MCV
+      - ''
+      - ''
+      - PDW-SD
+      - ''
+      - ''
+    - - Lym#
+      - ''
+      - ''
+      - MCH
+      - ''
+      - ''
+      - PCT
+      - ''
+      - ''
+    - - Mid#
+      - ''
+      - ''
+      - MCHC
+      - ''
+      - ''
+      - P-LCR
+      - ''
+      - ''
+    - - Gran#
+      - ''
+      - ''
+      - RDW-CV
+      - ''
+      - ''
+      - P-LCC
+      - ''
+      - ''
+    - - ''
+      - ''
+      - ''
+      - RDW-SD
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    zebra: true
+    dense: true
+  - type: chart_row
+    id: qc_analyse_charts
+    items:
+    - title: WBC
+      kind: histogram
+      x_axis: 0 100 200 300 400 fL
+      y_axis: true
+    - title: RBC
+      kind: histogram
+      x_axis: 0 50 100 150 200 250 fL
+      y_axis: true
+    - title: PLT
+      kind: histogram
+      x_axis: 0 10 20 30 fL
+      y_axis: true
+actions:
+  bottom:
+    align: start
+    items:
+    - text: Start test
+      variant: primary
+      disabled: false
+      target:
+        action: start_test

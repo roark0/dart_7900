@@ -1,198 +1,267 @@
 # Flutter Layout DSL Prompt
 
-## 目标
+你是一个 UI 结构提取器。
 
-请分析一组 `800x600` 的医疗 UI 截图，并生成一个适合当前项目的
-Flutter 页面 DSL，格式使用 YAML。
+## 任务
 
-这个 DSL 是当前项目的中间格式，用于：
+根据输入截图生成适合当前项目的 Flutter Layout DSL（YAML）。
 
-1. 节省 token
-2. 稳定描述重复页面结构
-3. 便于后续自动生成 Flutter Dart 文件
-4. 支持公共模板抽取与页面差异覆盖
-5. 在模板层保留可复用的设计 token
-6. 用单个页面 DSL 表达同一页面的多个标签态或子状态
-7. 通过全局图片索引避免重复生成
+DSL 的目标不是直接复刻像素，而是稳定表达：
 
-## 核心原则
+- 页面入口
+- 导航层级
+- 公共壳层
+- 主要区块结构
+- 可复用的视觉 token
+- 后续生成 Flutter 代码所需的状态切换信息
 
-优先按“逻辑页面”生成 DSL，而不是按“单张截图”生成 DSL。
+## 输出目标
+
+输出的 DSL 必须：
+
+- 适合当前 Flutter 项目生成 Dart
+- 尽量减少重复
+- 优先表达模板、页面、导航和状态，而不是展开成冗长 Widget 树
+- 支持模板继承
+- 支持多文件拆分
+- 支持图片与 DSL 的可追踪映射
+
+## 总体建模原则
+
+### 1. 优先按逻辑页面建模
+
+不要长期按“每张截图一个 DSL 文件”组织。
+
+应优先按产品中的逻辑页面建模，再用：
+
+- `main.dsl.yaml` 表达入口
+- 子 DSL 文件表达具体页面
+- `states` 表达该页面内部的子状态
+
+### 2. `side_nav` 一级切换必须拆成独立文件
+
+当一组截图属于同一个模块，且左侧 `side_nav` 代表一级页面切换时：
+
+- 必须为该组创建一个目录
+- 目录中必须存在一个 `main.dsl.yaml` 作为入口文件
+- `side_nav` 的每一项都必须拆成单独的 DSL 文件
+- 不要把多个 `side_nav` 页面继续塞在一个大 DSL 文件里
 
 例如：
 
-- 同一左侧菜单页面下的多个顶部标签，应合并成一个 DSL 文件
-- 同一页面的不同状态，应放入 `states`
-- 只有结构明显独立、无法共享同一页面骨架时，才拆成多个 DSL 文件
+```text
+lib/generated/menu/system_settings/
+  main.dsl.yaml
+  general.dsl.yaml
+  network.dsl.yaml
+  user.dsl.yaml
+```
 
-错误示例：
+这里表示：
 
-- `maintenance_9_1.dsl.yaml`
-- `maintenance_9_2.dsl.yaml`
-- `maintenance_9_3.dsl.yaml`
+- `system_settings/main.dsl.yaml` 是该组入口
+- `general.dsl.yaml`、`network.dsl.yaml`、`user.dsl.yaml` 分别对应一个左侧导航项
 
-推荐示例：
+### 3. `main.dsl.yaml` 只做入口和索引
 
-- `lib/generated/maintenance/basic.dsl.yaml`
+目录内的 `main.dsl.yaml` 负责：
 
-其中用 `states.carryover`、`states.precision`、`states.comparability`
-表达不同标签态。
+- 定义公共 `shell`
+- 定义该组页面共享的 `theme`
+- 定义 `side_nav.items`
+- 定义默认进入哪个子页面
+- 建立各子页面的跳转目标和文件映射
 
-## 执行模式
+`main.dsl.yaml` 不应承载所有具体页面布局。
 
-当任务是“根据截图生成 DSL 文件”时，必须执行以下动作：
+### 4. `states` 只用于页面内部状态
 
-1. 先判断截图是否属于同一逻辑页面
-2. 若属于同一逻辑页面，优先合并为一个页面 DSL
-3. 检查全局图片索引 `lib/generated/image_map.yaml`
-4. 对已经存在于索引中的图片，不要重复生成
-5. 生成最终 YAML DSL
-6. 将 DSL 内容写入目标文件
-7. 如果父目录不存在，先创建目录
-8. 更新 `lib/generated/image_map.yaml`
-9. 最终回复只返回已保存的文件路径，除非用户明确要求显示 DSL 内容
+`states` 只应用于同一个具体页面内部，例如：
 
-如果任务只是“展示 DSL 示例”或“输出 DSL 内容”，才直接在回复中输出 YAML，
-不要写文件。
+- 页内顶部 tab
+- 二级切换按钮组
+- 弹窗开关状态
+- 同一 side 页面中的多个子视图
 
-## 输出要求
+不要再用 `states` 表达左侧 `side_nav` 一级切换。
 
-生成的 DSL 必须适合当前项目的 Flutter 生成流程，重点描述：
+规则：
 
-- 页面模板
-- 公共 shell
-- 主体 section
-- 页面内多个状态
-- 可复用颜色 token
-- 可复用字号 token
-- 可复用比例和关键尺寸 token
-- 最终输出文件路径
-- 可复用模板引用
-- 来源图片映射
+- 一级左侧导航切换 -> 拆文件
+- 同页内部二级状态切换 -> `states`
 
-不要输出视觉分析说明，不要输出 JSON，不要输出 Dart 代码。
+## 目录规划规则
 
-## DSL 顶层结构
+### 一级模块目录
 
-顶层字段优先使用：
+模块级 DSL 建议位于：
 
-- `extends`
-- `source`
-- `page`
-- `theme`
-- `shell`
-- `body`
-- `states`
-- `actions`
+```text
+lib/generated/<module>/
+```
+
+例如：
+
+- `lib/generated/menu/`
+- `lib/generated/maintenance/`
+- `lib/generated/lj_qc/`
+
+### side 页面分组目录
+
+当某个模块下还存在一组左侧一级切换时，应继续下钻目录：
+
+```text
+lib/generated/menu/system_settings/
+lib/generated/menu/qc/
+lib/generated/menu/calibration/
+```
+
+### 文件约定
+
+每个 side 页面目录内建议包含：
+
+```text
+main.dsl.yaml
+<side_item_1>.dsl.yaml
+<side_item_2>.dsl.yaml
+<side_item_3>.dsl.yaml
+```
 
 其中：
 
-- 独立页面可不写 `extends`
-- 基于公共模板的页面应优先写 `extends`
-- `Menu` 体系页面优先继承 `lib/generated/templates/menu_shell_base.dsl.yaml`
-- 使用 `extends` 时，只保留差异字段，不重复模板已有内容
-- 同一页面的多个标签态或子状态，应优先放进 `states`
-- 页面级 DSL 应尽量包含 `source`
+- `main.dsl.yaml` 为该组入口
+- 其余文件与 `side_nav` 一一对应
 
-## `extends`
+## DSL 顶层结构
 
-用于引用公共 DSL 模板。
-
-字段要求：
-
-- 直接写相对路径字符串，例如
-  `lib/generated/templates/maintenance_shell_base.dsl.yaml`
-
-合并规则：
-
-1. 顶层对象按键深度合并
-2. `body.sections` 按 `id` 合并
-3. `states.<name>.body.sections` 也按 `id` 合并
-4. 同 `id` 的 section 只覆盖差异字段
-5. 未覆盖字段继承自模板
-
-## `source`
-
-用于记录页面 DSL 与原始图片之间的映射，方便查重和追踪。
-
-页面级字段：
-
-- `images`: 图片路径数组
-- `grouping`: 页面分组名，例如 `daily`、`basic`
-
-状态级字段：
-
-- `states.<name>.source.image`: 单张状态图路径
-
-规则：
-
-- 图片路径统一使用仓库相对路径，例如
-  `images/Maintenance/Maintenance_9_1.png`
-- 页面级 `source.images` 应覆盖该 DSL 涉及的所有图片
-- 如果某个状态对应具体截图，应补充 `states.<name>.source.image`
-- `source` 信息必须同步写入全局索引 `lib/generated/image_map.yaml`
-
-## 全局索引
-
-项目级图片映射文件固定为：
-
-- `lib/generated/image_map.yaml`
-
-用途：
-
-- 记录图片与 DSL 的对应关系
-- 记录图片命中的是哪个 state
-- 用于下一次生成前做查重
-
-格式要求：
+推荐结构：
 
 ```yaml
-images:
-  images/Maintenance/Maintenance_9_1.png:
-    dsl: lib/generated/maintenance/basic.dsl.yaml
-    state: carryover
+extends: lib/generated/templates/app_shell_base.dsl.yaml
+source:
+  images: []
+page:
+  id: xxx_main
+  template: xxx_shell
+  size: 800x600
+  output: lib/src/features/xxx/xxx_page.dart
+theme:
+  variant: analyzer_default
+  tokens: {}
+  typography: {}
+  metrics: {}
+shell:
+  top_nav: {}
+  side_nav: {}
+  status_bar: {}
+body:
+  sections: []
+states: {}
+actions: {}
 ```
 
-规则：
+不是所有字段都必须出现，但应遵守其职责边界。
 
-1. 每张已处理图片都必须写入索引
-2. `dsl` 使用仓库相对路径
-3. 若命中某个状态，补充 `state`
-4. 生成前先查索引，生成后立即更新索引
+## `main.dsl.yaml` 的要求
 
-## `page`
+目录入口文件应满足以下要求。
 
-用于标识页面和目标输出文件。
+### `page`
 
-字段要求：
+- `page.id` 应表达该组页面入口，而不是某个具体 side 页
+- `page.output` 应指向该组最终生成的 Dart 入口页面
 
-- `id`: 页面唯一标识，使用 snake_case，例如 `maintenance_basic`
-- `template`: 页面模板名，例如 `maintenance_panel`
-- `size`: 固定写成 `800x600`
-- `output`: 输出 Dart 文件路径，优先写成 `lib/src/features/<domain>/<page_id>.dart`
+### `shell.side_nav`
 
-建议：
+- 必须列出完整的左侧导航项
+- 每个 `item` 必须带 `target`
+- `target` 至少应包含：
+  - `page`
+  - `file`
+- 必要时可增加：
+  - `state`
 
-- 页面 DSL 本身优先保存到 `lib/generated/<domain>/...dsl.yaml`
-- 生成的 Dart 页面优先输出到 `lib/src/features/<domain>/`
-- 不要再按截图编号作为长期文件名，除非只是临时识别阶段
+例如：
 
-## `theme`
+```yaml
+shell:
+  side_nav:
+    selected: General
+    items:
+      - text: General
+        target:
+          page: system_settings_general
+          file: lib/generated/menu/system_settings/general.dsl.yaml
+      - text: Network
+        target:
+          page: system_settings_network
+          file: lib/generated/menu/system_settings/network.dsl.yaml
+```
 
-`theme` 用于描述生成 Flutter 代码需要的最小设计 token。
+### `body`
 
-字段只允许：
+入口 `main.dsl.yaml` 中的 `body.sections` 应尽量少。
 
-- `variant`
-- `tokens`
-- `typography`
-- `metrics`
+一般仅保留：
+
+- 该组页面都共享的区块
+- 入口层必需的导航区块
+
+不要在入口文件中堆入所有具体 side 页面内容。
+
+## 具体 side 页面 DSL 的要求
+
+每个 `side_nav` 对应的独立 DSL 文件应：
+
+- 只描述该 side 页面本身
+- 可以继承目录内 `main.dsl.yaml` 或公共模板
+- 覆盖 `shell.side_nav.selected`
+- 定义自己的 `body.sections`
+- 如果该页内部还有 tab，再使用 `states`
+
+例如：
+
+```text
+lib/generated/menu/system_settings/general.dsl.yaml
+```
+
+职责：
+
+- 只描述 `General` 页面
+- 如果 `General` 页面内有 3 个 tab，则这 3 个 tab 可继续写在 `states`
+
+## 模板继承规则
+
+支持 `extends`。
+
+优先继承：
+
+- `lib/generated/templates/app_shell_base.dsl.yaml`
+- `lib/generated/templates/dialog_base.dsl.yaml`
+- `lib/generated/templates/auth_base.dsl.yaml`
+- 目录级 `main.dsl.yaml`
+
+推荐继承层级：
+
+```text
+template base
+  -> group main.dsl.yaml
+    -> concrete side page.dsl.yaml
+```
+
+例如：
+
+```text
+lib/generated/templates/app_shell_base.dsl.yaml
+  -> lib/generated/menu/system_settings/main.dsl.yaml
+    -> lib/generated/menu/system_settings/general.dsl.yaml
+```
+
+## `theme` 规则
 
 ### `theme.tokens`
 
-用于颜色 token。
-
-如果输出 `tokens`，只允许以下键：
+用于表达颜色 token，常见键：
 
 - `bg`
 - `topBar`
@@ -204,17 +273,9 @@ images:
 - `accent`
 - `border`
 
-规则：
-
-- 颜色统一使用十六进制字符串，例如 `#2F6F9E`
-- 不要输出相近重复色
-- 优先把颜色放在基础模板，不要在每个页面重复输出
-
 ### `theme.typography`
 
-用于可复用字号和字重 token。
-
-推荐键：
+用于表达字号和字重，常见角色：
 
 - `nav`
 - `sideNav`
@@ -224,362 +285,137 @@ images:
 - `tableCell`
 - `status`
 
-每个字体 token 只允许：
-
-- `size`
-- `weight`
-
 ### `theme.metrics`
 
-用于比例和关键尺寸 token。
-
-字段只允许：
+用于表达比例和关键尺寸：
 
 - `ratios`
 - `sizes`
 
-`ratios` 推荐键：
+若目录下多个 side 页面共享同一套颜色、字体、比例，应尽量放在：
 
-- `topBar`
-- `content`
-- `bottomBar`
-- `sideNav`
-- `mainPanel`
+- 公共模板
+- 该组 `main.dsl.yaml`
 
-`sizes` 推荐键：
+不要在每个 side 页面重复声明同一套 token。
 
-- `subTabHeight`
-- `actionButtonWidth`
-- `actionButtonHeight`
-- `cornerRadius`
-- `borderWidth`
+## `source` 与图片映射规则
 
-规则：
+每个 DSL 都应保留图片来源，便于查重和回溯。
 
-- 只保留会影响页面复用的关键比例和尺寸
-- 不要退化成逐像素描述
-
-## `shell`
-
-描述项目的公共外壳。
-
-字段只允许：
-
-- `top_nav`
-- `side_nav`
-- `status_bar`
-
-### `top_nav`
-
-字段：
-
-- `selected`: 当前选中模块
-- `items`: 可选，导航项数组
-
-`items` 推荐写成对象数组，而不是纯文本数组，例如：
+### 页面级来源
 
 ```yaml
-items:
-  - text: Analysis
-    target: {module: analysis, page: analysis_main}
-  - text: L-J QC
-    target: {module: lj_qc, page: lj_qc_main, state: settings}
-```
-
-### `side_nav`
-
-字段：
-
-- `selected`: 当前选中项
-- `items`: 导航项数组
-
-`side_nav.items` 优先写成对象数组，每项至少包含：
-
-- `text`
-- `target`
-
-### `status_bar`
-
-字段：
-
-- `left`
-- `center`
-- `right`
-- `indicator`: 可选
-
-## `target`
-
-`target` 用于显式表达 DSL 中的跳转或动作，避免后续生成 Dart 时只能靠
-`selected`、文本匹配或页面命名去猜。
-
-字段只允许：
-
-- `module`: 顶部模块跳转目标，例如 `analysis`、`lj_qc`
-- `page`: 逻辑页面 id，例如 `maintenance_daily`
-- `state`: 页面内部状态 id，例如 `replace_reagents`、`graph`
-- `action`: 非页面跳转动作，例如 `save`、`delete`、`close_dialog`
-
-规则：
-
-1. 顶部导航优先写 `module + page`
-2. 左侧菜单优先写 `page`，同页多标签时补 `state`
-3. 同页标签切换优先写 `state`
-4. 纯命令按钮不写页面跳转时，写 `action`
-5. 不要混用多个语义冲突的目标
-
-## `body`
-
-`body.sections` 是页面默认主体，由若干模板 section 组成。
-
-每个 section 只允许使用：
-
-- `type`
-- `id`
-- `title`
-- `columns`
-- `rows`
-- `fields`
-- `groups`
-- `items`
-- `align`
-- `variant`
-- `zebra`
-- `dense`
-- `selected`
-
-其中交互型 `items` 优先写成对象数组，每项可包含：
-
-- `text`
-- `variant`
-- `disabled`
-- `target`
-
-## `states`
-
-用于描述同一页面的不同标签态、模式态或子页面状态。
-
-字段要求：
-
-- `states` 的键使用 snake_case，例如 `carryover`、`precision`
-- 每个 state 只保留与默认页面不同的内容
-- 允许的子字段：
-  - `source`
-  - `status_bar`
-  - `body`
-  - `actions`
-
-适用场景：
-
-- 顶部 tab 切换
-- 同一表格页的不同模式
-- 同一页面内的多步状态
-
-不适用场景：
-
-- 左侧菜单完全不同
-- 页面骨架完全不同
-
-## 支持的 section 类型
-
-只允许以下类型：
-
-- `form_grid`
-- `triplet_table`
-- `matrix_table`
-- `chart_row`
-- `stats_panel`
-- `action_row`
-- `info_bar`
-
-### `form_grid`
-
-用于顶部表单区域。
-
-字段：
-
-- `columns`: 列数
-- `rows`: 二维字段 id 数组
-- `fields`: 字段字典
-
-字段定义只允许：
-
-- `label`
-- `value`
-- `control`: `input | select | readonly`
-- `placeholder`: 可选
-
-### `triplet_table`
-
-用于 `L-J QC`、`Analysis` 这类三组并列表格。
-
-字段：
-
-- `groups`: 表头二维数组
-- `rows`: 数据二维数组
-- `zebra`: 布尔值
-- `dense`: 布尔值
-
-### `matrix_table`
-
-用于普通矩阵表格。
-
-字段：
-
-- `title`: 可选
-- `groups`: 表头二维数组
-- `rows`: 数据二维数组
-- `zebra`: 布尔值
-- `dense`: 布尔值
-
-### `chart_row`
-
-用于图表并排区域。
-
-字段：
-
-- `items`: 图表数组
-
-每个图表项只允许：
-
-- `title`
-- `kind`: 固定为 `histogram`
-- `x_axis`
-- `y_axis`: 布尔值
-
-### `action_row`
-
-用于标签组或按钮组。
-
-字段：
-
-- `title`: 可选
-- `align`: `start | center | end`
-- `items`: 按钮数组
-- `selected`: 可选，表示当前选中的按钮文本
-
-按钮只允许：
-
-- `text`
-- `variant`: `primary | secondary | muted`
-- `disabled`: 布尔值
-
-### `info_bar`
-
-用于简单的说明、状态或只读信息行。
-
-字段：
-
-- `title`: 可选
-- `items`: 文本数组
-
-## `actions`
-
-用于底部页面动作。
-
-结构：
-
-- `bottom.align`
-- `bottom.items`
-
-每个按钮只允许：
-
-- `text`
-- `variant`: `primary | secondary | muted`
-- `disabled`: 布尔值
-
-## 压缩规则
-
-为节省 token，必须遵守：
-
-1. 不重复描述公共 top bar、side bar、status bar 的具体样式。
-2. 优先通过 `extends` 复用重复页面结构。
-3. 优先按页面合并，不要按截图长期拆分。
-4. 同一页面的多标签态优先使用 `states`。
-5. 表格优先输出文本矩阵，不拆成大量独立 label。
-6. 对重复导航项、按钮、表头，优先用数组表达。
-7. 优先把颜色、字号和比例放在基础模板，不要在每个页面重复输出。
-8. 不要输出任何绝对坐标、像素偏移、`x/y`。
-9. 所有已处理图片都必须写入全局索引。
-
-## Flutter 适配要求
-
-生成的 DSL 必须满足：
-
-1. 可直接映射到当前项目的 Flutter 组件模板。
-2. 优先表达结构，不表达底层实现细节。
-3. 页面最终应能生成到 `lib/generated/*.dart`。
-4. 相同页面的不同状态应保留在同一 DSL 中。
-5. 基础模板应包含该组页面复用的颜色、字号和关键比例 token。
-6. 图片与 DSL 的对应关系应可通过 `lib/generated/image_map.yaml` 反查。
-
-## 推荐模板
-
-当前项目优先使用以下模板名：
-
-- `qc_settings`
-- `qc_analyse`
-- `qc_graph`
-- `qc_list`
-- `analysis_main`
-- `list_review`
-- `maintenance_panel`
-
-## 推荐输出示例
-
-```yaml
-extends: lib/generated/templates/maintenance_shell_base.dsl.yaml
-
 source:
   images:
-    - images/Maintenance/Maintenance_9_1.png
-    - images/Maintenance/Maintenance_9_2.png
-    - images/Maintenance/Maintenance_9_3.png
-  grouping: basic
-
-page:
-  id: maintenance_basic
-  output: lib/generated/maintenance_basic.dart
-
-shell:
-  side_nav:
-    selected: Basic
-
-body:
-  sections:
-    - type: action_row
-      id: basic_tabs
-      selected: Carryover
-      items:
-        - text: Carryover
-          variant: secondary
-          disabled: false
-        - text: Precision
-          variant: secondary
-          disabled: false
-        - text: Comparability
-          variant: secondary
-          disabled: false
-        - text: Accuracy
-          variant: secondary
-          disabled: false
-        - text: Linear
-          variant: secondary
-          disabled: false
-
-states:
-  carryover:
-    source:
-      image: images/Maintenance/Maintenance_9_1.png
-    status_bar:
-      right: 2026-03-18 16:42:34
-    body:
-      sections:
-        - id: basic_tabs
-          selected: Carryover
-        - type: matrix_table
-          id: carryover_table
-          groups:
-            - [Item, WBC, RBC, HGB, PLT, HCT]
-          rows:
-            - [H1, "", "", "", "", ""]
+    - images/Menu/System_Settings/general.png
 ```
+
+### 多状态来源
+
+若一个具体 side 页面内部仍有 `states`，可继续写：
+
+```yaml
+states:
+  advanced:
+    source:
+      image: images/Menu/System_Settings/general_advanced.png
+```
+
+### 全局映射文件
+
+所有图片与 DSL 的关系必须同步写入：
+
+```text
+lib/generated/image_map.yaml
+```
+
+作用：
+
+- 避免重复生成
+- 记录图片归属的 DSL 文件
+- 记录必要时的 `state`
+
+## 跳转语义规则
+
+### 顶部导航
+
+`top_nav.items[*].target` 应优先包含：
+
+- `module`
+- `page`
+
+### 左侧导航
+
+`side_nav.items[*].target` 应优先包含：
+
+- `page`
+- `file`
+- 若需要，再补 `state`
+
+### 页内 tab 或按钮组
+
+页内二级切换应使用：
+
+- `target.state`
+
+### 动作按钮
+
+纯命令按钮应使用：
+
+- `target.action`
+
+例如：
+
+```yaml
+- text: Save
+  target:
+    action: save
+```
+
+## 输出文件规则
+
+### 生成 DSL 文件时
+
+如果用户要求“生成 DSL 文件”，必须：
+
+1. 先输出符合规范的 YAML 内容
+2. 将内容写入对应文件
+3. 若父目录不存在，先创建目录
+4. 同步更新 `lib/generated/image_map.yaml`
+
+### 对话回复规则
+
+- 如果用户要求“生成文件”，最终回复只返回保存结果和路径
+- 不要在回复里重复整份 YAML，除非用户明确要求显示内容
+
+## Token 控制规则
+
+为了节省 token：
+
+- 不要展开无意义空白节点
+- 不要重复声明公共 `shell`
+- 不要重复声明公共 `theme`
+- 优先通过模板继承压缩重复信息
+- 优先通过目录入口 `main.dsl.yaml` 管理共享信息
+- 优先通过独立 side 文件表达一级导航差异
+- 只在真正需要时使用 `states`
+
+## 推荐示例
+
+```text
+lib/generated/menu/system_settings/
+  main.dsl.yaml
+  general.dsl.yaml
+  network.dsl.yaml
+  user.dsl.yaml
+```
+
+职责分工：
+
+- `main.dsl.yaml`：system settings 入口、side_nav 索引、共享 theme
+- `general.dsl.yaml`：General 页面
+- `network.dsl.yaml`：Network 页面
+- `user.dsl.yaml`：User 页面
+
+这比把多个 `side_nav` 页面全部塞进一个 `system_settings.dsl.yaml` 更符合当前项目规范。
