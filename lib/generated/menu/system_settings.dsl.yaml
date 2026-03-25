@@ -1,0 +1,431 @@
+extends: lib/generated/templates/app_shell_base.dsl.yaml
+
+source:
+  images:
+    - images/Menu/6_System_setings/setings_1.png
+    - images/Menu/6_System_setings/setings_2.png
+    - images/Menu/6_System_setings/setings_3.png
+    - images/Menu/6_System_setings/setings_4.png
+    - images/Menu/6_System_setings/setings_5_1.png
+    - images/Menu/6_System_setings/setings_5_2.png
+    - images/Menu/6_System_setings/setings_6.png
+    - images/Menu/6_System_setings/setings_7.png
+    - images/Menu/6_System_setings/setings_8.png
+    - images/Menu/6_System_setings/setings_9.png
+    - images/Menu/6_System_setings/setings_10.png
+    - images/Menu/6_System_setings/setings_11.png
+    - images/Menu/6_System_setings/setings_12.png
+    - images/Menu/6_System_setings/setings_13.png
+  grouping: menu_system_settings
+
+page:
+  id: menu_system_settings
+  template: system_settings_panel
+  size: 800x600
+  output: lib/generated/menu_system_settings.dart
+
+shell:
+  top_nav:
+    selected: Analysis
+  status_bar:
+    right: 2026-03-25 08:46:43
+
+body:
+  sections:
+    - type: action_row
+      id: settings_side_state
+      selected: Reference range
+      items:
+        - {text: Reference range, variant: secondary, disabled: false}
+        - {text: Unit, variant: secondary, disabled: false}
+        - {text: Print, variant: secondary, disabled: false}
+        - {text: Option, variant: secondary, disabled: false}
+        - {text: Abnormal, variant: secondary, disabled: false}
+        - {text: ShortCuts, variant: secondary, disabled: false}
+        - {text: Interface, variant: secondary, disabled: false}
+        - {text: Communication parameters, variant: secondary, disabled: false}
+        - {text: Reagent management, variant: secondary, disabled: false}
+        - {text: Lab info, variant: secondary, disabled: false}
+        - {text: Other, variant: secondary, disabled: false}
+
+states:
+  reference_range:
+    source:
+      image: images/Menu/6_System_setings/setings_1.png
+    body:
+      sections:
+        - id: settings_side_state
+          selected: Reference range
+        - type: matrix_table
+          id: reference_range_table
+          title: Reference Group item
+          groups:
+            - [Item, Lower limit, Upper limit, Unit]
+          rows:
+            - [WBC, 4, 10, 10^9/L]
+            - [RBC, 3.5, 5.5, 10^12/L]
+            - [HGB, 110, 160, g/L]
+            - [PLT, 100, 300, 10^9/L]
+          zebra: true
+          dense: true
+    actions:
+      bottom:
+        align: center
+        items:
+          - {text: Save, variant: primary, disabled: false}
+          - {text: Group Set, variant: primary, disabled: false}
+          - {text: Previous, variant: primary, disabled: false}
+  unit:
+    source:
+      image: images/Menu/6_System_setings/setings_2.png
+    body:
+      sections:
+        - id: settings_side_state
+          selected: Unit
+        - type: matrix_table
+          id: unit_settings_table
+          groups:
+            - [Unit Select, International standard, Conventional]
+          rows:
+            - [WBC, 10^9/L, 10^3/uL]
+            - [RBC, 10^12/L, 10^6/uL]
+            - [HGB, g/L, g/dL]
+            - [PLT, 10^9/L, 10^3/uL]
+          zebra: true
+          dense: true
+    actions:
+      bottom:
+        align: center
+        items:
+          - {text: Default, variant: primary, disabled: false}
+          - {text: Save, variant: primary, disabled: false}
+  print:
+    source:
+      image: images/Menu/6_System_setings/setings_3.png
+    body:
+      sections:
+        - id: settings_side_state
+          selected: Print
+        - type: form_grid
+          id: print_settings_form
+          columns: 3
+          rows:
+            - [printer_mode, print_mode, printer_type]
+            - [report_format, report_name, print_rows]
+            - [alarm_line, blank1, blank2]
+          fields:
+            printer_mode: {label: Printer Mode, value: Built-in, control: select}
+            print_mode: {label: Print mode, value: External, control: select}
+            printer_type: {label: Printer type, value: "", control: readonly}
+            report_format: {label: Report Formats, value: segment report, control: select}
+            report_name: {label: Report Name, value: "report only exported to txt file", control: readonly}
+            print_rows: {label: Print rows, value: "", control: readonly}
+            alarm_line: {label: Alarm line, value: High, control: select}
+            blank1: {label: "", value: "", control: readonly}
+            blank2: {label: "", value: "", control: readonly}
+    actions:
+      bottom:
+        align: center
+        items:
+          - {text: Customization, variant: primary, disabled: false}
+          - {text: Save, variant: primary, disabled: false}
+  option:
+    source:
+      image: images/Menu/6_System_setings/setings_4.png
+    body:
+      sections:
+        - id: settings_side_state
+          selected: Option
+        - type: form_grid
+          id: option_form
+          columns: 3
+          rows:
+            - [language, date_format, time_format]
+            - [sample_saved, manual_entry, auto_increment]
+            - [sample_no_mode, barcode, blank1]
+          fields:
+            language: {label: Language, value: English, control: select}
+            date_format: {label: Date Format, value: 2026-03-25, control: readonly}
+            time_format: {label: Time Format, value: 08:49:39, control: readonly}
+            sample_saved: {label: Sample Saved, value: 100000, control: readonly}
+            manual_entry: {label: Manual Entry, value: "", control: readonly}
+            auto_increment: {label: Auto Increment, value: "", control: readonly}
+            sample_no_mode: {label: Sample processing, value: manual, control: select}
+            barcode: {label: Use barcode, value: "", control: readonly}
+            blank1: {label: "", value: "", control: readonly}
+    actions:
+      bottom:
+        align: center
+        items:
+          - {text: Save, variant: primary, disabled: false}
+  abnormal_flags:
+    source:
+      image: images/Menu/6_System_setings/setings_5_1.png
+    body:
+      sections:
+        - id: settings_side_state
+          selected: Abnormal
+        - type: matrix_table
+          id: abnormal_flags_table
+          title: Flag Alarm Message
+          groups:
+            - [Flag Name, Message]
+          rows:
+            - [Leukopenia, WBC<3.5*10^9/L]
+            - [Leukocytosis, WBC>10*10^9/L]
+            - [Anemia, HGB<90g/L]
+            - [Thrombocytopenia, PLT<100*10^9/L]
+          zebra: true
+          dense: true
+    actions:
+      bottom:
+        align: center
+        items:
+          - {text: Default, variant: primary, disabled: false}
+          - {text: Recovery 1, variant: primary, disabled: false}
+          - {text: Save, variant: primary, disabled: false}
+  abnormal_words:
+    source:
+      image: images/Menu/6_System_setings/setings_5_2.png
+    body:
+      sections:
+        - id: settings_side_state
+          selected: Abnormal
+        - type: matrix_table
+          id: abnormal_words_table
+          title: Abnormal word code
+          groups:
+            - [Abnormal word code, Rate]
+          rows:
+            - [HGB distribution width code, 10]
+            - [RBC aggregation, 30]
+            - [Platelet clumps, 50]
+          zebra: true
+          dense: true
+    actions:
+      bottom:
+        align: center
+        items:
+          - {text: Save, variant: primary, disabled: false}
+  shortcuts:
+    source:
+      image: images/Menu/6_System_setings/setings_6.png
+    body:
+      sections:
+        - id: settings_side_state
+          selected: ShortCuts
+        - type: matrix_table
+          id: shortcuts_table
+          title: Item Select
+          groups:
+            - [Department, Shortcut Code, Remark, Default]
+          rows:
+            - [Department, Shortcut Code, Remark, true]
+          zebra: true
+          dense: true
+        - type: form_grid
+          id: shortcuts_form
+          columns: 3
+          rows:
+            - [department, shortcut_code, remark]
+          fields:
+            department: {label: Edit Department, value: "", control: readonly}
+            shortcut_code: {label: Shortcut Code, value: "", control: readonly}
+            remark: {label: Remark, value: "", control: readonly}
+    actions:
+      bottom:
+        align: center
+        items:
+          - {text: Add, variant: primary, disabled: false}
+          - {text: Modify, variant: primary, disabled: false}
+          - {text: Delete, variant: primary, disabled: false}
+  other:
+    source:
+      image: images/Menu/6_System_setings/setings_7.png
+    body:
+      sections:
+        - id: settings_side_state
+          selected: Other
+        - type: matrix_table
+          id: other_authority_table
+          groups:
+            - [Name, Authority, Enable Analysis Authority]
+          rows:
+            - [admin, "", true]
+          zebra: true
+          dense: true
+    actions:
+      bottom:
+        align: center
+        items:
+          - {text: Add, variant: primary, disabled: false}
+          - {text: Edit, variant: primary, disabled: false}
+          - {text: Delete, variant: primary, disabled: false}
+          - {text: Change Password, variant: primary, disabled: false}
+  reagent_management:
+    source:
+      image: images/Menu/6_System_setings/setings_8.png
+    body:
+      sections:
+        - id: settings_side_state
+          selected: Reagent management
+        - type: form_grid
+          id: reagent_management_form
+          columns: 2
+          rows:
+            - [automatic_sleep_wait, automatic_hibernate]
+            - [daily_maintenance_time, clean_reagent_warning]
+          fields:
+            automatic_sleep_wait: {label: Automatic Sleep Wait Time, value: 30, control: readonly}
+            automatic_hibernate: {label: Automatic Hibernation, value: 10-60min, control: readonly}
+            daily_maintenance_time: {label: Daily Maintenance Time, value: 08:00:00, control: readonly}
+            clean_reagent_warning: {label: Cleaner warning interval, value: 7-15days, control: readonly}
+    actions:
+      bottom:
+        align: center
+        items:
+          - {text: Save, variant: primary, disabled: false}
+  interface:
+    source:
+      image: images/Menu/6_System_setings/setings_9.png
+    body:
+      sections:
+        - id: settings_side_state
+          selected: Interface
+        - type: form_grid
+          id: interface_settings_form
+          columns: 3
+          rows:
+            - [net_type, transfer_type, serial_mode]
+            - [device, name, timeout]
+            - [port, custom_sample_no, transmission_mode]
+          fields:
+            net_type: {label: NetType, value: Net, control: select}
+            transfer_type: {label: TransferType, value: Serial, control: select}
+            serial_mode: {label: "", value: "", control: readonly}
+            device: {label: Device, value: WiFi, control: select}
+            name: {label: Name, value: "", control: readonly}
+            timeout: {label: ACT Timeout, value: "", control: readonly}
+            port: {label: Port, value: "", control: readonly}
+            custom_sample_no: {label: Custom Sample No Auto, value: "", control: readonly}
+            transmission_mode: {label: Histogram transmission mode, value: not committed, control: readonly}
+    actions:
+      bottom:
+        align: center
+        items:
+          - {text: Save, variant: primary, disabled: false}
+  communication_parameters:
+    source:
+      image: images/Menu/6_System_setings/setings_10.png
+    body:
+      sections:
+        - id: settings_side_state
+          selected: Communication parameters
+        - type: matrix_table
+          id: communication_parameters_table
+          groups:
+            - [Index, InstitutionId, Full Name, AGR No., Serial Number, ReagentRange]
+          rows:
+            - [1, 1, admin, admin@126.com, admin, ""]
+            - [2, 2, admin, admin@126.com, admin, ""]
+          zebra: true
+          dense: true
+    actions:
+      bottom:
+        align: center
+        items:
+          - {text: Add, variant: primary, disabled: false}
+          - {text: Edit, variant: primary, disabled: false}
+          - {text: Delete, variant: primary, disabled: false}
+          - {text: Previous, variant: primary, disabled: false}
+  communication_rules:
+    source:
+      image: images/Menu/6_System_setings/setings_11.png
+    body:
+      sections:
+        - id: settings_side_state
+          selected: Communication parameters
+        - type: form_grid
+          id: communication_rules_form
+          columns: 3
+          rows:
+            - [rule_one, age_range, blank1]
+            - [rule_two, operator_one, operator_two]
+            - [wbc, compare_to, rule_area]
+          fields:
+            rule_one: {label: Rule, value: "", control: readonly}
+            age_range: {label: Age Range, value: "", control: readonly}
+            blank1: {label: "", value: "", control: readonly}
+            rule_two: {label: Rule, value: "", control: readonly}
+            operator_one: {label: "", value: ">", control: readonly}
+            operator_two: {label: "", value: ">", control: readonly}
+            wbc: {label: WBC, value: "", control: readonly}
+            compare_to: {label: AND, value: "", control: readonly}
+            rule_area: {label: "", value: "", control: readonly}
+    actions:
+      bottom:
+        align: center
+        items:
+          - {text: Save, variant: primary, disabled: false}
+          - {text: Add, variant: primary, disabled: false}
+          - {text: Delete, variant: primary, disabled: false}
+          - {text: Previous, variant: primary, disabled: false}
+  lab_info:
+    source:
+      image: images/Menu/6_System_setings/setings_12.png
+    body:
+      sections:
+        - id: settings_side_state
+          selected: Lab info
+        - type: form_grid
+          id: hospital_info_form
+          columns: 2
+          rows:
+            - [hospital_name, instrument]
+            - [lab_name, instrument_id]
+            - [responsible_person, installation_date]
+            - [contact, zip_code]
+            - [after_sales, after_sales_contact]
+          fields:
+            hospital_name: {label: Hospital Name, value: "", control: readonly}
+            instrument: {label: Instrument, value: instrument, control: readonly}
+            lab_name: {label: Lab Name, value: "", control: readonly}
+            instrument_id: {label: Instrument ID, value: "", control: readonly}
+            responsible_person: {label: Responsible person, value: "", control: readonly}
+            installation_date: {label: Installation, value: 2026-03-25, control: readonly}
+            contact: {label: Contact, value: "", control: readonly}
+            zip_code: {label: Zip code, value: "", control: readonly}
+            after_sales: {label: After sales, value: "", control: readonly}
+            after_sales_contact: {label: After sales contact, value: "", control: readonly}
+    actions:
+      bottom:
+        align: center
+        items:
+          - {text: Save, variant: primary, disabled: false}
+  soft_keyboard:
+    source:
+      image: images/Menu/6_System_setings/setings_13.png
+    body:
+      sections:
+        - id: settings_side_state
+          selected: Lab info
+        - type: form_grid
+          id: soft_keyboard_form
+          columns: 2
+          rows:
+            - [soft_keyboard_open, buzzer_open]
+            - [reagent_empty_close, blank1]
+            - [cover_open_card, blank2]
+          fields:
+            soft_keyboard_open: {label: Soft Keyboard, value: Open, control: select}
+            buzzer_open: {label: Buzzer, value: Open, control: select}
+            reagent_empty_close: {label: ReagentQClose, value: Close, control: select}
+            blank1: {label: "", value: "", control: readonly}
+            cover_open_card: {label: Cover Open Card, value: "", control: readonly}
+            blank2: {label: "", value: "", control: readonly}
+    actions:
+      bottom:
+        align: center
+        items:
+          - {text: TouchScreen, variant: primary, disabled: false}
+          - {text: Save, variant: primary, disabled: false}

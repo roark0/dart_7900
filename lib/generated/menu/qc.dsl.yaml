@@ -1,0 +1,168 @@
+extends: lib/generated/templates/app_shell_base.dsl.yaml
+
+source:
+  images:
+    - images/Menu/3_QC/QC_1.png
+    - images/Menu/3_QC/QC_2.png
+    - images/Menu/3_QC/QC_3.png
+  grouping: menu_qc
+
+page:
+  id: menu_qc
+  template: qc_panel
+  size: 800x600
+  output: lib/generated/menu_qc.dart
+
+shell:
+  top_nav:
+    selected: Analysis
+  status_bar:
+    right: 2026-03-25 08:13:48
+
+body:
+  sections:
+    - type: action_row
+      id: qc_side_state
+      selected: L-J QC Setting
+      items:
+        - {text: L-J QC Setting, variant: secondary, disabled: false}
+        - {text: L-J QC Set By, variant: secondary, disabled: false}
+        - {text: L-J QC Graph, variant: secondary, disabled: false}
+        - {text: L-J QC list, variant: secondary, disabled: false}
+        - {text: X-B QC Setting, variant: secondary, disabled: false}
+        - {text: X-B QC Analyse, variant: secondary, disabled: false}
+        - {text: X-B QC Graph, variant: secondary, disabled: false}
+        - {text: X-B QC List, variant: secondary, disabled: false}
+        - {text: X-R QC Setting, variant: secondary, disabled: false}
+        - {text: X-R QC Analyse, variant: secondary, disabled: false}
+        - {text: X-R QC Graph, variant: secondary, disabled: false}
+        - {text: X-R QC List, variant: secondary, disabled: false}
+
+states:
+  lj_qc_setting:
+    source:
+      image: images/Menu/3_QC/QC_1.png
+    shell:
+      status_bar:
+        right: 2026-03-25 08:13:48
+    body:
+      sections:
+        - id: qc_side_state
+          selected: L-J QC Setting
+        - type: form_grid
+          id: qc_setting_header
+          columns: 3
+          rows:
+            - [file_no, lot_no, exp_date]
+            - [file_name, qc_level, mode]
+            - [set_by, date_created, qc_no]
+          fields:
+            file_no: {label: FileNo., value: "1", control: select}
+            lot_no: {label: LotNo., value: "", control: readonly}
+            exp_date: {label: Exp.Date, value: 2026-01-18, control: select}
+            file_name: {label: FileName, value: "", control: readonly}
+            qc_level: {label: QC Level, value: M, control: select}
+            mode: {label: Mode, value: Whole blood, control: select}
+            set_by: {label: Set By, value: Engineer, control: readonly}
+            date_created: {label: Date Created, value: 2026-01-18, control: readonly}
+            qc_no: {label: QCNo., value: "", control: readonly}
+        - type: triplet_table
+          id: qc_setting_table
+          groups:
+            - [Item, Target, Limit]
+            - [Item, Target, Limit]
+            - [Item, Target, Limit]
+          rows:
+            - [WBC, "", "", RBC, "", "", PLT, "", ""]
+            - [Lym%, "", "", HGB, "", "", MPV, "", ""]
+            - [Mid%, "", "", HCT, "", "", PDW-CV, "", ""]
+            - [Gran%, "", "", MCV, "", "", PDW-SD, "", ""]
+            - [Lym#, "", "", MCH, "", "", PCT, "", ""]
+            - [Mid#, "", "", MCHC, "", "", P-LCR, "", ""]
+            - [Gran#, "", "", RDW-CV, "", "", P-LCC, "", ""]
+          zebra: true
+          dense: true
+    actions:
+      bottom:
+        align: center
+        items:
+          - {text: Save, variant: primary, disabled: false}
+          - {text: Delete, variant: primary, disabled: false}
+  xb_qc_graph:
+    source:
+      image: images/Menu/3_QC/QC_2.png
+    shell:
+      status_bar:
+        right: 2026-03-25 08:14:26
+    body:
+      sections:
+        - id: qc_side_state
+          selected: X-B QC Graph
+        - type: form_grid
+          id: xb_qc_graph_header
+          columns: 4
+          rows:
+            - [country_group, item, x_b_qc_analyse, mode_toggle]
+            - [test_by, date_created, blank1, blank2]
+            - [item_set, target, unit, blank3]
+          fields:
+            country_group: {label: Country/Group, value: "20.00.00", control: select}
+            item: {label: X-B QC Analyse, value: Open, control: select}
+            x_b_qc_analyse: {label: "", value: Close, control: select}
+            mode_toggle: {label: "", value: "", control: readonly}
+            test_by: {label: Test by, value: "", control: readonly}
+            date_created: {label: Date Created, value: 2021-07-02, control: readonly}
+            blank1: {label: "", value: "", control: readonly}
+            blank2: {label: "", value: "", control: readonly}
+            item_set: {label: Item Set, value: MCHC, control: readonly}
+            target: {label: Target, value: "344", control: readonly}
+            unit: {label: Unit, value: g/L, control: readonly}
+            blank3: {label: "", value: "", control: readonly}
+        - type: matrix_table
+          id: xb_qc_graph_table
+          groups:
+            - [Result, "", "", Unit]
+          rows:
+            - [MCHC, 344, 30, g/L]
+            - [MCH, 29, 2, pg]
+            - [MCV, 80, 5, fL]
+          zebra: true
+          dense: true
+    actions:
+      bottom:
+        align: center
+        items:
+          - {text: Save, variant: primary, disabled: false}
+          - {text: Set Default, variant: primary, disabled: false}
+  xr_qc_analyse:
+    source:
+      image: images/Menu/3_QC/QC_3.png
+    shell:
+      status_bar:
+        right: 2026-03-25 08:15:25
+    body:
+      sections:
+        - id: qc_side_state
+          selected: X-R QC Analyse
+        - type: form_grid
+          id: xr_qc_header
+          columns: 3
+          rows:
+            - [file_no, qc_name, exp_date]
+            - [lot_no, qc_level, mode]
+            - [set_by, date_created, blank1]
+          fields:
+            file_no: {label: FileNo., value: "1", control: select}
+            qc_name: {label: QC Name, value: "", control: readonly}
+            exp_date: {label: Exp.date, value: 2026-03-25, control: readonly}
+            lot_no: {label: LotNo., value: "", control: readonly}
+            qc_level: {label: QC Level, value: "", control: readonly}
+            mode: {label: Mode, value: whole blood, control: readonly}
+            set_by: {label: Set by, value: Engineer, control: readonly}
+            date_created: {label: Date Created, value: 2026-03-25, control: readonly}
+            blank1: {label: "", value: "", control: readonly}
+    actions:
+      bottom:
+        align: center
+        items:
+          - {text: Save, variant: primary, disabled: false}

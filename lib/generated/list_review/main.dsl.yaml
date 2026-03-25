@@ -1,63 +1,173 @@
 extends: lib/generated/templates/app_shell_base.dsl.yaml
-
 source:
   images:
-    - images/List Review.png
-    - images/List Review/List Review.png
+  - images/List Review.png
+  - images/List Review/List Review.png
   grouping: list_review
-
 page:
   id: list_review_main
   template: list_review
   output: lib/generated/list_review_main.dart
-
 shell:
   top_nav:
     selected: List Review
   status_bar:
     right: 2026-03-18 15:57:29
-
 body:
   sections:
-    - type: form_grid
-      id: list_review_header
-      columns: 3
-      rows:
-        - [sample_list, records_total, blank]
-      fields:
-        sample_list: {label: Sample list, value: Sample of the present day, control: select}
-        records_total: {label: The number of records in total:, value: "0", control: readonly}
-        blank: {label: "", value: "", control: readonly}
-    - type: matrix_table
-      id: list_review_table
-      groups:
-        - [No., "", "", "", "", "", ""]
-      rows:
-        - [Date, "", "", "", "", "", ""]
-        - [Time, "", "", "", "", "", ""]
-        - [Process tags, "", "", "", "", "", ""]
-        - [Name, "", "", "", "", "", ""]
-        - [Sample No., "", "", "", "", "", ""]
-        - [WBC, "", "", "", "", "", ""]
-        - [Lym%, "", "", "", "", "", ""]
-        - [Mid%, "", "", "", "", "", ""]
-        - [Gran%, "", "", "", "", "", ""]
-        - [Lym#, "", "", "", "", "", ""]
-        - [Mid#, "", "", "", "", "", ""]
-        - [Gran#, "", "", "", "", "", ""]
-        - [RBC, "", "", "", "", "", ""]
-        - [HGB, "", "", "", "", "", ""]
-      zebra: true
-      dense: true
-
+  - type: form_grid
+    id: list_review_header
+    columns: 3
+    rows:
+    - - sample_list
+      - records_total
+      - blank
+    fields:
+      sample_list:
+        label: Sample list
+        value: Sample of the present day
+        control: select
+      records_total:
+        label: 'The number of records in total:'
+        value: '0'
+        control: readonly
+      blank:
+        label: ''
+        value: ''
+        control: readonly
+  - type: matrix_table
+    id: list_review_table
+    groups:
+    - - No.
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    rows:
+    - - Date
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - Time
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - Process tags
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - Name
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - Sample No.
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - WBC
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - Lym%
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - Mid%
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - Gran%
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - Lym#
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - Mid#
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - Gran#
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - RBC
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    - - HGB
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+      - ''
+    zebra: true
+    dense: true
 actions:
   bottom:
     align: center
     items:
-      - {text: Details, variant: primary, disabled: false}
-      - {text: Search, variant: primary, disabled: false}
-      - {text: Verify, variant: primary, disabled: false}
-      - {text: Comm., variant: primary, disabled: false}
-      - {text: Delete, variant: primary, disabled: false}
-      - {text: Export, variant: primary, disabled: false}
-      - {text: CV, variant: primary, disabled: false}
+    - text: Details
+      variant: primary
+      disabled: false
+    - text: Search
+      variant: primary
+      disabled: false
+    - text: Verify
+      variant: primary
+      disabled: false
+    - text: Comm.
+      variant: primary
+      disabled: false
+    - text: Delete
+      variant: primary
+      disabled: false
+    - text: Export
+      variant: primary
+      disabled: false
+    - text: CV
+      variant: primary
+      disabled: false
