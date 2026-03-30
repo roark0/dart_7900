@@ -4,6 +4,9 @@ import '../../core/theme/theme.dart';
 import 'basic.dart';
 import 'daily.dart';
 import 'data.dart';
+import 'data/remote/maintenance_remote.dart';
+import 'data/repositories/repository_impl.dart';
+import 'domain/repositories/maintenance_repository.dart';
 import 'engineering.dart';
 import 'log.dart';
 import 'statistics.dart';
@@ -14,11 +17,13 @@ class MaintenancePage extends StatelessWidget {
   const MaintenancePage({super.key, this.selectedSideIndex = 0});
 
   final int selectedSideIndex;
+  static final MaintenanceRepository _dailyRepository =
+      MaintenanceRepositoryImpl(client: MaintenanceRemote());
 
   @override
   Widget build(BuildContext context) {
     return switch (selectedSideIndex) {
-      0 => const MaintenanceDailyPage(),
+      0 => MaintenanceDailyPage(repository: _dailyRepository),
       1 => const MaintenanceDataPage(),
       2 => const MaintenanceVersionPage(),
       3 => const MaintenanceStatisticsPage(),
